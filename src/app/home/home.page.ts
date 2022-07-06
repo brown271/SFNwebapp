@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SpringConnectService } from '../spring-connect.service';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,11 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
-
+  constructor(private sConnect: SpringConnectService) {}
+  testConn(){
+    this.sConnect.testConnection().subscribe(
+      (data:String) => console.log(data),
+      error => console.log(error)
+    )
+  }
 }

@@ -1,20 +1,118 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
 
+<app-header></app-header>
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-item>
+    <ion-grid>
+      <ion-row><hr></ion-row>
+      <ion-row>
+        <ion-col></ion-col>
+        <ion-col size = "8" style = "padding: 16px;text-align: center;">
+          <ion-text style = "font-size: 40px;font-weight: bold;" color="dark" text-wrap >Bringing our Diverse Community Together!</ion-text>
+          <hr>
+          
+          <ion-text style="font-size: 30px;letter-spacing: 2px;" color = "dark" text-wrap>
+            The Special Friends Network is a grass roots orginiaztion that was started to bring together
+            people of all abilities. We are a social group that focuses on celebrating our neurodiverse world.
+           
+          </ion-text>
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-item color = "danger">
+    <ion-grid style = "text-align: center;">
+      <ion-row>
+        <ion-col size="12">
+          <ion-text style = "font-size: 40px;font-weight: bold;" text-wrap >Photo Gallery</ion-text>
+        </ion-col> 
+      </ion-row>
+      <ion-row><hr></ion-row>
+      <div style="flex: 100%;">
+     <!--Have to switch these so that the photos are loaded dynamically-->
+        <img style="height:200px;margin: 2px;" src = "../../assets/images/one.jpg">
+        <img style="height:200px;margin: 2px;" src = "../../assets/images/three.jpg">
+        <img style="height:200px;margin: 2px;" src = "../../assets/images/two.jpg">
+        <img style="height:200px;margin: 2px;" src = "../../assets/images/five.jpg">
+        <img style="height:200px;margin: 2px;" src = "../../assets/images/eleven.jpg">
+        <img style="height:200px;margin: 2px;" src = "../../assets/images/nine.jpg">
+        <img style="height:200px;margin: 2px;" src = "../../assets/images/six.jpg">
+        <img style="height:200px;margin: 2px;" src = "../../assets/images/four.jpg">
+        <img style="height:200px;margin: 2px;" src = "../../assets/images/eoght.jpg">
+        <img style="height:200px;margin: 2px;" src = "../../assets/images/seven.jpg">
+        <img style="height:200px;margin: 2px;" src = "../../assets/images/ten.jpg">
+     </div>
+    </ion-grid>
+  </ion-item>
+
+  <ion-item>
+    <ion-grid>
+      <ion-row><hr></ion-row>
+      <ion-row>
+        <ion-col></ion-col>
+        <ion-col size = "8" style = "padding: 16px;text-align: center;">
+          <ion-text style = "font-size: 40px;font-weight: bold;" color="dark" text-wrap >Here At SFN We Nuture"</ion-text>
+          <hr>
+          <ion-grid>
+            <ion-row>
+              <ion-col size = "4">
+                <ion-text color = "dripblue" style="font-size:20px;font-weight: bold;">FRIENDSHIPS</ion-text><hr>
+                <img style = "height:175px;width: 250px;" src = "../../assets/images/friendships.jpg">
+              </ion-col>
+              <ion-col size = "4">
+                <ion-text color = "dripblue" style="font-size:20px;font-weight: bold;">INDEPENDENCE</ion-text><hr>
+                <img style = "height:175px;width: 250px;" src = "../../assets/images/independence.jpg">
+              </ion-col>
+              <ion-col size = "4">
+                <ion-text color = "dripblue" style="font-size:20px;font-weight: bold;">LIFE SKILLS</ion-text><hr>
+                <img style = "height:175px;width: 250px;" src = "../../assets/images/lifeskills.jpg">
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col></ion-col>
+        <ion-col size = "8" style = "padding: 16px;text-align: center;">
+          <ion-text style="font-size: 30px;letter-spacing: 2px;" color = "dark" text-wrap>
+            Remember friends, you are awesome! You are capable of more than you know. Go out there and show them what you've got!
+           
+          </ion-text>
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+      
+    </ion-grid>
+  </ion-item>
+
+  <ion-item color = "purp">
+    <ion-grid style = "text-align: center;">
+      <ion-row>
+        <ion-col></ion-col>
+        <ion-col size="8">
+          <ion-text style = "font-size: 40px;font-weight: bold;" text-wrap >Visit the Supporters Page for ways to Help SFN!</ion-text>
+          <hr>
+          
+          <ion-text style="font-size: 30px;letter-spacing: 2px;" text-wrap>
+            Please fill out the Questionnaire at the link below.  
+            All information collected will help The Special Friends Network in developing future events and programs!
+           
+          </ion-text>
+        </ion-col> 
+        <ion-col></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col></ion-col>
+        <ion-col size = "8">
+          <ion-button style = "padding: 4px;"href="https://docs.google.com/forms/d/1ySebZOV3kZKxJRIuvMwHcFwSiDxpt5aEG3pkaJsn0Q4/edit" target="_blank" color = "light">Questionnaire</ion-button>
+        </ion-col>
+        <ion-col></ion-col>
+       
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+    
 </ion-content>
+

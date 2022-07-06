@@ -1,6 +1,22 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
+.ion-color-dripblue {
+  --ion-color-base: var(--ion-color-dripblue);
+  --ion-color-base-rgb: var(--ion-color-dripblue-rgb);
+  --ion-color-contrast: var(--ion-color-dripblue-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-dripblue-contrast-rgb);
+  --ion-color-shade: var(--ion-color-dripblue-shade);
+  --ion-color-tint: var(--ion-color-dripblue-tint);
+}
 
+.ion-color-purp{
+  --ion-color-base: var(--ion-color-purp);
+  --ion-color-base-rgb: var(--ion-color-purp-rgb);
+  --ion-color-contrast: var(--ion-color-purp-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-purp-contrast-rgb);
+  --ion-color-shade: var(--ion-color-purp-shade);
+  --ion-color-tint: var(--ion-color-purp-tint);
+}
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
@@ -74,9 +90,23 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  --ion-color-dripblue: #4585ef;
+	--ion-color-dripblue-rgb: 69,133,239;
+	--ion-color-dripblue-contrast: #ffffff;
+	--ion-color-dripblue-contrast-rgb: 255,255,255;
+	--ion-color-dripblue-shade: #3d75d2;
+	--ion-color-dripblue-tint: #5891f1;
+
+  --ion-color-purp: #9932CC;
+	--ion-color-purp-rgb: 153,50,204;
+	--ion-color-purp-contrast: #ffffff;
+	--ion-color-purp-contrast-rgb: 255,255,255;
+	--ion-color-purp-shade: #872cb4;
+	--ion-color-purp-tint: #a347d1;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   /*
    * Dark Colors
    * -------------------------------------------
@@ -145,7 +175,23 @@
     --ion-color-light-contrast-rgb: 255,255,255;
     --ion-color-light-shade: #1e2023;
     --ion-color-light-tint: #383a3e;
+
+    --ion-color-dripblue: #4585ef;
+	--ion-color-dripblue-rgb: 69,133,239;
+	--ion-color-dripblue-contrast: #ffffff;
+	--ion-color-dripblue-contrast-rgb: 255,255,255;
+	--ion-color-dripblue-shade: #3d75d2;
+	--ion-color-dripblue-tint: #5891f1;
+
+  --ion-color-purp: #9932CC;
+	--ion-color-purp-rgb: 153,50,204;
+	--ion-color-purp-contrast: #ffffff;
+	--ion-color-purp-contrast-rgb: 255,255,255;
+	--ion-color-purp-shade: #872cb4;
+	--ion-color-purp-tint: #a347d1;
   }
+
+  
 
   /*
    * iOS Dark Theme
