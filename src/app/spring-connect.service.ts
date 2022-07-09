@@ -11,4 +11,8 @@ export class SpringConnectService {
   testConnection(){
     return this.http.get<String>('/api/test/conn');
   }
+
+  login(params){
+    return this.http.post('/api/test/login',params)
+  }
 }
