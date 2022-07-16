@@ -30,4 +30,8 @@ export class SpringConnectService {
   getCalendar(){
     return this.http.get('/api/cal/');
   }
+
+  getSpecificCalendar(month:number, year:number){
+    return this.http.get('/api/cal/' + month + '/' + year)
+  }
 }
