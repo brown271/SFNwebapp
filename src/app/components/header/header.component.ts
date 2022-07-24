@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SpringConnectService } from 'src/app/spring-connect.service';
 
 
 @Component({
@@ -8,8 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  jwt: string;
+  constructor(private sConnect: SpringConnectService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.sConnect.jwtObs.subscribe(data => {this.jwt = data});
+  }
 
 }

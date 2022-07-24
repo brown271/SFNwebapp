@@ -27,8 +27,9 @@
 			<p><a  style ="padding-right:10px; margin-bottom: 0px;"href="#">...</a></p>
 			
 			</div>
-			<div th:if="${c.events.size > 0}" >
-				<p  style = "color: #4595ef;  font-size:x-small; padding-left:6px;font-weight:bold; text-align:left;"th:each="e:${c.events}" th:text = " '•' + ${e.name}"></p>
+			<div >
+				<p *ngFor = "let e of date.events" style = "color: #4595ef;  font-size:x-small; padding-left:6px;font-weight:bold; text-align:left;">&#9;~&#9;{{e.name}}</p>
+				
 			</div>
 			
 		</div>

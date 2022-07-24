@@ -12,7 +12,8 @@
           <ion-col><ion-text color = "dripblue" style="font-weight: bolder;font-size: larger;"[routerLink]>SUPPORTERS</ion-text></ion-col>
           <ion-col><ion-text color = "dripblue" style="font-weight: bolder;font-size: larger;"[routerLink]>ABOUT US</ion-text></ion-col>
           <ion-col><ion-text color = "dripblue" style="font-weight: bolder;font-size: larger;"[routerLink]>CONTACT</ion-text></ion-col>
-          <ion-col><ion-text color = "dripblue" style="font-weight: bolder;font-size: larger;"[routerLink] = "['/login']">LOG IN</ion-text></ion-col>
+          <ion-col *ngIf = "jwt.length > 0"><ion-text color = "dripblue" style="font-weight: bolder;font-size: larger;"[routerLink] = "['/logout']">LOG OUT</ion-text></ion-col>
+          <ion-col *ngIf = "jwt.length == 0"><ion-text color = "dripblue" style="font-weight: bolder;font-size: larger;"[routerLink] = "['/login']">LOG IN</ion-text></ion-col>
         </ion-row>
       </ion-grid>
 

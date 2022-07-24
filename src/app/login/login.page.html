@@ -2,12 +2,13 @@
 
 <ion-content>
   <ion-grid>
-    <ion-row>
+    <ion-row *ngIf = "jwt.length == 0">
       <ion-col size = "5">
         <img src = "../../assets/images/hands.png">
       </ion-col>
       <ion-col size = "1"></ion-col>
       <ion-col style = "align-items: center;justify-content: center;display: flex;">
+        
         <form style="width: 98%;align-items: center;text-align: center;">
           <p></p>
           <ion-item ><ion-input name = "username" color ="purp" placeholder="Username:" [(ngModel)] = "username"></ion-input></ion-item>
@@ -18,6 +19,58 @@
         </form>
       </ion-col>
       <ion-col size = "1"></ion-col>
+    </ion-row>
+
+
+    <ion-row *ngIf = "jwt.length > 0">
+      <ion-col size = "7">
+        <div style = "display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; width: 98%; margin:0 auto;padding:16px;">
+          <div style = "grid-column-start:1;grid-column-end:8;background-color:#4595ef;text-align:center;" >
+          <div style = "display:grid;grid-template-columns:1fr 6fr 1fr">
+            <h1  (click) = "dec()" style = "display:inline;font-size:200%;color:white">&lt;</h1>
+            <h1  style = "display:inline;font-size:200%; color:white">{{monthString}} {{year}}</h1>
+            <h1  (click) = "inc()" style = "display:inline;font-size:200%;color:white">&gt;</h1>
+          </div>
+            
+            
+          </div>
+          <div class="calHeader"><p class="red">S</p></div>
+          <div class="calHeader"><p>M</p></div>
+          <div class="calHeader"><p>T</p></div>
+          <div class="calHeader"><p>W</p></div>
+          <div class="calHeader"><p>T</p></div>
+          <div class="calHeader"><p>F</p></div>
+          <div class="calHeader"><p class="red">S</p></div>
+          <div *ngFor = "let date of cal; index as ind"  style = "height:100px;width:100%;border-bottom:1px solid #CCC;overflow-y:auto;" [ngStyle]= "{'background-color': ((ind < 7 && date.date > 7) || (ind > 27  && date.date < 16)) ? '#DADADA' : '#EEE'}">
+            <div style="display:grid; grid-template-columns:1fr 2fr 1fr;">
+            <p style ="padding-left:10px; margin-bottom: 0px;display:inline-block" [ngStyle]= "{'color': (day === date.date) ? 'purple' : 'black'}" >{{date.date}}</p>
+            <p *ngIf = "(day === date.date)" style = "color: purple; font-size: x-small;padding-top: 6%;padding-right:10px;text-align: right;">Today!</p>
+            <p *ngIf = "(day !== date.date)" style = "color: purple; font-size: x-small;"></p>
+            <p><a  style ="padding-right:10px; margin-bottom: 0px;"href="#">...</a></p>
+            
+            </div>
+            <div >
+              <p *ngFor = "let e of date.events" style = "color: #4595ef;  font-size:x-small; padding-left:6px;font-weight:bold; text-align:left;">&#9;~&#9;{{e.name}}</p>
+              
+            </div>
+            
+          </div>
+        
+        </div>
+      </ion-col>
+      
+      <ion-col style = "align-items: center;justify-content: center;padding-top:12%; text-align: center;" size = "5">
+        <ion-text>
+          <h1>Welcome!</h1>
+        </ion-text>
+        <ion-button size="large" color="purp" expand="block" >SEND EMAILS</ion-button>
+        <hr>
+        <ion-button size="large"  color="warning" expand="block">VIEW EMAIL GROUPS</ion-button>
+        <hr>
+        <ion-button size="large" color="danger" expand="block">EDIT EMAIL GROUPS</ion-button>
+        <hr>
+        <ion-button size="large" color="success" expand="block">VIEW MY INFO</ion-button>
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

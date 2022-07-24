@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'events',
     loadChildren: () => import('./events/events.module').then( m => m.EventsPageModule)
   },
+  {
+    path: 'send-emails',
+    loadChildren: () => import('./send-emails/send-emails.module').then( m => m.SendEmailsPageModule)
+  },
 ];
 
 @NgModule({
