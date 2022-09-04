@@ -9,12 +9,14 @@ import { SpringConnectService } from '../spring-connect.service';
 export class EventsPage implements OnInit {
   monthArray = ["January","February","March","April","May","June","July","August","September","October","November","December"];
   
+  errorMsg:string = "";
   cal:any;
   month:number;
   monthString:string;
-  day:number;
+  curDayOffset:number;
   year:number;
   constructor(private sConnect:SpringConnectService) { }
+  offset: number = -1;
 
   ngOnInit() {
     this.sConnect.getCalendar().subscribe(
@@ -26,9 +28,13 @@ export class EventsPage implements OnInit {
         this.monthString = this.monthArray[this.month]
 
         this.year = date.getFullYear();
-        this.day = date.getDate();
+        this.curDayOffset = date.getDate();
       },
-      error => console.log(error)
+      error => {
+        if (error.status == 504){
+          this.errorMsg = "Error 504! Can't connect to database. Try Refreshing Webpage!"
+        }
+      }
     )
   }
 
@@ -45,12 +51,7 @@ export class EventsPage implements OnInit {
         this.cal = data;
         this.monthString = this.monthArray[this.month]
         let date = new Date();
-        if (date.getMonth() == this.month && date.getFullYear() == this.year){
-          this.day = date.getDate()
-        }
-        else{
-          this.day = 32;
-        }
+        this.curDayOffset = this.findOffsetValue(date);
         
       },
       error => console.log(error)
@@ -70,15 +71,31 @@ export class EventsPage implements OnInit {
         this.cal = data;
         this.monthString = this.monthArray[this.month]
         let date = new Date();
-        if (date.getMonth() == this.month && date.getFullYear() == this.year){
-          this.day = date.getDate()
-        }
-        else{
-          this.day = 32;
-        }
+        this.curDayOffset = this.findOffsetValue(date);
       },
       error => console.log(error)
     )
+  }
+
+  findOffsetValue(date:Date){
+   
+    let index = -1;
+    if (date.getMonth() == this.month && date.getFullYear() == this.year){
+      let dateNumber = date.getDay()
+      for(let i = 0; i < this.cal.length; i++){
+        if(this.cal[i].date == dateNumber){
+          if(index == -1){
+            index = i;
+          }
+          else{
+            if(dateNumber > 14){
+              index = i;
+            }
+          }
+        }
+      }
+    }
+   return index;
   }
 
   

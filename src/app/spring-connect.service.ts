@@ -34,4 +34,12 @@ export class SpringConnectService {
   getSpecificCalendar(month:number, year:number){
     return this.http.get('/api/cal/' + month + '/' + year)
   }
+
+  getEmailGroupByPage(page:number){
+    return this.http.get('/api/email/page/' + page);
+  }
+
+  sendEmail(params){
+    return this.http.post('/api/email/sendEmail',params);
+  }
 }

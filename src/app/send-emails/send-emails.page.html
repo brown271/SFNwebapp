@@ -1,9 +1,120 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>sendEmails</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header></app-header>
+<app-error-banner [error] = "bannerInfo"></app-error-banner>
+<ion-content style = "text-align: center;">
+  <ion-button style = "display: none;" id="open-modal"> </ion-button>
+  <form>
+    <div id = "modal" class = "modal" (click) = "closeModal()">
+      <div *ngIf = "curItem != undefined">
+        <div class = "modal-content">
+          <div id ="modal-header">
+            <h1 id ="modal-header-text">{{curItem.name}}</h1>
+          </div>
+          <br><br>
+          <div id ="modal-body">
+          <p id ="modal-body-desc">{{curItem.description}}</p>
+          <div class = "groupNames">
+            <div id ="modal-names-tm">
+              <h3>Special Friends</h3>
+              <ul style = "text-align: left;">
+                <li *ngIf = "curItem.sFriends.length == 0">No Friends...</li>
+                <li *ngFor="let friends of curItem.sFriends">{{friends.name}}</li>
+              </ul>
+            </div>
+            <div id ="modal-names-sf">
+              <h3>SFN Members</h3>
+              <ul style = "text-align: left;">
+                <li *ngIf = "curItem.sfAccounts.length == 0">No SFN Members...</li>
+                <li *ngFor="let accounts of curItem.sfAccounts">{{accounts.name}}</li>
+              </ul>
+            </div>
+          </div>
+          <table >
+          
+          </table>
+          </div>
+          <div id ="modal-footer">
+          <p onclick = "closeModal()"><b>CLOSE</b></p>
+          </div>
+          <p id ="nameTarget"></p>
+        </div>
+      </div>
+    </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col size = "12">
+        
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size ="4">
+       
+          <ion-card *ngFor = "let e of emailList" style = "margin-top: 16px;margin-bottom: 16px;">
+            <ion-card-header color = "purp">
+                <ion-grid style = "vertical-align: middle;">
+                  <ion-row>
+                    <ion-col>
 
-<ion-content>
+                    </ion-col>
+                    <ion-col size = "7">
+                      <ion-row>
+                        <h3 style = "display: inline;margin: 0px;">{{e.name}}</h3>
+                      </ion-row>
+                      <ion-row>
+                        <p (click) = "openModal(e)" style="margin: 0px;">See more info...</p>
+                      </ion-row>
+                      
+                    </ion-col>
+                    <ion-col size = "2">
 
+                    </ion-col>
+                    <ion-col size = "2"> 
+                      
+                      <ion-checkbox *ngIf = "!isEmailGroupInSelectedGroups(e)" color ="dripblue" (click) = "toggleGroup(e)" style ="--size: 30px;--border-radius:50%"></ion-checkbox>
+                      <ion-checkbox checked= "true" *ngIf = "isEmailGroupInSelectedGroups(e)" color ="dripblue" (click) = "toggleGroup(e)" style ="--size: 30px;--border-radius:50%"></ion-checkbox>
+                    
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+                  
+            </ion-card-header>
+            <ion-card-content>
+              <hr>
+              <h4 style = "color:#333">{{e.description}}</h4>
+            </ion-card-content>
+          </ion-card>
+      
+        
+        <ion-grid>
+          <ion-row>
+            <ion-col size = "6">
+              <ion-button size="large" color="danger" expand="block" (click) = "dec()">&lt;</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button size="large" color="danger" expand="block" (click) = "inc()">&gt;</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+      <ion-col>
+        <ion-card >
+          <ion-card-header color = "warning">
+            <ion-text>
+              <h1>Send Emails</h1>
+            </ion-text>
+          </ion-card-header>
+          <ion-card-content class = "body" >
+            <ion-item >
+              <ion-input [(ngModel)] = "subject" name = "subject" type = "text" placeholder="Subject" max = "80" min = "0"></ion-input>
+            </ion-item>
+            <hr>
+            <ion-item>
+              <ion-textarea rows = "24" [(ngModel)] = "body" name = "body" max = "500" min = "0"></ion-textarea>
+            </ion-item>
+            <ion-button (click) = "sendEmail()" color="dripblue" expand="block">Send Email</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</form>
 </ion-content>

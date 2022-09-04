@@ -1,23 +1,29 @@
-<ion-card color = "light" style = "margin: 0px;">
-  <ion-card-content style="padding:0px;">
+<ion-item>
+<ion-card color = "light" style = "margin: 0px;width: 100%;">
+  <ion-card-header style = "padding: 0px;">
     <ion-img src = "../../../assets/images/sfnBanner.png"></ion-img>
-    <ion-item   style = "margin-top: -10px;">
-      <ion-grid>
+  </ion-card-header>
+ 
+  <ion-card-content style="padding:0px;">
+ 
+
+      <ion-grid style = "padding: 0px;">
         <ion-row style="text-align: center;">
-          <ion-col><ion-text color = "dripblue" style="font-weight: bolder;font-size: larger;" [routerLink] = "['/']">HOME</ion-text></ion-col>
-          <ion-col><ion-text color = "dripblue" style="font-weight: bolder;font-size: larger;"[routerLink] = "['/events']">EVENTS</ion-text></ion-col>
-          <ion-col><ion-text color = "dripblue" style="font-weight: bolder;font-size: larger;"[routerLink]>GALLERY</ion-text></ion-col>
-          <ion-col><ion-text color = "dripblue" style="font-weight: bolder;font-size: larger;"[routerLink]>VOLUNTEERS</ion-text></ion-col>
-          <ion-col><ion-text color = "dripblue" style="font-weight: bolder;font-size: larger;"[routerLink]>SPOTLIGHT</ion-text></ion-col>
-          <ion-col><ion-text color = "dripblue" style="font-weight: bolder;font-size: larger;"[routerLink]>SUPPORTERS</ion-text></ion-col>
-          <ion-col><ion-text color = "dripblue" style="font-weight: bolder;font-size: larger;"[routerLink]>ABOUT US</ion-text></ion-col>
-          <ion-col><ion-text color = "dripblue" style="font-weight: bolder;font-size: larger;"[routerLink]>CONTACT</ion-text></ion-col>
-          <ion-col *ngIf = "jwt.length > 0"><ion-text color = "dripblue" style="font-weight: bolder;font-size: larger;"[routerLink] = "['/logout']">LOG OUT</ion-text></ion-col>
-          <ion-col *ngIf = "jwt.length == 0"><ion-text color = "dripblue" style="font-weight: bolder;font-size: larger;"[routerLink] = "['/login']">LOG IN</ion-text></ion-col>
+          <ion-col class = "headerText"><ion-text [routerLink] = "['/']">HOME</ion-text></ion-col>
+          <ion-col class = "headerText"><ion-text  [routerLink] = "['/events']">EVENTS</ion-text></ion-col>
+          <ion-col class = "headerText"><ion-text [routerLink]>GALLERY</ion-text></ion-col>
+          <ion-col class = "headerText"><ion-text [routerLink]>VOLUNTEERS</ion-text></ion-col>
+          <ion-col class = "headerText"><ion-text [routerLink]>SPOTLIGHT</ion-text></ion-col>
+          <ion-col class = "headerText"><ion-text [routerLink]>SUPPORTERS</ion-text></ion-col>
+          <ion-col class = "headerText"><ion-text [routerLink]>ABOUT US</ion-text></ion-col>
+          <ion-col class = "headerText"><ion-text [routerLink]>CONTACT</ion-text></ion-col>
+          <ion-col class = "headerText" *ngIf = "jwt.length > 0"><ion-text [routerLink] = "['/login']">ACCOUNT</ion-text></ion-col>
+          <ion-col class = "headerText" *ngIf = "jwt.length == 0"><ion-text [routerLink] = "['/login']">LOG IN</ion-text></ion-col>
         </ion-row>
       </ion-grid>
 
-    </ion-item>
- 
+
   </ion-card-content>
 </ion-card>
+    
+</ion-item>

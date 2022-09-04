@@ -10,10 +10,12 @@
       <ion-col style = "align-items: center;justify-content: center;display: flex;">
         
         <form style="width: 98%;align-items: center;text-align: center;">
-          <p></p>
+         
+          <h4 >Please Enter Username and Password:</h4>
+          <app-error-banner [error] = "errorMsg"></app-error-banner>
           <ion-item ><ion-input name = "username" color ="purp" placeholder="Username:" [(ngModel)] = "username"></ion-input></ion-item>
           <hr>
-          <ion-item><ion-input name = "password" color ="purp" placeholder="Password:" [(ngModel)] = "password"></ion-input></ion-item>
+          <ion-item><ion-input  name = "password" color ="purp" placeholder="Password:" [(ngModel)] = "password"></ion-input></ion-item>
           <hr>
           <ion-button (click) = "login()" size="large" color="purp" expand="block">LOGIN</ion-button>
         </form>
@@ -43,9 +45,9 @@
           <div class="calHeader"><p class="red">S</p></div>
           <div *ngFor = "let date of cal; index as ind"  style = "height:100px;width:100%;border-bottom:1px solid #CCC;overflow-y:auto;" [ngStyle]= "{'background-color': ((ind < 7 && date.date > 7) || (ind > 27  && date.date < 16)) ? '#DADADA' : '#EEE'}">
             <div style="display:grid; grid-template-columns:1fr 2fr 1fr;">
-            <p style ="padding-left:10px; margin-bottom: 0px;display:inline-block" [ngStyle]= "{'color': (day === date.date) ? 'purple' : 'black'}" >{{date.date}}</p>
-            <p *ngIf = "(day === date.date)" style = "color: purple; font-size: x-small;padding-top: 6%;padding-right:10px;text-align: right;">Today!</p>
-            <p *ngIf = "(day !== date.date)" style = "color: purple; font-size: x-small;"></p>
+              <p style ="padding-left:10px; margin-bottom: 0px;display:inline-block" [ngStyle]= "{'color': (curDayOffset === ind) ? 'purple' : 'black'}" >{{date.date}}</p>
+              <p *ngIf = "(curDayOffset === ind)" style = "color: purple; font-size: x-small;padding-top: 6%;padding-right:10px;text-align: right;">Today!</p>
+              <p *ngIf = "(curDayOffset !== ind)"></p>
             <p><a  style ="padding-right:10px; margin-bottom: 0px;"href="#">...</a></p>
             
             </div>
@@ -63,7 +65,7 @@
         <ion-text>
           <h1>Welcome!</h1>
         </ion-text>
-        <ion-button size="large" color="purp" expand="block" >SEND EMAILS</ion-button>
+        <ion-button size="large" color="purp" expand="block" [routerLink] = "['/send-emails']">SEND EMAILS</ion-button>
         <hr>
         <ion-button size="large"  color="warning" expand="block">VIEW EMAIL GROUPS</ion-button>
         <hr>

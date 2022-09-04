@@ -1,6 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { SpringConnectService } from '../spring-connect.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -8,50 +9,64 @@ import { SpringConnectService } from '../spring-connect.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  errorMsg: string = "";
   cal:any;
   month:number;
   monthString:string;
-  day:number;
+  curDayOffset:number;
   year:number;
-  password:string;
-  username:string;
-  jwt: string;
+  password:string ="";
+  username:string ="";
+ 
   monthArray = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-  constructor(private sConnect: SpringConnectService) { }
+  constructor(private sConnect: SpringConnectService, private alertController: AlertController) { }
   
-
+  jwt: string;
   ngOnInit() {
     this.sConnect.jwtObs.subscribe(data => {this.jwt = data});
   }
   login(){
-    console.log("pass: " + this.password + " user: " + this.username)
-    const params = { username: this.username, password: this.password };
-    this.sConnect.login(params).subscribe(
-      (data:any) => {
-        let jwt: HttpHeaders = data.headers.get("token")
-        this.sConnect.updateJWT(jwt);
-        console.log("JWT: " + this.jwt)
-        this.sConnect.getCalendar().subscribe(
-          (data:any) => {
-            console.log(data)
-            this.cal = data;
-            let date = new Date();
-            this.month = date.getMonth();
-            this.monthString = this.monthArray[this.month]
+    if (this.username.length > 0 && this.password.length > 0){
+      const params = { username: this.username, password: this.password };
+      this.sConnect.login(params).subscribe(
+        (data:any) => {
+          let jwt: HttpHeaders = data.headers.get("token")
+          this.sConnect.updateJWT(jwt);
+          console.log("JWT: " + this.jwt)
+          this.sConnect.getCalendar().subscribe(
+            (data:any) => {
+              this.cal = data;
+              let date = new Date();
+              this.month = date.getMonth();
+              this.monthString = this.monthArray[this.month]
+      
+              this.year = date.getFullYear();
+              this.curDayOffset = this.findOffsetValue(date);
+              
+              console.log(this.curDayOffset)
+            },
+            error => {
+             console.log(error)
+            }
+          )
+        },
+        error =>{
+          if (error.status == 504){
+            this.errorMsg = "Error 504: Can't find Database!"
+          }
+          else{
+            this.errorMsg = "Incorrect username or password!"
+          }
+        }
+  
+      )
+      this.username = ""
+      this.password = ""
+    }
+    else{
+      this.sendAlert("Username or Password was not entered!")
+    }
     
-            this.year = date.getFullYear();
-            this.day = date.getDate();
-          },
-          error => console.log(error)
-        )
-      },
-      error =>{
-        console.log(error);
-      }
-
-    )
-    this.username = ""
-    this.password = ""
   }
 
   inc(){
@@ -67,12 +82,7 @@ export class LoginPage implements OnInit {
         this.cal = data;
         this.monthString = this.monthArray[this.month]
         let date = new Date();
-        if (date.getMonth() == this.month && date.getFullYear() == this.year){
-          this.day = date.getDate()
-        }
-        else{
-          this.day = 32;
-        }
+        this.curDayOffset = this.findOffsetValue(date);
         
       },
       error => console.log(error)
@@ -92,15 +102,47 @@ export class LoginPage implements OnInit {
         this.cal = data;
         this.monthString = this.monthArray[this.month]
         let date = new Date();
-        if (date.getMonth() == this.month && date.getFullYear() == this.year){
-          this.day = date.getDate()
-        }
-        else{
-          this.day = 32;
-        }
+        this.curDayOffset = this.findOffsetValue(date);
       },
       error => console.log(error)
     )
   }
+
+  findOffsetValue(date:Date){
+   console.log("Target Date: " + date);
+   console.log("current month: " + this.monthArray[this.month]);
+   console.log("current year: " + this.year)
+    let index = -1;
+    if (date.getMonth() == this.month && date.getFullYear() == this.year){
+      let dateNumber = date.getDate()
+      for(let i = 0; i < this.cal.length; i++){
+        if(this.cal[i].date == dateNumber){
+          console.log("Match between " + this.cal[i].date + " and " + dateNumber)
+          if(index == -1){
+            index = i;
+          }
+          else{
+            if(dateNumber > 14){
+              index = i;
+            }
+          }
+        }
+      }
+    }
+   return index;
+  }
+  
+  async sendAlert(msg) {
+    const alertNotif = await this.alertController.create({
+      header: 'Error :(',
+      subHeader: '',
+      message: msg,
+      buttons: [
+        { text: 'OK' }
+      ]
+    })
+    await alertNotif.present();
+  }
+
 
 }
