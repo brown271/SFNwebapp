@@ -11,14 +11,19 @@
         <br><br>
         <div id="modal-body">
           <p id="modal-body-desc" *ngFor="let info of modalBody">{{info}}</p>
-          <div *ngIf = "isConfirmModal">
+          <div *ngIf = "isConfirmModal && !isDeleteConfirmModal">
             <ion-button (click) = "update()">Update</ion-button>
+            <ion-button (click) = "closeModal()">Cancel</ion-button>
+          </div>
+          <div *ngIf = "isDeleteConfirmModal && !isConfirmModal ">
+            <ion-button (click) = "delete()">Delete</ion-button>
             <ion-button (click) = "closeModal()">Cancel</ion-button>
           </div>
          
         </div>
         <div id="modal-footer">
           <p *ngIf = "!isConfirmModal" onclick="closeModal()"><b>CLOSE</b></p>
+        
         </div>
         <p id="nameTarget"></p>
       </div>
@@ -168,7 +173,7 @@
                                     <ion-row>
                                       <ion-col size="2">
                                         <div>
-                                          <ion-checkbox [checked]="isRoleInCurItem(r)" disabled="true"></ion-checkbox>
+                                          <ion-checkbox [checked]="isRoleInCurItem(r)" aria-readonly="true"></ion-checkbox>
                                         </div>
 
                                       </ion-col>
@@ -264,7 +269,7 @@
                           </ion-col>
 
                         </ion-row>
-                        <ion-row style="height: 530px;">
+                        <ion-row style="height: 500px;">
 
                           <ion-col size="12">
                             <ion-grid>
@@ -340,8 +345,19 @@
 
                     </ion-col>
                   </ion-row>
-                  <ion-button (click)="triggerConfirmModal()">Update</ion-button>
-                  <ion-button (click)="delete()">Update</ion-button>
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col size = "5">
+                        <ion-button size="large" expand="block" (click)="triggerConfirmModal()">Update</ion-button>
+                      </ion-col>
+                      <ion-col></ion-col>
+                      <ion-col size = "5">
+                        <ion-button size="large" expand="block" (click)="promptDeleteConfirmation()">Delete</ion-button>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                
+                 
 
                 </ion-grid>
 

@@ -15,6 +15,7 @@ export class EditGroupsPage implements OnInit {
   modalHeader:string;
   modalBody:any = [];
   isConfirmModal: boolean = false;
+  isDeleteConfirmModal: boolean = false;
   jwt: string;
   searchKey: string;
   searchResults: any = [];
@@ -64,13 +65,14 @@ export class EditGroupsPage implements OnInit {
 
   }
 
-  openModal(color, header, body, isConfirmModal){
+  openModal(color, header, body, isConfirmModal, isDeleteConfirmModal){
     let modal = document.getElementById('modal'); //show our modal
     modal.style.display = "block";
     this.modalBody = body;
     this.modalColor = color;
     this.modalHeader = header;
     this.isConfirmModal = isConfirmModal;
+    this.isDeleteConfirmModal = isDeleteConfirmModal
 
   }
 
@@ -81,6 +83,7 @@ export class EditGroupsPage implements OnInit {
     this.modalColor = "#ffa550";
     this.modalHeader = "nomodal?";
     this.isConfirmModal = false;
+    this.isDeleteConfirmModal = false;
   }
 
   incPage() {
@@ -128,7 +131,7 @@ export class EditGroupsPage implements OnInit {
   }
 
   triggerConfirmModal(){
-    this.openModal("#ffa550", "Confirm?", ["Save Changes?"], true)
+    this.openModal("#ffa550", "Confirm?", ["Save Changes?"], true, false)
   }
 
   update() {
@@ -139,7 +142,15 @@ export class EditGroupsPage implements OnInit {
       (data:any) => {
         console.log(data);
         if(data.message.length < 15){
-          this.openModal("#32CD32", "Confirm!", ["Changes have been successfully saved!"], false)
+          this.curItem = {
+            id: 0,
+            description: "",
+            name: "",
+            roles: [],
+            SFNAccounts: [],
+            specialFriends: [],
+          };
+          this.openModal("#32CD32", "Confirm!", ["Changes have been successfully saved!"], false, false)
           this.sConnect.getEmailGroupByPage(this.page).subscribe(
             (data: any) => {
               this.emailList = data;
@@ -151,7 +162,7 @@ export class EditGroupsPage implements OnInit {
         }
         else{
           data.message = "Data not saved." + data.message;
-          this.openModal("#CD3232", "Error", data.message.split("."), false)
+          this.openModal("#CD3232", "Error", data.message.split("."), false, false)
         }
         
       },
@@ -160,14 +171,7 @@ export class EditGroupsPage implements OnInit {
         
       }
     )
-    this.curItem = {
-      id: 0,
-      description: "",
-      name: "",
-      roles: [],
-      SFNAccounts: [],
-      specialFriends: [],
-    };
+   
   }
 
   validateSpecialFriendsAndAccounts(item){
@@ -254,8 +258,31 @@ export class EditGroupsPage implements OnInit {
     )
   }
 
+  promptDeleteConfirmation(){
+    this.openModal("#ffa550", "Delete?", ["Are you really sure you want to delete?"], false, true)
+  }
   delete(){
+    this.sConnect.deleteUserById(this.curItem.id).subscribe(
+      (data:any) => {
+        this.openModal("#32CD32", "Deleted Successfully", ["" + data.message], false, false)
+        this.sConnect.getEmailGroupByPage(this.page).subscribe(
+          (data: any) => {
+            this.emailList = data;
+            this.curItem = {
+              id: 0,
+              description: "",
+              name: "",
+              roles: [],
+              SFNAccounts: [],
+              specialFriends: [],
+            };
+          }
+        )
+      },
+      error =>{
 
+      }
+    )
   }
 
 }

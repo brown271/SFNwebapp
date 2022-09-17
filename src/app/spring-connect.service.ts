@@ -60,6 +60,10 @@ export class SpringConnectService {
     return this.http.get('/api/role/');
   }
 
+  deleteUserById(id:number){
+    return this.http.get('/api/group/deleteById/' + id);
+  }
+
   getPISearchInfo(search:string){
     return this.http.get('/api/pi/searchForPersonalInfo/' + search);
   }
