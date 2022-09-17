@@ -39,7 +39,30 @@ export class SpringConnectService {
     return this.http.get('/api/email/page/' + page);
   }
 
+  getSpecialFriendsByPage(page:number){
+    return this.http.get('/api/sf/page/' + page);
+  }
+
+  getAccountsByPage(page:number){
+    return this.http.get('/api/acc/page/' + page);
+  }
+
   sendEmail(params){
     return this.http.post('/api/email/sendEmail',params);
   }
+
+  testPut(params){
+    return this.http.put('/api/group/update',params);
+    
+  }
+
+  getAllRoles(){
+    return this.http.get('/api/role/');
+  }
+
+  getPISearchInfo(search:string){
+    return this.http.get('/api/pi/searchForPersonalInfo/' + search);
+  }
+
+
 }

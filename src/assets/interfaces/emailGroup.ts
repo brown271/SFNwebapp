@@ -3,9 +3,10 @@ import { Role } from "./role";
 import { SpecialFriend } from "./specialFriend";
 
 export interface EmailGroup{
+   id:number,
    name:string;
    description:string;
-   specialFriends:SpecialFriend[];
-   SFAccounts:Account[];
-   roles:Role[]; 
+   specialFriends:any[];
+   SFNAccounts:any[];
+   roles:any[]; 
 }

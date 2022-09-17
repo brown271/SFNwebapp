@@ -23,6 +23,14 @@ const routes: Routes = [
     path: 'send-emails',
     loadChildren: () => import('./send-emails/send-emails.module').then( m => m.SendEmailsPageModule)
   },
+  {
+    path: 'create-group',
+    loadChildren: () => import('./create-group/create-group.module').then( m => m.CreateGroupPageModule)
+  },
+  {
+    path: 'edit-groups',
+    loadChildren: () => import('./edit-groups/edit-groups.module').then( m => m.EditGroupsPageModule)
+  },
 ];
 
 @NgModule({

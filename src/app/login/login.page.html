@@ -1,6 +1,7 @@
 <app-header></app-header>
 
 <ion-content>
+  
   <ion-grid>
     <ion-row *ngIf = "jwt.length == 0">
       <ion-col size = "5">
@@ -67,9 +68,9 @@
         </ion-text>
         <ion-button size="large" color="purp" expand="block" [routerLink] = "['/send-emails']">SEND EMAILS</ion-button>
         <hr>
-        <ion-button size="large"  color="warning" expand="block">VIEW EMAIL GROUPS</ion-button>
+        <ion-button size="large"  color="warning" expand="block" [routerLink] = "['/create-group']">CREATE EMAIL GROUPS</ion-button>
         <hr>
-        <ion-button size="large" color="danger" expand="block">EDIT EMAIL GROUPS</ion-button>
+        <ion-button size="large" color="danger" expand="block" [routerLink] = "['/edit-groups']">EDIT EMAIL GROUPS</ion-button>
         <hr>
         <ion-button size="large" color="success" expand="block">VIEW MY INFO</ion-button>
       </ion-col>
