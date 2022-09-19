@@ -16,7 +16,7 @@
           <app-error-banner [error] = "errorMsg"></app-error-banner>
           <ion-item ><ion-input name = "username" color ="purp" placeholder="Username:" [(ngModel)] = "username"></ion-input></ion-item>
           <hr>
-          <ion-item><ion-input  name = "password" color ="purp" placeholder="Password:" [(ngModel)] = "password"></ion-input></ion-item>
+          <ion-item><ion-input  type = "password" name = "password" color ="purp" placeholder="Password:" [(ngModel)] = "password"></ion-input></ion-item>
           <hr>
           <ion-button (click) = "login()" size="large" color="purp" expand="block">LOGIN</ion-button>
         </form>

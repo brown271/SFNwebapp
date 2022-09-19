@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SpringConnectService } from '../spring-connect.service';
+import { EmailGroup } from 'src/assets/interfaces/emailGroup';
 
 @Component({
   selector: 'app-create-group',
@@ -10,115 +11,203 @@ export class CreateGroupPage implements OnInit {
 
   bannerInfo:string;
   jwt:string;
-  sfPage:number = 0;
-  accPage:number = 0;
-  sfMax:number = 100000;
-  accMax:number = 100000;
+  modalColor:string;
+  modalHeader:string;
+  modalBody:any = [];
+  page:number = 0;
+  pageMax: number = 100000;
   sFriends:any;
   accounts:any;
+  searchResults: any = [];
   roles:any = [];
+
+  searchKey: string;
+  curItem: EmailGroup = {
+    id: null,
+    description: "",
+    name: "",
+    roles: [],
+    SFNAccounts: [],
+    specialFriends: [],
+  };
   constructor(private sConnect:SpringConnectService) { }
 
   ngOnInit() {
     this.sConnect.jwtObs.subscribe(data => {this.jwt = data});
     //testConnection
-    if (this.jwt != null &&  this.jwt.length>0){
-      this.sConnect.getAccountsByPage(this.accPage).subscribe(
-        data => {this.accounts = data;
-                  console.log(data)},
-        error => console.log(error)
-      )
-
-      this.sConnect.getSpecialFriendsByPage(this.sfPage).subscribe(
-        data => {this.sFriends = data;
-                  console.log(data)},
-        error => console.log(error)
-      )
+    //if (this.jwt != null &&  this.jwt.length>0){
       this.sConnect.getAllRoles().subscribe(
         data =>{this.roles = data; console.log(data)},
-        error => console.log(error)
+        error => {
+          if (error.status == 504){
+            this.bannerInfo = "Error 504: Can't find Database!"
+          }
+          else{
+            this.bannerInfo = "Error " + error.status
+          }
+        }
       )
+    //}
+  }
+
+  isUserInList(user, list) {
+
+    for (let i = 0; i < list.length; i++) {
+      if (list[i].id == user.id) {
+        return true;
+      }
     }
   }
 
-  incPageSF(){
-    if (this.sfPage < this.sfMax){
-      this.sfPage++;
-      this.sConnect.getSpecialFriendsByPage(this.sfPage).subscribe(
-        (data:any) => {
-            if(data.length < 5 && data.length > 0){
-              //this.sfPage++;
-              this.sfMax = this.sfPage
-              this.sFriends = data;
-            }
-            else if(data.length == 0){
-             
-              this.sfMax=this.sfPage
-              this.sfPage--;
-              this.incPageSF()
-            }
-            else{
-              
-              this.sFriends = data;
-            }
-            console.log("inc" + this.sfPage)
-                  console.log(data)},
-        error => console.log(error)
-      )
-    }
+  addUserToList(user, list) {
+    
+    list.push(user);
+    let item = document.getElementById(user.name + user.id);
+    item.parentNode.removeChild(item)
+
   }
+
+  createGroup() {
+    let tempItem = this.validateSpecialFriendsAndAccounts(this.curItem)
+    console.log("SENDING");
+    console.log(tempItem);
+    this.sConnect.addGroup(tempItem).subscribe(
+      (data:any) => {
+        console.log(data);
+        if(data.message.length < 15){
+          this.curItem = {
+            id: 0,
+            description: "",
+            name: "",
+            roles: [],
+            SFNAccounts: [],
+            specialFriends: [],
+          };
+
+          this.openModal("#32CD32", "Confirm!", ["Changes have been successfully saved!"], false, false)
+          this.searchResults = [];
+        }
+        else{
+          data.message = "Data not saved." + data.message;
+          this.openModal("#CD3232", "Error", data.message.split("."), false, false)
+        }
+        
+      },
+      error => {
+        if (error.status == 504){
+          this.bannerInfo = "Error 504: Can't find Database!"
+        }
+        else{
+          this.bannerInfo = "Error " + error.status
+        }
+      }
+    )
+   
+  }
+
+  validateSpecialFriendsAndAccounts(item){
+    let newSFNAcc = [];
+    for(let i = 0; i < item.SFNAccounts.length;i++){
+      let user = item.SFNAccounts[i];
+        if(!document.getElementById(user.id + user.name).classList.contains('striker')){
+          console.log(user.name + " Does not contain a strikeout.")
+          newSFNAcc.push(JSON.parse('{"id":' + user.id + '}'));
+        }
+    }
+    for(let i = 0; i < item.specialFriends.length;i++){
+      let user = item.specialFriends[i];
+        if(document.getElementById(user.id + user.name).classList.contains('striker')){
+          item.roles.specialFriends(i, 1)
+        }
+    }
+    let tempItem: EmailGroup = {
+      id: item.id,
+      description: item.description,
+      name: item.name,
+      roles: item.roles,
+      SFNAccounts: newSFNAcc,
+      specialFriends: item.specialFriends,
+    };
+    return tempItem;
+  }
+
+
+
+  clearAllFields(){
+this.curItem = {
+  id: null,
+  description: "",
+  name: "",
+  roles: [],
+  SFNAccounts: [],
+  specialFriends: [],
+};
+  }
+
+  toggleUser(user) {
+    document.getElementById(user.id + user.name).classList.toggle('striker');
+  }
+
+  search() {
+   
+    this.sConnect.getPISearchInfo(this.searchKey).subscribe(
+      data => { this.searchResults = data;  }
+    )
+  }
+
+  toggleRole(role) {
+    for (let i = 0; i < this.curItem.roles.length; i++) {
+      if (this.curItem.roles[i].id == role.id) {
+        this.curItem.roles.splice(i, 1)
+        let tempRole = JSON.parse(JSON.stringify(this.curItem.roles));
+        this.curItem.roles = [];
+        this.curItem.roles = tempRole;
+        //document.getElementById(role.id).ariaChecked = "checked";
+        return;
+      }
+    }
+    
   
-  decPageSF(){
-    if (this.sfPage > 0){
-      this.sfPage--;
-      this.sConnect.getSpecialFriendsByPage(this.sfPage).subscribe(
-        (data:any) => {
-              this.sFriends = data;
-              console.log("dec" + this.sfPage)
-                  console.log(data)},
-        error => console.log(error)
-      )
-    }
+    this.curItem.roles.push(role);
+    let tempRole = JSON.parse(JSON.stringify(this.curItem.roles));
+        this.curItem.roles = [];
+        this.curItem.roles = tempRole;
+
+    
   }
 
-  incPageAcc(){
-    if (this.accPage < this.accMax){
-      this.accPage++;
-      this.sConnect.getAccountsByPage(this.accPage).subscribe(
-        (data:any) => {
-            if(data.length < 5 && data.length > 0){
-             
-              this.accMax = this.accPage
-              this.accounts = data;
-            }
-            else if(data.length == 0){
-              
-              this.accMax=this.accPage
-              this.accPage--;
-              this.incPageAcc()
-            }
-            else{
-             
-              this.accounts = data;
-            }
-            console.log("inc" + this.accPage)
-                  console.log(data)},
-        error => console.log(error)
-      )
+  isRoleInCurItem(role) {
+    console.log("Checking if " + role.id + "is in List")
+    console.log(this.curItem.roles)
+    for (let i = 0; i < this.curItem.roles.length; i++) {
+      if (this.curItem.roles[i].id == role.id) {
+        console.log(role.id + "is in List")
+        return true;
+      }
     }
+    console.log(role.id + "is not in List")
+    return false;
   }
 
-  decPageAcc(){
-    if (this.accPage > 0){
-      this.accPage--;
-      this.sConnect.getAccountsByPage(this.accPage).subscribe(
-        (data:any) => {
-              this.accounts = data;
-                console.log("dec" + this.accPage)
-                  console.log(data)},
-        error => console.log(error)
-      )
-    }
+  openModal(color, header, body, isConfirmModal, isDeleteConfirmModal){
+    let modal = document.getElementById('modal'); //show our modal
+    modal.style.display = "block";
+    this.modalBody = body;
+    this.modalColor = color;
+    this.modalHeader = header;
+
   }
+
+  closeModal(){
+    let modal = document.getElementById('modal');
+    modal.style.display = "none";
+    this.modalBody = [];
+    this.modalColor = "#ffa550";
+    this.modalHeader = "nomodal?";
+  }
+
+  
+  
+
 
 }

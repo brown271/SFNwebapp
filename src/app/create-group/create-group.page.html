@@ -1,139 +1,309 @@
 <app-header></app-header>
 <app-error-banner [error] = "bannerInfo"></app-error-banner>
 <ion-content>
-
-    <ion-grid>
-      <ion-row>
-        <ion-col size = "3">
-          <ion-card color = "tertiary">
-            <ion-card-header >
-              <ion-text  style="text-align: center;"><h1 >Team Members</h1></ion-text>
-            </ion-card-header>
-            <ion-card-content style = "padding: 0px 4px 4px 4px;" >
-             <ion-item *ngFor="let acc of accounts"   color = "light-tert" >
-              <ion-grid >
-                <ion-row >
-                  <ion-col size = "8">
-                    <ion-grid>
-                      <ion-row><ion-text style = "color:#fee"><h1>{{acc.name}}</h1></ion-text></ion-row>
-                      <ion-row><ion-text style = "color:#fee"><h4 >{{acc.email}}</h4></ion-text></ion-row>
-                    </ion-grid>
-                </ion-col>
-                <ion-col>
-                  <ion-checkbox style ="--size: 30px;--border-radius:50%"></ion-checkbox>
-                </ion-col> </ion-row>
-                <ion-row><hr></ion-row>
-              </ion-grid>
-             </ion-item>
-             <ion-grid>
-              <ion-row>
-                <ion-col size = "6">
-                  <ion-button *ngIf = "accPage > 0" size="large" color="light" expand="block" (click) = "decPageAcc()">&lt;</ion-button>
-                </ion-col>
-                <ion-col>
-                  <ion-button *ngIf = "accPage < accMax" size="large" color="light" expand="block" (click) = "incPageAcc()">&gt;</ion-button>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-            </ion-card-content>
-          </ion-card>
-         
-          
-        </ion-col>
-        <ion-col size = "3">
-          
+ 
+  <ion-grid>
+    <div id="modal" class="modal" (click)="closeModal()" style="text-align: center;">
+    
+      <div class="modal-content">
+        <div id="modal-header" [style.background-color]="modalColor">
+          <h1 id="modal-header-text">{{modalHeader}}</h1>
+        </div>
+        <br><br>
+        <div id="modal-body">
+          <p id="modal-body-desc" *ngFor="let info of modalBody">{{info}}</p> 
+        </div>
+        <div id="modal-footer">
+          <p onclick="closeModal()"><b>CLOSE</b></p>
         
-          <ion-card color = "ruby">
-            <ion-card-header >
-              <ion-text style="text-align: center;"><h1>Special Friends</h1></ion-text>
-            </ion-card-header>
-            <ion-card-content style = "padding: 0px 4px 4px 4px;" >
-             <ion-item *ngFor="let sf of sFriends"   color = "light-ruby" >
-              <ion-grid >
-                <ion-row >
-                  <ion-col size = "8">
-                    <ion-grid>
-                      <ion-row><ion-text style = "color:#fee"><h1>{{sf.name}}</h1></ion-text></ion-row>
-                      <ion-row><ion-text style = "color:#fee"><h4 >{{sf.email}}</h4></ion-text></ion-row>
-                    </ion-grid>
-                </ion-col>
-                <ion-col>
-                  <ion-checkbox style ="--size: 30px;--border-radius:50%"></ion-checkbox>
-                </ion-col> </ion-row>
-                <ion-row><hr></ion-row>
-              </ion-grid>
-             </ion-item>
-             <ion-grid>
-              <ion-row>
-                <ion-col size = "6">
-                  <ion-button  *ngIf = "sfPage > 0" size="large" color="light" expand="block" (click) = "decPageSF()">&lt;</ion-button>
-                </ion-col>
-                <ion-col>
-                  <ion-button *ngIf = "sfPage < sfMax" size="large" color="light" expand="block" (click) = "incPageSF()">&gt;</ion-button>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-            </ion-card-content>
-          </ion-card>
-         
-          
-        </ion-col>
-        <ion-col>
-          <ion-card color = "purp">
-            <ion-card-header>
-              <ion-text style = "text-align: center;"><h1>Create Group</h1></ion-text>
-            </ion-card-header>
-            <ion-card-content style = "padding: 0px 4px 4px 4px;" >
-              <ion-item color = "light-purp" >
-                <form style="width: 100%">
-               <ion-grid >
-                <ion-row >
-                  <ion-col size = "2">
-                    <ion-text style="color: white;"><hr><h2>Group Name:</h2></ion-text>
-                  </ion-col>
-                  <ion-col>
-                    <ion-item >
-                      <ion-input style="width: 100%;" type="text" min="0" max="30" required=""></ion-input>
-                    </ion-item>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col size = "2">
-                    <ion-text style="color: white;"><hr><h2>Group Description:</h2></ion-text>
-                  </ion-col>
-                  <ion-col>
-                    <ion-item >
-                      <ion-textarea style="width: 100%;" type="text" min="0" max="30" required=""></ion-textarea>
-                    </ion-item>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col size = "2">
-                    <ion-text style="color: white;"><hr><h2>Group Permissions:</h2></ion-text>
-                  </ion-col>
-                  <ion-col>
-                    <ion-item >
-                      <div *ngFor = "let r of roles">{{r.id}} {{r.role}}</div>
-                    </ion-item>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col size = "2">
-                    <ion-text style="color: white;"><hr><h2>Current Members:</h2></ion-text>
-                  </ion-col>
-                  <ion-col>
-                    <ion-item >
-                     
-                    </ion-item>
-                  </ion-col>
-                </ion-row>
-               
-              </ion-grid>
-            </form>
-             </ion-item>
-             </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+        </div>
+        <p id="nameTarget"></p>
+      </div>
+   
+  </div>
+    <ion-row>
+      <ion-col size = "12">
+        <ion-card color="ruby">
+          <ion-card-header>
+            <ion-text style="text-align: center;">
+              <h1>Create Group</h1>
+            </ion-text>
+          </ion-card-header>
+          <ion-card-content style="padding: 0px 4px 4px 4px;">
+            <ion-item color="light-ruby">
+              <form style="width: 100%">
+                <ion-grid>
+                  <ion-row>
+                    <ion-col size="2">
+                      <ion-grid>
+                        <ion-row style="height:60px">
+                          <ion-col size="12">
+                            <ion-text style="color: white;">
+                              <hr>
+                              <h2>Group Name:</h2>
+                            </ion-text>
+                          </ion-col>
+                        </ion-row>
+                      </ion-grid>
+                      <ion-grid>
+                        <ion-row style="height:90px">
+                          <ion-col size="12">
+                            <ion-text style="color: white;">
+                              <hr>
+                              <h2>Group Description:</h2>
+                            </ion-text>
+                          </ion-col>
+                        </ion-row>
+                      </ion-grid>
+                      <ion-grid>
+                        <ion-row style="height:170px">
+                          <ion-col size="12">
+                            <ion-text style="color: white;">
+                              <hr>
+                              <h2>Group Permissions</h2>
+                            </ion-text>
+                          </ion-col>
+                        </ion-row>
+                      </ion-grid>
+                      <ion-grid>
+                        <ion-row>
+                          <ion-col size="12">
+                            <ion-text style="color: white;">
+                              <hr>
+                              <h2>Group Members</h2>
+                            </ion-text>
+                          </ion-col>
+                        </ion-row>
+                      </ion-grid>
+                    </ion-col>
+                    <ion-col size="5">
+                      <ion-grid>
+                        <ion-row style="height:60px">
+                          <ion-col size="12">
+                            <ion-item>
+                              <ion-input  name="name"
+                                [(ngModel)]="curItem.name" style="width: 100%;" type="text" min="0" max="30"
+                                required=""></ion-input>
+                            </ion-item>
+                          </ion-col>
+
+                        </ion-row>
+                      </ion-grid>
+                      <ion-grid>
+                        <ion-row style="height:90px">
+                          <ion-col size="12">
+                            <ion-item>
+                              <ion-textarea  name="description"
+                                [(ngModel)]="curItem.description" style="width: 100%;" type="text" min="0" max="30"
+                                required=""></ion-textarea>
+                            </ion-item>
+                          </ion-col>
+
+                        </ion-row>
+                      </ion-grid>
+                      <ion-grid>
+                        <ion-row style="height: 170px;">
+                          <ion-col size="12">
+                            <ion-item>
+                              <ion-grid >
+                                <ion-row>
+                                  <ion-col size="4" *ngFor="let r of roles" (click)="toggleRole(r)">
+                                    <ion-row>
+                                      <ion-col size="2">
+                                        <div>
+                                          <ion-checkbox [checked]="isRoleInCurItem(r)" aria-readonly="true"></ion-checkbox>
+                                        </div>
+
+                                      </ion-col>
+                                      <ion-col size="10" style="padding-top: 10%;">
+                                        <ion-text style="padding-top: 10%;font-size: small;">
+                                          <h6>{{r.roleName}}</h6>
+                                        </ion-text>
+                                      </ion-col>
+                                    </ion-row>
+
+                                  </ion-col>
+
+                                </ion-row>
+
+                              </ion-grid>
+                            </ion-item>
+                          </ion-col>
+                        </ion-row>
+                      </ion-grid>
+                      <ion-grid>
+                        <ion-row style="height: 250px;overflow-y: auto;">
+                          <ion-col size="12">
+                            <ion-item style="width: 100%">
+                              <ion-grid style="width: 100%">
+                                <ion-row size="12" *ngFor="let acc of curItem.SFNAccounts" style="width: 100%">
+                                  <ion-item style="width: 100%">
+                                    <ion-grid style="width: 100%">
+                                      <ion-row>
+                                        <ion-col size="8">
+                                          <ion-text id="{{acc.id}}{{acc.name}}">
+                                            <p>{{acc.name}}</p>
+                                            <em>SFN Team Member</em>
+                                          </ion-text>
+                                        </ion-col>
+                                        <ion-col size="1">
+                                          <hr>
+                                        </ion-col>
+                                        <ion-col size="3">
+                                          <ion-button (click)="toggleUser(acc)">X</ion-button>
+                                        </ion-col>
+                                      </ion-row>
+                                    </ion-grid>
+
+                                  </ion-item>
+                                </ion-row>
+
+                                <ion-row size="12" *ngFor="let acc of curItem.specialFriends" style="width: 100%;">
+                                  <ion-item style="width: 100%">
+                                    <ion-grid style="width: 100%">
+                                      <ion-row>
+                                        <ion-col size="8">
+                                          <ion-text style="width: 100%" id="{{acc.id}}{{acc.name}}">
+                                            <p>{{acc.name}}</p>
+                                            <em>Special Friend</em>
+                                          </ion-text>
+                                        </ion-col>
+
+                                        <ion-col size="1">
+                                          <hr>
+                                        </ion-col>
+
+                                        <ion-col size="3">
+                                          <ion-button (click)="toggleUser(acc)">X</ion-button>
+                                        </ion-col>
+                                      </ion-row>
+                                    </ion-grid>
+
+                                  </ion-item>
+                                </ion-row>
+                              </ion-grid>
+                            </ion-item>
+                          </ion-col>
+
+                        </ion-row>
+
+                      </ion-grid>
+
+                    </ion-col>
+                    <ion-col size="5">
+
+                      <ion-grid >
+                        <ion-row>
+
+                          <ion-col size="12">
+                            <ion-item>
+                              <ion-input [(ngModel)]="searchKey" name="searchKey" type="text"
+                                placeholder="Enter a name or lastname to search"></ion-input>
+                            </ion-item>
+
+                          </ion-col>
+                          <ion-col>
+                            <ion-button (click)="search()" size="large" expand="block">Search For Members</ion-button>
+                          </ion-col>
+
+                        </ion-row>
+                        <ion-row style="height: 500px;">
+
+                          <ion-col size="12">
+                            <ion-grid>
+                              <ion-row style="height:450px;padding:0px;overflow-y:auto">
+                                <ion-grid
+                                  *ngIf="searchResults.specialFriends != undefined || searchResults.SFNAccounts != undefined">
+                                  <ion-row *ngFor="let item of searchResults.specialFriends">
+                                    <ion-col size="12" style="padding: 0px;"
+                                      *ngIf="!isUserInList(item, curItem.specialFriends)">
+                                      <ion-item id="{{item.name}}{{item.id}}">
+                                        <ion-grid>
+                                          <ion-row>
+                                            <ion-col size="9">
+                                              <ion-text>
+                                                <p>{{item.name}} </p>
+
+                                              </ion-text>
+                                            </ion-col>
+                                            <ion-col size="3">
+                                              <ion-button (click)="addUserToList(item,curItem.specialFriends)">ADD
+                                              </ion-button>
+                                            </ion-col>
+                                          </ion-row>
+                                          <ion-row>
+                                            <ion-col size="12">
+                                              <ion-text>
+                                                <em>Special Freind</em>
+                                              </ion-text>
+                                            </ion-col>
+                                          </ion-row>
+                                        </ion-grid>
+                                      </ion-item>
+                                    </ion-col>
+
+                                  </ion-row>
+                                  <ion-row *ngFor="let item of searchResults.SFNAccounts">
+                                    <ion-col size="12" style="padding: 0px;"
+                                      *ngIf="!isUserInList(item, curItem.SFNAccounts)">
+                                      <ion-item>
+                                        <ion-grid>
+                                          <ion-row>
+                                            <ion-col size="9">
+                                              <ion-text>
+                                                <p>{{item.name}} </p>
+
+                                              </ion-text>
+                                            </ion-col>
+                                            <ion-col size="3">
+                                              <ion-button (click)="addUserToList(item,curItem.SFNAccounts)">ADD
+                                              </ion-button>
+                                            </ion-col>
+                                          </ion-row>
+                                          <ion-row>
+                                            <ion-col size="12">
+                                              <ion-text>
+                                                <em>SFN Team Member</em>
+                                              </ion-text>
+                                            </ion-col>
+                                          </ion-row>
+                                        </ion-grid>
+                                      </ion-item>
+                                    </ion-col>
+
+                                  </ion-row>
+                                </ion-grid>
+
+                              </ion-row>
+                            </ion-grid>
+
+                          </ion-col>
+                        </ion-row>
+                      </ion-grid>
+
+                    </ion-col>
+                  </ion-row>
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col size = "5">
+                        <ion-button size="large" expand="block" (click)="createGroup()">Create</ion-button>
+                      </ion-col>
+                      <ion-col></ion-col>
+                      <ion-col size = "5">
+                        <ion-button size="large" expand="block" (click)="clearAllFields()">Clear Data</ion-button>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                
+                 
+
+                </ion-grid>
+
+              </form>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

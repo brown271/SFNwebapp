@@ -49,7 +49,14 @@ export class EditGroupsPage implements OnInit {
     )
     this.sConnect.getAllRoles().subscribe(
       data => { this.roles = data;  },
-      error => console.log(error)
+      error => {
+        if (error.status == 504){
+          this.bannerInfo = "Error 504: Can't find Database!"
+        }
+        else{
+          this.bannerInfo = "Error " + error.status
+        }
+      }
     )
   }
 
@@ -108,7 +115,14 @@ export class EditGroupsPage implements OnInit {
           }
           
         },
-        error => console.log(error)
+        error => {
+          if (error.status == 504){
+            this.bannerInfo = "Error 504: Can't find Database!"
+          }
+          else{
+            this.bannerInfo = "Error " + error.status
+          }
+        }
       )
     }
   }
@@ -121,7 +135,14 @@ export class EditGroupsPage implements OnInit {
           this.emailList = data;
          
         },
-        error => console.log(error)
+        error => {
+          if (error.status == 504){
+            this.bannerInfo = "Error 504: Can't find Database!"
+          }
+          else{
+            this.bannerInfo = "Error " + error.status
+          }
+        }
       )
     }
   }
@@ -157,7 +178,14 @@ export class EditGroupsPage implements OnInit {
               
              
             },
-            error => console.log(error)
+            error => {
+              if (error.status == 504){
+                this.bannerInfo = "Error 504: Can't find Database!"
+              }
+              else{
+                this.bannerInfo = "Error " + error.status
+              }
+            }
           )
         }
         else{
@@ -167,8 +195,12 @@ export class EditGroupsPage implements OnInit {
         
       },
       error => {
-        console.log(error);
-        
+        if (error.status == 504){
+          this.bannerInfo = "Error 504: Can't find Database!"
+        }
+        else{
+          this.bannerInfo = "Error " + error.status
+        }
       }
     )
    
@@ -280,7 +312,12 @@ export class EditGroupsPage implements OnInit {
         )
       },
       error =>{
-
+        if (error.status == 504){
+          this.bannerInfo = "Error 504: Can't find Database!"
+        }
+        else{
+          this.bannerInfo = "Error " + error.status
+        }
       }
     )
   }
