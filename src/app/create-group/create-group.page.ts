@@ -39,12 +39,7 @@ export class CreateGroupPage implements OnInit {
       this.sConnect.getAllRoles().subscribe(
         data =>{this.roles = data; console.log(data)},
         error => {
-          if (error.status == 504){
-            this.bannerInfo = "Error 504: Can't find Database!"
-          }
-          else{
-            this.bannerInfo = "Error " + error.status
-          }
+          this.bannerInfo = "Error 504: Can't find Database!"
         }
       )
     //}
@@ -94,12 +89,10 @@ export class CreateGroupPage implements OnInit {
         
       },
       error => {
-        if (error.status == 504){
+       
           this.bannerInfo = "Error 504: Can't find Database!"
-        }
-        else{
-          this.bannerInfo = "Error " + error.status
-        }
+       
+       
       }
     )
    
@@ -117,7 +110,7 @@ export class CreateGroupPage implements OnInit {
     for(let i = 0; i < item.specialFriends.length;i++){
       let user = item.specialFriends[i];
         if(document.getElementById(user.id + user.name).classList.contains('striker')){
-          item.roles.specialFriends(i, 1)
+          item.roles.specialFriends.split(i, 1)
         }
     }
     let tempItem: EmailGroup = {
@@ -177,21 +170,20 @@ this.curItem = {
   }
 
   isRoleInCurItem(role) {
-    console.log("Checking if " + role.id + "is in List")
-    console.log(this.curItem.roles)
+   
     for (let i = 0; i < this.curItem.roles.length; i++) {
       if (this.curItem.roles[i].id == role.id) {
-        console.log(role.id + "is in List")
+      
         return true;
       }
     }
-    console.log(role.id + "is not in List")
+   
     return false;
   }
 
   openModal(color, header, body, isConfirmModal, isDeleteConfirmModal){
     let modal = document.getElementById('modal'); //show our modal
-    modal.style.display = "block";
+    console.log("open");
     this.modalBody = body;
     this.modalColor = color;
     this.modalHeader = header;
@@ -200,7 +192,6 @@ this.curItem = {
 
   closeModal(){
     let modal = document.getElementById('modal');
-    modal.style.display = "none";
     this.modalBody = [];
     this.modalColor = "#ffa550";
     this.modalHeader = "nomodal?";

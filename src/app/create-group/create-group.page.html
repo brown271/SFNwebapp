@@ -3,7 +3,7 @@
 <ion-content>
  
   <ion-grid>
-    <div id="modal" class="modal" (click)="closeModal()" style="text-align: center;">
+    <div *ngIf = "modalBody.length > 0" id="modal" class="modal" (click)="closeModal()" style="text-align: center;">
     
       <div class="modal-content">
         <div id="modal-header" [style.background-color]="modalColor">
@@ -14,7 +14,7 @@
           <p id="modal-body-desc" *ngFor="let info of modalBody">{{info}}</p> 
         </div>
         <div id="modal-footer">
-          <p onclick="closeModal()"><b>CLOSE</b></p>
+          <p (click)="closeModal()"><b>CLOSE</b></p>
         
         </div>
         <p id="nameTarget"></p>

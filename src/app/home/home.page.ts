@@ -12,6 +12,7 @@ import { SpecialFriend } from 'src/assets/interfaces/specialFriend';
 })
 export class HomePage {
   jwt:string;
+  url:string;
   role: Role = {
     id:1
   }
@@ -44,12 +45,8 @@ specialFriends:this.sfs,
   }
 
   test(){
-    //able to send a Group with the id's of all the people within,
-    //realistically speaking this allows for editing of groups
-    //description and name also go through aswell
-    //good job king!
-    this.sConnect.testPut(this.eg).subscribe(
-      (data:any) => console.log(data),
+    this.sConnect.testTest(this.url).subscribe(
+      data => console.log(data),
       error => console.log(error)
     )
   }

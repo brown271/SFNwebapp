@@ -21,6 +21,7 @@ export class EditGroupsPage implements OnInit {
   searchResults: any = [];
   bannerInfo: string;
   emailList: any;
+  prevResult: any;
   page: number = 0;
 
   curItem: EmailGroup = {
@@ -39,23 +40,15 @@ export class EditGroupsPage implements OnInit {
     this.sConnect.getEmailGroupByPage(this.page).subscribe(
       data => { this.emailList = data;  },
       error => {
-        if (error.status == 504) {
-          this.bannerInfo = "Error 504: Can't find Database!"
-        }
-        else {
-          this.bannerInfo = "Error " + error.status
-        }
+        console.log(error);
+        this.bannerInfo = "Error 504: Can't find Database!"
       }
     )
     this.sConnect.getAllRoles().subscribe(
       data => { this.roles = data;  },
       error => {
-        if (error.status == 504){
-          this.bannerInfo = "Error 504: Can't find Database!"
-        }
-        else{
-          this.bannerInfo = "Error " + error.status
-        }
+        console.log(error);
+        this.bannerInfo = "Error 504: Can't find Database!"
       }
     )
   }
@@ -63,18 +56,19 @@ export class EditGroupsPage implements OnInit {
   pickGroup(group) {
     this.curItem = JSON.parse(JSON.stringify(group));
     for (let i = 0; i < this.curItem.roles.length; i++) {
-      console.log("yuh" + this.curItem.roles[i].id)
+     
         document.getElementById(this.curItem.roles[i].id).ariaChecked = "true";
 
       }
+
     
    
 
   }
 
   openModal(color, header, body, isConfirmModal, isDeleteConfirmModal){
+    console.log("open");
     let modal = document.getElementById('modal'); //show our modal
-    modal.style.display = "block";
     this.modalBody = body;
     this.modalColor = color;
     this.modalHeader = header;
@@ -85,7 +79,6 @@ export class EditGroupsPage implements OnInit {
 
   closeModal(){
     let modal = document.getElementById('modal');
-    modal.style.display = "none";
     this.modalBody = [];
     this.modalColor = "#ffa550";
     this.modalHeader = "nomodal?";
@@ -116,12 +109,8 @@ export class EditGroupsPage implements OnInit {
           
         },
         error => {
-          if (error.status == 504){
-            this.bannerInfo = "Error 504: Can't find Database!"
-          }
-          else{
-            this.bannerInfo = "Error " + error.status
-          }
+          console.log(error);
+          this.bannerInfo = "Error 504: Can't find Database!"
         }
       )
     }
@@ -136,12 +125,8 @@ export class EditGroupsPage implements OnInit {
          
         },
         error => {
-          if (error.status == 504){
-            this.bannerInfo = "Error 504: Can't find Database!"
-          }
-          else{
-            this.bannerInfo = "Error " + error.status
-          }
+          console.log(error);
+          this.bannerInfo = "Error 504: Can't find Database!"
         }
       )
     }
@@ -156,71 +141,63 @@ export class EditGroupsPage implements OnInit {
   }
 
   update() {
-    let tempItem = this.validateSpecialFriendsAndAccounts(this.curItem)
-    console.log("SENDING");
-    console.log(tempItem);
+    let tempItem = this.compileCurrentGroup(this.curItem)
     this.sConnect.testPut(tempItem).subscribe(
       (data:any) => {
-        console.log(data);
-        if(data.message.length < 15){
-          this.curItem = {
-            id: 0,
-            description: "",
-            name: "",
-            roles: [],
-            SFNAccounts: [],
-            specialFriends: [],
-          };
+        console.log(data)
+        if(data.status == 200){
+         this.resetCurItem();
           this.openModal("#32CD32", "Confirm!", ["Changes have been successfully saved!"], false, false)
+          //update our email groups
           this.sConnect.getEmailGroupByPage(this.page).subscribe(
             (data: any) => {
               this.emailList = data;
-              
-             
             },
             error => {
-              if (error.status == 504){
-                this.bannerInfo = "Error 504: Can't find Database!"
-              }
-              else{
-                this.bannerInfo = "Error " + error.status
-              }
+              console.log(error);
+              this.bannerInfo = "Error 504: Can't find Database!"
             }
           )
         }
         else{
+          //add a Data not saved prompt at the top
           data.message = "Data not saved." + data.message;
+          //data returns seperated by periods "."
+          //split at the period into different strings
           this.openModal("#CD3232", "Error", data.message.split("."), false, false)
         }
         
       },
       error => {
-        if (error.status == 504){
-          this.bannerInfo = "Error 504: Can't find Database!"
-        }
-        else{
-          this.bannerInfo = "Error " + error.status
-        }
+        console.log(error);
+        this.bannerInfo = "Error 504: Can't find Database!"
       }
     )
    
   }
 
-  validateSpecialFriendsAndAccounts(item){
+  compileCurrentGroup(item){
+    //Compile sfn accounts into simpler data structure
     let newSFNAcc = [];
+    //go through sfn accounts
     for(let i = 0; i < item.SFNAccounts.length;i++){
       let user = item.SFNAccounts[i];
+      //if the user is not striked out
         if(!document.getElementById(user.id + user.name).classList.contains('striker')){
-          console.log(user.name + " Does not contain a strikeout.")
+          //add ONLY their id to the new SFNAccount list
           newSFNAcc.push(JSON.parse('{"id":' + user.id + '}'));
         }
     }
+    //go through specialFriends
     for(let i = 0; i < item.specialFriends.length;i++){
       let user = item.specialFriends[i];
+      //if the user is striked out
         if(document.getElementById(user.id + user.name).classList.contains('striker')){
-          item.roles.specialFriends(i, 1)
+          //take them out of the specialFriendsList
+          item.roles.specialFriends.split(i, 1)
         }
     }
+    //create a clone of the current item and return it
     let tempItem: EmailGroup = {
       id: item.id,
       description: item.description,
@@ -250,15 +227,13 @@ export class EditGroupsPage implements OnInit {
   }
 
   isRoleInCurItem(role) {
-    console.log("Checking if " + role.id + "is in List")
-    console.log(this.curItem.roles)
     for (let i = 0; i < this.curItem.roles.length; i++) {
       if (this.curItem.roles[i].id == role.id) {
-        console.log(role.id + "is in List")
+       
         return true;
       }
     }
-    console.log(role.id + "is not in List")
+    
     return false;
   }
 
@@ -286,7 +261,20 @@ export class EditGroupsPage implements OnInit {
   search() {
    
     this.sConnect.getPISearchInfo(this.searchKey).subscribe(
-      data => { this.searchResults = data;  }
+      (data:any) => { 
+        //if there is a message, display it
+        if(data.message != undefined){
+          this.bannerInfo = data.message
+        }
+        //otherwise data able to be read, show it as searchResults
+        else{
+          this.searchResults = data
+        }
+        },
+      error =>{
+        console.log(error)
+        this.bannerInfo = "Error 504: Can't find Database!"
+      }
     )
   }
 
@@ -312,14 +300,21 @@ export class EditGroupsPage implements OnInit {
         )
       },
       error =>{
-        if (error.status == 504){
-          this.bannerInfo = "Error 504: Can't find Database!"
-        }
-        else{
-          this.bannerInfo = "Error " + error.status
-        }
+        console.log(error);
+        this.bannerInfo = "Error 504: Can't find Database!"
       }
     )
+  }
+
+  resetCurItem(){
+    this.curItem = {
+      id: 0,
+      description: "",
+      name: "",
+      roles: [],
+      SFNAccounts: [],
+      specialFriends: [],
+    };
   }
 
 }

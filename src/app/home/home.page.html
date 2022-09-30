@@ -13,7 +13,8 @@
           <ion-text style="font-size: 30px;letter-spacing: 2px;" color = "dark" text-wrap>
             The Special Friends Network is a grass roots orginiaztion that was started to bring together
             people of all abilities. We are a social group that focuses on celebrating our neurodiverse world.
-           
+           Enter URL: <ion-input [(ngModel)] = "url"></ion-input>
+            <button (click) = "test">TEST</button>
           </ion-text>
         </ion-col>
         <ion-col></ion-col>
@@ -31,17 +32,17 @@
       <ion-row><hr></ion-row>
       <div style="flex: 100%;">
      <!--Have to switch these so that the photos are loaded dynamically-->
-        <img style="height:200px;margin: 2px;" src = "../../assets/images/one.jpg">
-        <img style="height:200px;margin: 2px;" src = "../../assets/images/three.jpg">
-        <img style="height:200px;margin: 2px;" src = "../../assets/images/two.jpg">
-        <img style="height:200px;margin: 2px;" src = "../../assets/images/five.jpg">
-        <img style="height:200px;margin: 2px;" src = "../../assets/images/eleven.jpg">
-        <img style="height:200px;margin: 2px;" src = "../../assets/images/nine.jpg">
-        <img style="height:200px;margin: 2px;" src = "../../assets/images/six.jpg">
-        <img style="height:200px;margin: 2px;" src = "../../assets/images/four.jpg">
-        <img style="height:200px;margin: 2px;" src = "../../assets/images/eoght.jpg">
-        <img style="height:200px;margin: 2px;" src = "../../assets/images/seven.jpg">
-        <img style="height:200px;margin: 2px;" src = "../../assets/images/ten.jpg">
+        <img style="height:200px;margin: 2px;" src = "one.jpg">
+        <img style="height:200px;margin: 2px;" src = "three.jpg">
+        <img style="height:200px;margin: 2px;" src = "two.jpg">
+        <img style="height:200px;margin: 2px;" src = "five.jpg">
+        <img style="height:200px;margin: 2px;" src = "eleven.jpg">
+        <img style="height:200px;margin: 2px;" src = "nine.jpg">
+        <img style="height:200px;margin: 2px;" src = "six.jpg">
+        <img style="height:200px;margin: 2px;" src = "four.jpg">
+        <img style="height:200px;margin: 2px;" src = "eoght.jpg">
+        <img style="height:200px;margin: 2px;" src = "seven.jpg">
+        <img style="height:200px;margin: 2px;" src = "ten.jpg">
      </div>
     </ion-grid>
   </ion-item>
@@ -52,22 +53,22 @@
       <ion-row>
         <ion-col></ion-col>
         <ion-col size = "8" style = "padding: 16px;text-align: center;">
-          <ion-button (click) = "test()">TEST</ion-button>
-          <ion-text style = "font-size: 40px;font-weight: bold;" color="dark" text-wrap >Here At SFN We Nuture</ion-text>
+        
+          <ion-text style = "font-size: 40px;font-weight: bold;" color="dark" text-wrap >Here At SFN Wee Nuture</ion-text>
           <hr>
           <ion-grid>
             <ion-row>
               <ion-col size = "4">
                 <ion-text color = "dripblue" style="font-size:20px;font-weight: bold;">FRIENDSHIPS</ion-text><hr>
-                <img style = "height:175px;width: 250px;" src = "../../assets/images/friendships.jpg">
+                <img style = "height:175px;width: 250px;" src = "friendships.jpg">
               </ion-col>
               <ion-col size = "4">
                 <ion-text color = "dripblue" style="font-size:20px;font-weight: bold;">INDEPENDENCE</ion-text><hr>
-                <img style = "height:175px;width: 250px;" src = "../../assets/images/independence.jpg">
+                <img style = "height:175px;width: 250px;" src = "independence.jpg">
               </ion-col>
               <ion-col size = "4">
                 <ion-text color = "dripblue" style="font-size:20px;font-weight: bold;">LIFE SKILLS</ion-text><hr>
-                <img style = "height:175px;width: 250px;" src = "../../assets/images/lifeskills.jpg">
+                <img style = "height:175px;width: 250px;" src = "lifeskills.jpg">
               </ion-col>
             </ion-row>
           </ion-grid>

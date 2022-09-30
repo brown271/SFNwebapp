@@ -2,7 +2,7 @@
 <app-error-banner [error]="bannerInfo"></app-error-banner>
 
 <ion-content>
-  <div id="modal" class="modal" (click)="closeModal()" style="text-align: center;">
+  <div *ngIf = "modalBody.length > 0" id="modal" class="modal" (click)="closeModal()" style="text-align: center;">
     <div *ngIf="curItem != undefined">
       <div class="modal-content">
         <div id="modal-header" [style.background-color]="modalColor">
@@ -22,8 +22,7 @@
          
         </div>
         <div id="modal-footer">
-          <p *ngIf = "!isConfirmModal" onclick="closeModal()"><b>CLOSE</b></p>
-        
+          <p *ngIf = "!isConfirmModal" (click)="closeModal()"><b>CLOSE</b></p>
         </div>
         <p id="nameTarget"></p>
       </div>
@@ -175,7 +174,6 @@
                                         <div>
                                           <ion-checkbox [checked]="isRoleInCurItem(r)" aria-readonly="true"></ion-checkbox>
                                         </div>
-
                                       </ion-col>
                                       <ion-col size="10" style="padding-top: 10%;">
                                         <ion-text style="padding-top: 10%;font-size: small;">
@@ -183,11 +181,8 @@
                                         </ion-text>
                                       </ion-col>
                                     </ion-row>
-
                                   </ion-col>
-
                                 </ion-row>
-
                               </ion-grid>
                             </ion-item>
                           </ion-col>

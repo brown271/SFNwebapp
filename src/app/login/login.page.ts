@@ -30,7 +30,9 @@ export class LoginPage implements OnInit {
       const params = { username: this.username, password: this.password };
       this.sConnect.login(params).subscribe(
         (data:any) => {
-          let jwt: HttpHeaders = data.headers.get("token")
+          console.log(data);
+          console.log(data.headers);
+          let jwt: HttpHeaders = data.headers.get("Key")
           this.sConnect.updateJWT(jwt);
           console.log("JWT: " + this.jwt)
           this.sConnect.getCalendar().subscribe(
@@ -42,8 +44,6 @@ export class LoginPage implements OnInit {
       
               this.year = date.getFullYear();
               this.curDayOffset = this.findOffsetValue(date);
-              
-              console.log(this.curDayOffset)
             },
             error => {
              console.log(error)

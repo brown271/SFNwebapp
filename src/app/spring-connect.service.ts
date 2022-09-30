@@ -12,12 +12,19 @@ export class SpringConnectService {
   jwtObs = this.jwt.asObservable();
   url = ""
 
+  testTest(url){
+    return this.http.get(url);
+  }
 
   updateJWT(newJWT){
     this.jwt.next(newJWT);
   }
 
   constructor(private http:HttpClient) { }
+
+  testGet(){
+   return  this.http.get(this.url + "/api/test/")
+  }
 
   testConnection(authHeader: HttpHeaders){
     console.log(authHeader)
@@ -66,7 +73,8 @@ export class SpringConnectService {
   }
 
   getPISearchInfo(search:string){
-    return this.http.get(this.url + '/api/pi/searchForPersonalInfo/' + search);
+    return this.http.get(this.url + 
+      '/api/pi/searchForPersonalInfo/' + search);
   }
 
   addGroup(params){
