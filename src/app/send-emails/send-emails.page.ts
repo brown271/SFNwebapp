@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { SpringConnectService } from '../spring-connect.service';
 import { AlertController } from '@ionic/angular';
+import { ViewWillEnter } from '@ionic/angular';
 
 @Component({
   selector: 'app-send-emails',
   templateUrl: './send-emails.page.html',
   styleUrls: ['./send-emails.page.scss'],
 })
-export class SendEmailsPage implements OnInit {
+export class SendEmailsPage implements OnInit, ViewWillEnter {
 
   selectedGroups: any[] =[]
   constructor(private sConnect: SpringConnectService, private alertController: AlertController) { }
@@ -23,9 +24,9 @@ export class SendEmailsPage implements OnInit {
 
   curItem: any;
 
+
   currentGroup: any;
-  ngOnInit() {
-    console.log("babbooey")
+  refreshData(){
     this.sConnect.jwtObs.subscribe(data => {this.jwt = data});
     this.sConnect.getEmailGroupByPage(this.page).subscribe(
       data => {this.emailList = data;console.log(this.emailList)},
@@ -38,6 +39,12 @@ export class SendEmailsPage implements OnInit {
         }
       }
     )
+  }
+  ionViewWillEnter(): void {
+    this.refreshData()
+  }
+  ngOnInit() {
+    this.refreshData()
   }
 
   inc(){
@@ -77,8 +84,9 @@ export class SendEmailsPage implements OnInit {
   openModal(item){
     let modal = document.getElementById('modal'); //show our modal
     modal.style.display = "block";
-    console.log("item: " + item)
-    this.curItem = item;
+    console.log("item:")
+    console.log(item)
+    this.curItem = item
    // document.getElementById('modal-header-text').innerHTML = header; //show header 
     //document.getElementById('modal-body-desc').innerHTML = description; //show description
     //make our body for both team members and special friends

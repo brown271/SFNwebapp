@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { SpringConnectService } from '../spring-connect.service';
+import { ViewWillEnter } from '@ionic/angular';
 
 @Component({
   selector: 'app-events',
   templateUrl: './events.page.html',
   styleUrls: ['./events.page.scss'],
 })
-export class EventsPage implements OnInit {
+export class EventsPage implements OnInit, ViewWillEnter {
   monthArray = ["January","February","March","April","May","June","July","August","September","October","November","December"];
   
   errorMsg:string = "";
@@ -18,7 +19,7 @@ export class EventsPage implements OnInit {
   constructor(private sConnect:SpringConnectService) { }
   offset: number = -1;
 
-  ngOnInit() {
+  refreshData(){
     this.sConnect.getCalendar().subscribe(
       (data:any) => {
         console.log(data)
@@ -36,6 +37,14 @@ export class EventsPage implements OnInit {
         }
       }
     )
+  }
+  ionViewWillEnter(): void {
+    this.refreshData()
+  }
+
+
+  ngOnInit() {
+    this.refreshData()
   }
 
   inc(){

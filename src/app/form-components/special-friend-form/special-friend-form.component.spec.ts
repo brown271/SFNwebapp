@@ -1,18 +1,20 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { FormsModule } from '@angular/forms';
 
-import { HomePage } from './home.page';
-describe('HomePage', () => {
-  let component: HomePage;
-  let fixture: ComponentFixture<HomePage>;
+import { SpecialFriendFormComponent } from './special-friend-form.component';
+
+describe('SpecialFriendFormComponent', () => {
+  let component: SpecialFriendFormComponent;
+  let fixture: ComponentFixture<SpecialFriendFormComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomePage ],
+      declarations: [ SpecialFriendFormComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(HomePage);
+    fixture = TestBed.createComponent(SpecialFriendFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

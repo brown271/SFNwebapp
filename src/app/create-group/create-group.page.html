@@ -141,8 +141,8 @@
                                     <ion-grid style="width: 100%">
                                       <ion-row>
                                         <ion-col size="8">
-                                          <ion-text id="{{acc.id}}{{acc.name}}">
-                                            <p>{{acc.name}}</p>
+                                          <ion-text id="{{acc.id}}{{acc.personalInfo.name}}">
+                                            <p>{{acc.personalInfo.name}}</p>
                                             <em>SFN Team Member</em>
                                           </ion-text>
                                         </ion-col>
@@ -163,8 +163,8 @@
                                     <ion-grid style="width: 100%">
                                       <ion-row>
                                         <ion-col size="8">
-                                          <ion-text style="width: 100%" id="{{acc.id}}{{acc.name}}">
-                                            <p>{{acc.name}}</p>
+                                          <ion-text style="width: 100%" id="{{acc.id}}{{acc.personalInfo.name}}">
+                                            <p>{{acc.personalInfo.name}}</p>
                                             <em>Special Friend</em>
                                           </ion-text>
                                         </ion-col>
@@ -217,12 +217,12 @@
                                   <ion-row *ngFor="let item of searchResults.specialFriends">
                                     <ion-col size="12" style="padding: 0px;"
                                       *ngIf="!isUserInList(item, curItem.specialFriends)">
-                                      <ion-item id="{{item.name}}{{item.id}}">
+                                      <ion-item id="{{item.personalInfo.name}}{{item.id}}">
                                         <ion-grid>
                                           <ion-row>
                                             <ion-col size="9">
                                               <ion-text>
-                                                <p>{{item.name}} </p>
+                                                <p>{{item.personalInfo.name}} </p>
 
                                               </ion-text>
                                             </ion-col>
@@ -234,7 +234,7 @@
                                           <ion-row>
                                             <ion-col size="12">
                                               <ion-text>
-                                                <em>Special Freind</em>
+                                                <em>Special Friend</em>
                                               </ion-text>
                                             </ion-col>
                                           </ion-row>
@@ -251,7 +251,7 @@
                                           <ion-row>
                                             <ion-col size="9">
                                               <ion-text>
-                                                <p>{{item.name}} </p>
+                                                <p>{{item.personalInfo.name}} </p>
 
                                               </ion-text>
                                             </ion-col>

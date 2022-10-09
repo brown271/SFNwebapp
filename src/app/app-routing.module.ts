@@ -31,6 +31,15 @@ const routes: Routes = [
     path: 'edit-groups',
     loadChildren: () => import('./edit-groups/edit-groups.module').then( m => m.EditGroupsPageModule)
   },
+  {
+    path: 'register-members',
+    loadChildren: () => import('./register-members/register-members.module').then( m => m.RegisterMembersPageModule)
+  },
+  
+  {
+    path: 'search-accounts',
+    loadChildren: () => import('./search-accounts/search-accounts.module').then( m => m.SearchAccountsPageModule)
+  },
 ];
 
 @NgModule({

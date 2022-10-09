@@ -2,13 +2,14 @@ import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { SpringConnectService } from '../spring-connect.service';
 import { AlertController } from '@ionic/angular';
+import { ViewWillEnter } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, ViewWillEnter {
   errorMsg: string = "";
   cal:any;
   month:number;
@@ -20,10 +21,31 @@ export class LoginPage implements OnInit {
  
   monthArray = ["January","February","March","April","May","June","July","August","September","October","November","December"];
   constructor(private sConnect: SpringConnectService, private alertController: AlertController) { }
+  refreshData(){
+    this.sConnect.jwtObs.subscribe(data => {this.jwt = data});
+    if(this.jwt.length > 0){
+      this.sConnect.getCalendar().subscribe(
+        (data:any) => {
+          this.cal = data;
+          let date = new Date();
+          this.month = date.getMonth();
+          this.monthString = this.monthArray[this.month]
   
+          this.year = date.getFullYear();
+          this.curDayOffset = this.findOffsetValue(date);
+        },
+        error => {
+         console.log(error)
+        }
+      )
+    }
+  }
+  ionViewWillEnter(): void {
+    this.refreshData()
+  }
   jwt: string;
   ngOnInit() {
-    this.sConnect.jwtObs.subscribe(data => {this.jwt = data});
+    this.refreshData()
   }
   login(){
     if (this.username.length > 0 && this.password.length > 0){

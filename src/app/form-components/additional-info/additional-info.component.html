@@ -1,0 +1,133 @@
+<ion-card color = "leaf">
+  <ion-card-header>
+    <ion-grid>
+      <ion-row>
+        <ion-col size = "2">
+          <ion-text style="text-align: left;">
+            <h1 style="color:white;padding-left: 5%;font-size: xx-large;padding-top: 3%;">Additional Info</h1>
+          </ion-text>
+        </ion-col>
+        <ion-col size = "10"></ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </ion-card-header>
+
+  <ion-card-content style="padding: 0px 4px 4px 4px;">
+    <ion-item color = "light-leaf">
+      <form style="width: 100%">
+        <ion-grid>
+
+          <ion-row>
+            <hr>
+          </ion-row>
+
+          <ion-row>
+            <ion-col size = "1.5"></ion-col>
+            <ion-col size = "1">
+              <ion-text >
+                <h2 style="color: white;font-size: x-large;padding-top: 5%;">Allergies</h2>
+              </ion-text>
+            </ion-col>
+            <ion-col size = "3">
+              <ion-item> <ion-input name ="allergies" [(ngModel)] = "additionalInfoInput.allergies" type = "text" placeholder="Ex. Tree Nuts, Shellfish"></ion-input></ion-item>
+            </ion-col>
+            <ion-col size = "1"></ion-col>
+            <ion-col size = "1">
+              <ion-text>
+                <h2 style="color: white;font-size: x-large;padding-top: 5%;">Favourite Events</h2>
+              </ion-text>
+            </ion-col>
+            <ion-col size = "3">
+              <ion-item> <ion-input name = "favouriteEvents" [(ngModel)] = "additionalInfoInput.favouriteEvents" type = "text" placeholder="Ex. Cooking, Bowling, Music Night"></ion-input></ion-item>
+            </ion-col>
+            <ion-col size = "1.5"></ion-col>
+          </ion-row>
+
+          <ion-row>
+            <hr>
+          </ion-row>
+
+          <ion-row>
+            <ion-col size = "1.5"></ion-col>
+            <ion-col size = "1">
+              <ion-text >
+                <h2 style="color: white;font-size: x-large;padding-top: 5%;">Needs To Be met</h2>
+              </ion-text>
+            </ion-col>
+            <ion-col size = "3">
+              <ion-item> <ion-input name ="needsToBeMet" [(ngModel)] = "additionalInfoInput.needsToBeMet" type = "text" placeholder="Ex. I need to have a helper to explain things to me"></ion-input></ion-item>
+            </ion-col>
+            <ion-col size = "1"></ion-col>
+            <ion-col size = "1">
+              <ion-text>
+                <h2 style="color: white;font-size: x-large;padding-top: 5%;">Additional Comments</h2>
+              </ion-text>
+            </ion-col>
+            <ion-col size = "3">
+              <ion-item> <ion-input name = "additionalComments" [(ngModel)] = "additionalInfoInput.additionalComments" type = "text" placeholder="Ex. I struggle with making friends, but want to get better!"></ion-input></ion-item>
+            </ion-col>
+            <ion-col size = "1.5"></ion-col>
+          </ion-row>
+
+          <ion-row>
+            <hr>
+          </ion-row>
+
+          <ion-row>
+            <ion-col size = "1.5"></ion-col>
+            <ion-col size = "1">
+              <ion-text >
+                <h2 style="color: white;font-size: x-large;padding-top: 5%;">Emergency Contact Name</h2>
+              </ion-text>
+            </ion-col>
+            <ion-col size = "3">
+              <ion-item> <ion-input name ="emergencyContactName" [(ngModel)] = "additionalInfoInput.emergencyContactName" type = "text" placeholder="Ex. Alec Forresster"></ion-input></ion-item>
+            </ion-col>
+            <ion-col size = "1"></ion-col>
+            <ion-col size = "1">
+              <ion-text>
+                <h2 style="color: white;font-size: x-large;padding-top: 5%;">Emergency Contact Relation</h2>
+              </ion-text>
+            </ion-col>
+            <ion-col size = "3">
+              <ion-item> <ion-input name = "emergencyContactRelation" [(ngModel)] = "additionalInfoInput.emergencyContactRelation" type = "text" placeholder="Ex. Mother"></ion-input></ion-item>
+            </ion-col>
+            <ion-col size = "1.5"></ion-col>
+          </ion-row>
+
+          <ion-row>
+            <hr>
+          </ion-row>
+
+          <ion-row>
+            <ion-col size = "1.5"></ion-col>
+            <ion-col size = "1">
+              <ion-text >
+                <h2 style="color: white;font-size: x-large;padding-top: 5%;">Emergency Contact #</h2>
+              </ion-text>
+            </ion-col>
+            <ion-col size = "3">
+              <ion-item> <ion-input name ="emergencyContactPhoneNumber" [(ngModel)] = "additionalInfoInput.emergencyContactPhoneNumber" type = "text" placeholder="Ex. 905-737-9159"></ion-input></ion-item>
+            </ion-col>
+            <ion-col size = "1"></ion-col>
+            <ion-col size = "1">
+              <ion-text>
+                <h2 style="color: white;font-size: x-large;padding-top: 5%;">Special Needs or Conditions</h2>
+              </ion-text>
+            </ion-col>
+            <ion-col size = "3">
+              <ion-item> <ion-input name ="specialNeeds" [(ngModel)] = "additionalInfoInput.specialNeeds" type = "text" placeholder="ADHD"></ion-input></ion-item>
+            </ion-col>
+            <ion-col size = "1.5"></ion-col>
+          </ion-row>
+
+          <ion-row>
+            <hr>
+          </ion-row>
+        </ion-grid> 
+      </form>
+    </ion-item>
+  </ion-card-content>
+
+</ion-card>

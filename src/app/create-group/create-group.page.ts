@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { SpringConnectService } from '../spring-connect.service';
 import { EmailGroup } from 'src/assets/interfaces/emailGroup';
+import { ViewWillEnter } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-group',
   templateUrl: './create-group.page.html',
   styleUrls: ['./create-group.page.scss'],
 })
-export class CreateGroupPage implements OnInit {
+export class CreateGroupPage implements OnInit, ViewWillEnter {
 
   bannerInfo:string;
   jwt:string;
@@ -32,10 +33,8 @@ export class CreateGroupPage implements OnInit {
   };
   constructor(private sConnect:SpringConnectService) { }
 
-  ngOnInit() {
+  refreshData(){
     this.sConnect.jwtObs.subscribe(data => {this.jwt = data});
-    //testConnection
-    //if (this.jwt != null &&  this.jwt.length>0){
       this.sConnect.getAllRoles().subscribe(
         data =>{this.roles = data; console.log(data)},
         error => {
@@ -43,6 +42,12 @@ export class CreateGroupPage implements OnInit {
         }
       )
     //}
+  }
+  ionViewWillEnter(): void {
+    this.refreshData()
+  }
+  ngOnInit() {
+  this.refreshData()
   }
 
   isUserInList(user, list) {
@@ -57,7 +62,7 @@ export class CreateGroupPage implements OnInit {
   addUserToList(user, list) {
     
     list.push(user);
-    let item = document.getElementById(user.name + user.id);
+    let item = document.getElementById(user.personalInfo.name + user.id);
     item.parentNode.removeChild(item)
 
   }
@@ -100,17 +105,17 @@ export class CreateGroupPage implements OnInit {
 
   validateSpecialFriendsAndAccounts(item){
     let newSFNAcc = [];
+    let newSpecialFriend = [];
     for(let i = 0; i < item.SFNAccounts.length;i++){
       let user = item.SFNAccounts[i];
-        if(!document.getElementById(user.id + user.name).classList.contains('striker')){
-          console.log(user.name + " Does not contain a strikeout.")
+        if(!document.getElementById(user.id + user.personalInfo.name).classList.contains('striker')){
           newSFNAcc.push(JSON.parse('{"id":' + user.id + '}'));
         }
     }
     for(let i = 0; i < item.specialFriends.length;i++){
       let user = item.specialFriends[i];
-        if(document.getElementById(user.id + user.name).classList.contains('striker')){
-          item.roles.specialFriends.split(i, 1)
+        if(!document.getElementById(user.id + user.personalInfo.name).classList.contains('striker')){
+          newSpecialFriend.push(JSON.parse('{"id":' + user.id + '}'));
         }
     }
     let tempItem: EmailGroup = {
@@ -119,7 +124,7 @@ export class CreateGroupPage implements OnInit {
       name: item.name,
       roles: item.roles,
       SFNAccounts: newSFNAcc,
-      specialFriends: item.specialFriends,
+      specialFriends: newSpecialFriend,
     };
     return tempItem;
   }
@@ -138,7 +143,7 @@ this.curItem = {
   }
 
   toggleUser(user) {
-    document.getElementById(user.id + user.name).classList.toggle('striker');
+    document.getElementById(user.id + user.personalInfo.name).classList.toggle('striker');
   }
 
   search() {

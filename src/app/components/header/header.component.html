@@ -9,16 +9,16 @@
 
       <ion-grid style = "padding: 0px;">
         <ion-row style="text-align: center;">
-          <ion-col class = "headerText"><ion-text [routerLink] = "['/']">HOME</ion-text></ion-col>
-          <ion-col class = "headerText"><ion-text  [routerLink] = "['/events']">EVENTS</ion-text></ion-col>
+          <ion-col class = "headerText" [routerLink] = "['/']"><ion-text >HOME</ion-text></ion-col>
+          <ion-col class = "headerText" [routerLink] = "['/events']"><ion-text  >EVENTS</ion-text></ion-col>
           <ion-col class = "headerText"><ion-text [routerLink]>GALLERY</ion-text></ion-col>
           <ion-col class = "headerText"><ion-text [routerLink]>VOLUNTEERS</ion-text></ion-col>
           <ion-col class = "headerText"><ion-text [routerLink]>SPOTLIGHT</ion-text></ion-col>
           <ion-col class = "headerText"><ion-text [routerLink]>SUPPORTERS</ion-text></ion-col>
           <ion-col class = "headerText"><ion-text [routerLink]>ABOUT US</ion-text></ion-col>
           <ion-col class = "headerText"><ion-text [routerLink]>CONTACT</ion-text></ion-col>
-          <ion-col class = "headerText" *ngIf = "jwt.length > 0"><ion-text [routerLink] = "['/login']">ACCOUNT</ion-text></ion-col>
-          <ion-col class = "headerText" *ngIf = "jwt.length == 0"><ion-text [routerLink] = "['/login']">LOG IN</ion-text></ion-col>
+          <ion-col class = "headerText" *ngIf = "jwt.length > 0" [routerLink] = "['/login']"><ion-text >ACCOUNT</ion-text></ion-col>
+          <ion-col class = "headerText" *ngIf = "jwt.length == 0" [routerLink] = "['/login']"><ion-text >LOG IN</ion-text></ion-col>
         </ion-row>
       </ion-grid>
 

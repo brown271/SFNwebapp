@@ -1,0 +1,121 @@
+<app-header></app-header>
+<ion-content color = "light">
+    <div *ngIf = "modalBody.length > 0" id="modal" class="modal" (click)="closeModal()" style="text-align: center;">
+        <div>
+          <div class="modal-content">
+            <div id="modal-header" [style.background-color]="modalColor">
+              <h1 id="modal-header-text">{{modalHeader}}</h1>
+            </div>
+            <br><br>
+            <div id="modal-body">
+              <p id="modal-body-desc" *ngFor="let info of modalBody">{{info}}</p>
+             
+            </div>
+            <div id="modal-footer">
+              <p  (click)="closeModal()"><b>CLOSE</b></p>
+            </div>
+            <p id="nameTarget"></p>
+          </div>
+        </div>
+      </div>
+    <app-lostuser [jwt] = "jwt"> </app-lostuser>
+    <ion-grid >
+        <ion-row *ngIf = "formData.type == undefined">
+            <ion-col size = "12" *ngIf = "this.editableRoles != undefined">
+                <ion-grid>
+                    <ion-row><hr></ion-row>
+                    <ion-row><hr></ion-row>
+                    <ion-row><hr></ion-row>
+                    <ion-row><hr></ion-row>
+                    <ion-row style=" text-align: center;">
+                        
+                        <ion-col size = "12">
+                            <ion-text style=" text-align: center;">
+                                <h1 style="color: #F08000;font-size: 500%;">Select A Type of Account to Make </h1>
+                            </ion-text>
+                        </ion-col>
+                        
+                   </ion-row>
+                   <ion-row>
+                    <ion-col ></ion-col>
+                    <ion-col size = "2">
+                        <ion-img src = "../../assets/images/sf.png"> </ion-img>
+                        <hr>
+                        <ion-button size = "large" expand="block" color = "alexorang" *ngIf = "isUserAbleToCreate('SPECIAL_FRIEND')"(click) = "makeNewSpecialFriend()">Special Friend</ion-button>
+                    </ion-col>
+                    <ion-col ></ion-col>
+                    <ion-col size = "2">
+                        <ion-img src = "../../assets/images/admin.png"> </ion-img>
+                        <hr>
+                        <ion-button size = "large" expand="block"  color = "alexorang" *ngIf = "isUserAbleToCreate('ADMIN')"(click) = "makeNewAdmin()">Admin</ion-button>
+                    </ion-col>
+                    <ion-col ></ion-col>
+                    <ion-col size = "2">
+                        <ion-img src = "../../assets/images/teammember.png"> </ion-img>
+                        <hr>
+                        <ion-button size = "large" expand="block"  color = "alexorang" *ngIf = "isUserAbleToCreate('TEAM_MEMBER')"(click) = "makeNewTeamMember()">Team Member</ion-button>
+                    </ion-col>
+                    <ion-col ></ion-col>
+                    <ion-col size = "2">
+                        <ion-img src = "../../assets/images/volunteer.png"> </ion-img>
+                        <hr>
+                        <ion-button size = "large" expand="block"  color = "alexorang" *ngIf = "isUserAbleToCreate('VOLUNTEER')"(click) = "makeNewVolunteer()">Volunteer</ion-button>
+                    </ion-col>
+                    <ion-col ></ion-col>
+                   </ion-row>
+                </ion-grid>
+               
+                
+                
+                
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf = "formData.type != undefined">
+            <ion-col size = "12">
+                <ion-item color = "bradleyblue">
+                    <ion-grid>
+                        <ion-row *ngIf = "formData.function == 'CREATE'">
+                            <ion-col size = "10">
+                                <ion-text>
+                                    <h1>Currently Creating a {{formData.type}}</h1> 
+                                </ion-text>
+                            </ion-col>
+                            <ion-col size = "2">
+                                <ion-button (click) = "create()" size="large" expand = "block">SUBMIT</ion-button>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row *ngIf = "formData.function == 'EDIT'">
+                            <ion-col size = "10">
+                                <ion-text>
+                                    <h1>Currently Editing a {{formData.type}}</h1> 
+                                </ion-text>
+                            </ion-col>
+                            <ion-col size = "2">
+                                <ion-button (click) = "edit()" size="large" expand = "block">SUBMIT</ion-button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row  *ngIf = "formData.type != undefined">
+            <ion-col size = "12">
+                
+                
+               
+                <app-special-friend-form [specialFriendInput]="formData.specialFriendInfo" *ngIf = "formData.specialFriendInfo != undefined"></app-special-friend-form>
+                <app-account [accountFormInput] = "formData.account" *ngIf = "formData.account != undefined"></app-account>
+                <app-personal-info [personalInfoInput]="formData.personalInfo" *ngIf = "formData.account == undefined && formData.personalInfo != undefined"></app-personal-info>
+                <app-additional-info [additionalInfoInput] = "formData.additionalInfo" *ngIf = "formData.additionalInfo != undefined"></app-additional-info>
+                
+            </ion-col>
+            
+        </ion-row>
+        <ion-row size = "12">
+            <ion-col size = "12">
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    
+</ion-content>

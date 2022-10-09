@@ -11,9 +11,15 @@ export class SpringConnectService {
   jwt = new BehaviorSubject<string>("");
   jwtObs = this.jwt.asObservable();
   url = ""
+  formData = new BehaviorSubject<any>([]);
+  formDataObserver = this.formData.asObservable();
 
-  testTest(url){
-    return this.http.get(url);
+  updateFormData(formData){
+    this.formData.next(formData)
+  }
+
+  testTest(authHeader: HttpHeaders){
+    return this.http.get("/api/test/",{headers:authHeader});
   }
 
   updateJWT(newJWT){
@@ -68,7 +74,7 @@ export class SpringConnectService {
     return this.http.get(this.url + '/api/role/');
   }
 
-  deleteUserById(id:number){
+  deleteGroupById(id:number){
     return this.http.get(this.url + '/api/group/deleteById/' + id);
   }
 
@@ -80,6 +86,74 @@ export class SpringConnectService {
   addGroup(params){
     return this.http.post(this.url + '/api/group/add', params)
   }
+
+  getEditableRoles(authHeader: HttpHeaders){
+    return this.http.get(this.url + '/api/role/editableRolesInSession',{headers:authHeader})
+  }
+
+
+  addAdmin(params){
+    return this.http.post(this.url + '/api/admin/',params)
+  }
+  updateAdmin(params){
+    return this.http.put(this.url + '/api/admin/',params)
+  }
+  deleteAdminById(id){
+    return this.http.get(this.url + '/api/admin/deleteById/' + id)
+  }
+  getAdminById(id){
+    return this.http.get(this.url + '/api/admin/id/' + id)
+  }
+
+
+  addTeamMember(params){
+    return this.http.post(this.url + '/api/tm/',params)
+  }
+  updateTeamMember(params){
+    return this.http.put(this.url + '/api/tm/',params)
+  }
+  deleteTeamMemberById(id){
+    return this.http.get(this.url + '/api/tm/deleteById/' + id)
+  }
+  getTeamMemberById(id){
+    return this.http.get(this.url + '/api/tm/id/' + id)
+  }
+
+
+  addVolunteer(params){
+    return this.http.post(this.url + '/api/volunteer/',params)
+  }
+  updateVolunteer(params){
+    return this.http.put(this.url + '/api/volunteer/',params)
+  }
+  deleteVolunteerById(id){
+    return this.http.get(this.url + '/api/volunteer/deleteById/' + id)
+  }
+  getVolunteerById(id){
+    return this.http.get(this.url + '/api/volunteer/id/' + id)
+  }
+
+
+  addSpecialFriend(params){
+    return this.http.post(this.url + '/api/sf/',params)
+  }
+  updateSpecialFriend(params){
+    return this.http.put(this.url + '/api/sf/',params)
+  }
+  deleteSpecialFriendById(id){
+    return this.http.get(this.url + '/api/sf/deleteById/' + id)
+  }
+  getSpecialFriendById(id){
+    return this.http.get(this.url + '/api/sf/id/' + id)
+  }
+
+ 
+
+  
+
+  
+
+  
 
 
 }

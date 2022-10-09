@@ -1,0 +1,16 @@
+<ion-grid *ngIf = "jwt.length == 0">
+  <ion-row>
+    <ion-col size = "12" style="text-align: center;padding-top: 10%;">
+      <ion-text >
+       <h1 style = "font-size: 1100%; color: #333;" >?</h1>
+       
+      </ion-text>
+      <ion-text>
+       <p style = "font-size: larger; color: #555; font-style: italic;">How did you get here?</p>
+       <p style = "font-size: larger; color: #555; font-style: italic;">We can't find your access token...</p>
+       <p style = "font-size: larger; color: #555; font-style: italic;">If you have an account, please login again</p>
+       <ion-button size="large" color="success"  [routerLink] = "['']">Go Home</ion-button>
+      </ion-text>
+   </ion-col>
+  </ion-row>
+</ion-grid>

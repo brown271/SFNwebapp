@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { SpringConnectService } from '../spring-connect.service';
 import { EmailGroup } from '../../assets/interfaces/emailGroup'
+import { ViewWillEnter } from '@ionic/angular';
 
 @Component({
   selector: 'app-edit-groups',
   templateUrl: './edit-groups.page.html',
   styleUrls: ['./edit-groups.page.scss'],
 })
-export class EditGroupsPage implements OnInit {
+export class EditGroupsPage implements OnInit, ViewWillEnter {
 
   constructor(private sConnect: SpringConnectService) { }
 
@@ -35,7 +36,7 @@ export class EditGroupsPage implements OnInit {
   pageMax: number = 100000;
   roles: any = [];
 
-  ngOnInit() {
+  refreshData(){
     this.sConnect.jwtObs.subscribe(data => { this.jwt = data });
     this.sConnect.getEmailGroupByPage(this.page).subscribe(
       data => { this.emailList = data;  },
@@ -51,6 +52,12 @@ export class EditGroupsPage implements OnInit {
         this.bannerInfo = "Error 504: Can't find Database!"
       }
     )
+  }
+  ionViewWillEnter(): void {
+    this.refreshData();
+  }
+  ngOnInit() {
+    this.refreshData();
   }
 
   pickGroup(group) {
@@ -133,7 +140,7 @@ export class EditGroupsPage implements OnInit {
   }
 
   toggleUser(user) {
-    document.getElementById(user.id + user.name).classList.toggle('striker');
+    document.getElementById(user.id + user.personalInfo.name).classList.toggle('striker');
   }
 
   triggerConfirmModal(){
@@ -179,11 +186,12 @@ export class EditGroupsPage implements OnInit {
   compileCurrentGroup(item){
     //Compile sfn accounts into simpler data structure
     let newSFNAcc = [];
+    let newSpecialFriends = [];
     //go through sfn accounts
     for(let i = 0; i < item.SFNAccounts.length;i++){
       let user = item.SFNAccounts[i];
       //if the user is not striked out
-        if(!document.getElementById(user.id + user.name).classList.contains('striker')){
+        if(!document.getElementById(user.id + user.personalInfo.name).classList.contains('striker')){
           //add ONLY their id to the new SFNAccount list
           newSFNAcc.push(JSON.parse('{"id":' + user.id + '}'));
         }
@@ -192,9 +200,9 @@ export class EditGroupsPage implements OnInit {
     for(let i = 0; i < item.specialFriends.length;i++){
       let user = item.specialFriends[i];
       //if the user is striked out
-        if(document.getElementById(user.id + user.name).classList.contains('striker')){
+        if(!document.getElementById(user.id + user.personalInfo.name).classList.contains('striker')){
           //take them out of the specialFriendsList
-          item.roles.specialFriends.split(i, 1)
+          newSpecialFriends.push(JSON.parse('{"id":' + user.id + '}'));
         }
     }
     //create a clone of the current item and return it
@@ -204,7 +212,7 @@ export class EditGroupsPage implements OnInit {
       name: item.name,
       roles: item.roles,
       SFNAccounts: newSFNAcc,
-      specialFriends: item.specialFriends,
+      specialFriends: newSpecialFriends,
     };
     return tempItem;
   }
@@ -221,7 +229,7 @@ export class EditGroupsPage implements OnInit {
   addUserToList(user, list) {
     
     list.push(user);
-    let item = document.getElementById(user.name + user.id);
+    let item = document.getElementById(user.personalInfo.name + user.id);
     item.parentNode.removeChild(item)
 
   }
@@ -282,7 +290,7 @@ export class EditGroupsPage implements OnInit {
     this.openModal("#ffa550", "Delete?", ["Are you really sure you want to delete?"], false, true)
   }
   delete(){
-    this.sConnect.deleteUserById(this.curItem.id).subscribe(
+    this.sConnect.deleteGroupById(this.curItem.id).subscribe(
       (data:any) => {
         this.openModal("#32CD32", "Deleted Successfully", ["" + data.message], false, false)
         this.sConnect.getEmailGroupByPage(this.page).subscribe(

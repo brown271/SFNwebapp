@@ -16,15 +16,15 @@
             <div id ="modal-names-tm">
               <h3>Special Friends</h3>
               <ul style = "text-align: left;">
-                <li *ngIf = "curItem.sFriends.length == 0">No Friends...</li>
-                <li *ngFor="let friends of curItem.sFriends">{{friends.name}}</li>
+                <li *ngIf = "curItem.specialFriends.length == 0">No Friends...</li>
+                <li *ngFor="let friends of curItem.specialFriends">{{friends.personalInfo.name}}</li>
               </ul>
             </div>
             <div id ="modal-names-sf">
               <h3>SFN Members</h3>
               <ul style = "text-align: left;">
-                <li *ngIf = "curItem.sfAccounts.length == 0">No SFN Members...</li>
-                <li *ngFor="let accounts of curItem.sfAccounts">{{accounts.name}}</li>
+                <li *ngIf = "curItem.SFNAccounts.length == 0">No SFN Members...</li>
+                <li *ngFor="let accounts of curItem.SFNAccounts">{{accounts.personalInfo.name}}</li>
               </ul>
             </div>
           </div>
@@ -49,7 +49,7 @@
       <ion-col size ="4">
        
           <ion-card *ngFor = "let e of emailList" style = "margin-top: 16px;margin-bottom: 16px;">
-            <ion-card-header color = "purp">
+            <ion-card-header color = "genepurp">
                 <ion-grid style = "vertical-align: middle;">
                   <ion-row>
                     <ion-col>

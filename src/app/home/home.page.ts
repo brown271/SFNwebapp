@@ -4,13 +4,15 @@ import { SpringConnectService } from '../spring-connect.service';
 import { EmailGroup } from 'src/assets/interfaces/emailGroup';
 import { Role } from 'src/assets/interfaces/role';
 import { SpecialFriend } from 'src/assets/interfaces/specialFriend';
+import { ViewWillEnter } from '@ionic/angular';
+import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit, ViewWillEnter {
   jwt:string;
   url:string;
   role: Role = {
@@ -30,22 +32,23 @@ roles:this.roles,
 SFNAccounts:null,
 specialFriends:this.sfs,
   }
+
+  ionViewWillEnter(): void {
+    this.refreshData()
+  }
   ngOnInit() {
-    this.sConnect.jwtObs.subscribe(data => {this.jwt = data});
+   this.refreshData()
   }
   constructor(private sConnect: SpringConnectService) {}
 
-  
-  testConn(){
-    let authHeader = new HttpHeaders().set('Authorization',  'Bearer ' + this.jwt);
-    this.sConnect.testConnection(authHeader).subscribe(
-      (data:String) => console.log(data),
-      error => console.log(error)
-    )
+  refreshData(){
+    this.sConnect.jwtObs.subscribe(data => {this.jwt = data});
   }
+  
 
   test(){
-    this.sConnect.testTest(this.url).subscribe(
+    let authHeader = new HttpHeaders().set('Authorization',  'Bearer ' + this.jwt);
+    this.sConnect.testTest(authHeader).subscribe(
       data => console.log(data),
       error => console.log(error)
     )

@@ -1,0 +1,97 @@
+<ion-card color = "leaf">
+  <ion-card-header>
+    <ion-grid>
+      <ion-row>
+        <ion-col size = "2">
+          <ion-text style="text-align: left;">
+            <h1 style="color:white;padding-left: 5%;font-size: xx-large;padding-top: 5%;">Personal Info</h1>
+          </ion-text>
+        </ion-col>
+        <ion-col size = "10"></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-header>
+  <ion-card-content style="padding: 0px 4px 4px 4px;">
+    <ion-item color = "light-leaf">
+      <form style="width: 100%">
+        <ion-grid>
+          <ion-row>
+            <hr>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col size = "1.5"></ion-col>
+            <ion-col size = "1">
+              <ion-text >
+                <h2 style="color: white;font-size: x-large;padding-top: 5%;">First Name</h2>
+              </ion-text>
+            </ion-col>
+            <ion-col size = "3">
+              <ion-item> <ion-input name ="firstName" [(ngModel)] = "personalInfoInput.firstName" type = "text" placeholder="Ex. Joeseph"></ion-input></ion-item>
+            </ion-col>
+            <ion-col size = "1"></ion-col>
+            <ion-col size = "1">
+              <ion-text>
+                <h2 style="color: white;font-size: x-large;padding-top: 5%;">Last Name</h2>
+              </ion-text>
+            </ion-col>
+            <ion-col size = "3">
+              <ion-item> <ion-input name = "lastName" [(ngModel)] = "personalInfoInput.lastName" type = "text" placeholder="Ex. Malta"></ion-input></ion-item>
+            </ion-col>
+            <ion-col size = "1.5"></ion-col>
+          </ion-row>
+
+          <ion-row>
+            <hr>
+          </ion-row>
+
+          <ion-row >
+            <ion-col size = "1.5"></ion-col>
+            <ion-col size = "1">
+              <ion-text>
+                <h2 style="color: white;font-size: x-large;padding-top: 5%;">Phone Number</h2>
+              </ion-text>
+            </ion-col>
+            <ion-col size = "3">
+              <ion-item>  <ion-input name = "phoneNumber" [(ngModel)] = "personalInfoInput.phoneNumber" type = "text" placeholder="905-737-9159"></ion-input></ion-item>
+            </ion-col>
+            <ion-col size = "1"></ion-col>
+            <ion-col size = "1">
+              <ion-text>
+                <h2 style="color: white;font-size: x-large;padding-top: 5%;">Email</h2>
+              </ion-text>
+            </ion-col>
+            <ion-col size = "3">
+             <ion-item> <ion-input name = "email" [(ngModel)] = "personalInfoInput.email" type = "text" placeholder="JoesephMalta@hotmail.com"></ion-input></ion-item>
+            </ion-col>
+            <ion-col size = "1.5"></ion-col>
+          </ion-row>
+
+          <ion-row>
+            <hr>
+          </ion-row>
+
+          <ion-row>
+            <ion-col size = "1.5"></ion-col>
+            <ion-col size = "1">
+              <ion-text>
+                <h2 style="color: white;font-size: x-large;padding-top: 5%;">Birthday</h2>
+              </ion-text>
+            </ion-col>
+            <ion-col size = "8">
+             <ion-item> <ion-input name = "birthDate" [(ngModel)] = "personalInfoInput.birthDate" type = "date" ></ion-input></ion-item>
+            </ion-col>
+            <ion-col size = "1.5"></ion-col>
+          </ion-row>
+
+          <ion-row>
+            <hr>
+          </ion-row>
+
+        </ion-grid>
+      
+       
+      </form>
+    </ion-item>
+  </ion-card-content>
+</ion-card>

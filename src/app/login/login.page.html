@@ -14,11 +14,11 @@
          
           <h4 >Please Enter Username and Password:</h4>
           <app-error-banner [error] = "errorMsg"></app-error-banner>
-          <ion-item ><ion-input name = "username" color ="purp" placeholder="Username:" [(ngModel)] = "username"></ion-input></ion-item>
+          <ion-item ><ion-input name = "username" color ="genepurp" placeholder="Username:" [(ngModel)] = "username"></ion-input></ion-item>
           <hr>
-          <ion-item><ion-input  type = "password" name = "password" color ="purp" placeholder="Password:" [(ngModel)] = "password"></ion-input></ion-item>
+          <ion-item><ion-input  type = "password" name = "password" color ="genepurp" placeholder="Password:" [(ngModel)] = "password"></ion-input></ion-item>
           <hr>
-          <ion-button (click) = "login()" size="large" color="purp" expand="block">LOGIN</ion-button>
+          <ion-button (click) = "login()" size="large" color="genepurp" expand="block">LOGIN</ion-button>
         </form>
       </ion-col>
       <ion-col size = "1"></ion-col>
@@ -66,13 +66,15 @@
         <ion-text>
           <h1>Welcome!</h1>
         </ion-text>
-        <ion-button size="large" color="purp" expand="block" [routerLink] = "['/send-emails']">SEND EMAILS</ion-button>
+        <ion-button size="large" color="genepurp" expand="block" [routerLink] = "['/send-emails']">SEND EMAILS</ion-button>
         <hr>
-        <ion-button size="large"  color="warning" expand="block" [routerLink] = "['/create-group']">CREATE EMAIL GROUPS</ion-button>
+        <ion-button size="large"  color="alexorang" expand="block" [routerLink] = "['/create-group']">CREATE EMAIL GROUPS</ion-button>
         <hr>
         <ion-button size="large" color="danger" expand="block" [routerLink] = "['/edit-groups']">EDIT EMAIL GROUPS</ion-button>
         <hr>
-        <ion-button size="large" color="success" expand="block">CREATE MEMBERS</ion-button>
+        <ion-button size="large" color="bradleyblue" expand="block" [routerLink] = "['/register-members']">REGISTER MEMBERS</ion-button>
+        <hr>
+        <ion-button size="large" color="success" expand="block" [routerLink] = "['/search-accounts']">EDIT ACCOUNTS</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

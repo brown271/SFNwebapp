@@ -1,0 +1,149 @@
+<app-header></app-header>
+
+<ion-content color="light">
+  <app-lostuser [jwt] = "jwt"></app-lostuser>
+  <div *ngIf = "modalBody.length > 0" id="modal" class="modal" (click)="closeModal()" style="text-align: center;">
+    <div >
+      <div class="modal-content">
+        <div id="modal-header" [style.background-color]="modalColor">
+          <h1 id="modal-header-text">{{modalHeader}}</h1>
+        </div>
+        <br><br>
+        <div id="modal-body">
+          <p id="modal-body-desc" *ngFor="let info of modalBody">{{info}}</p>
+          <div *ngIf = "isConfirmModal">
+            <ion-button (click) = "deleteUser(currentUser)">Delete</ion-button>
+            <ion-button (click) = "closeModal()">Cancel</ion-button>
+          </div>
+         
+        </div>
+        <div id="modal-footer">
+          <p *ngIf = "!isConfirmModal" (click)="closeModal()"><b>CLOSE</b></p>
+        </div>
+        <p id="nameTarget"></p>
+      </div>
+    </div>
+  </div>
+  <ion-grid *ngIf = "jwt.length > 0">
+    <ion-row><hr></ion-row>
+    <ion-row>
+      <ion-col size = "12" >
+        <ion-item  color="light-genepurp">
+      
+          <ion-col size = "9" >
+         
+            <ion-searchbar  animated="true" [(ngModel)] = "searchKey" placeholder="enter a name to search"></ion-searchbar>
+  
+         
+        </ion-col>
+        <ion-col>
+          <ion-button *ngIf = "jwt.length > 0" color = "genepurp" (click) = "search(searchKey)" size="large" expand="block">Search</ion-button>
+        </ion-col>
+        </ion-item>
+      </ion-col>
+      
+      
+    </ion-row>
+    <ion-row *ngIf = "searchResults.length == 0 || searchResults.Message != null">
+      <hr>
+    </ion-row>
+    <ion-row *ngIf = "searchResults.length == 0 || searchResults.Message != null" >
+      <ion-col size = "12" style="text-align: center;padding-top: 10%;">
+         <ion-text >
+          <h1 style = "font-size: 1100%; color: #333;" >:(</h1>
+          
+         </ion-text>
+         <ion-text>
+          <p style = "font-size: larger; color: #555; font-style: italic;">Looks like there's no search results yet...</p>
+          <p style = "font-size: larger; color: #555; font-style: italic;">Try searching for something</p>
+         </ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf = "searchResults.SFNAccounts != undefined || searchResults.specialFriends != undefined ">
+      <ion-col *ngFor = "let item of searchResults.SFNAccounts" size = "6">
+        <ion-card color = "light-leaf" style="text-align: center;">
+          <ion-card-header color = "leaf">
+
+          </ion-card-header>
+          <ion-grid>
+            <ion-row>
+              <ion-text>
+                <p style="display:inline-block" >
+                  {{item.role.roleName}} 
+                </p>
+              </ion-text></ion-row>
+            <ion-row>
+              <ion-col size = "12">
+                <ion-text>
+                  <h1 style = "color:white" style="font-size: 380%;">{{item.personalInfo.name}}</h1>
+                </ion-text>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col (click) = "displayAccount(item)" size = "12">
+                <ion-text>
+                  <h1  style = "color:white" style="font-size: 200%;">more info...</h1>
+                </ion-text>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf = "isItemEditable(item)" >
+              <ion-col size = "2"></ion-col>
+              <ion-col>
+                <ion-button (click) = "updateUser(item,item.role.roleName)" size="large" expand="block">EDIT</ion-button>
+              </ion-col>
+              <ion-col size = "2"></ion-col>
+                <ion-col>
+                  <ion-button (click) = "openDeleteModal(item)" size="large" expand="block">DELETE</ion-button>
+                </ion-col>
+              <ion-col size = "2"></ion-col>
+            </ion-row>
+          </ion-grid>
+      </ion-card>
+      </ion-col>
+
+      <ion-col *ngFor = "let item of searchResults.specialFriends" size = "6">
+        <ion-card color = "light-leaf" style="text-align: center;">
+          <ion-card-header color = "leaf">
+
+          </ion-card-header>
+          <ion-grid>
+            <ion-row>
+              <ion-text>
+                <p style="display:inline-block" >
+                  SPECIAL_FRIEND
+                </p>
+              </ion-text></ion-row>
+            <ion-row>
+              <ion-col size = "12">
+                <ion-text>
+                  <h1 style = "color:white" style="font-size: 380%;">{{item.personalInfo.name}}</h1>
+                </ion-text>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col (click) = "displaySpecialFriend(item)" size = "12">
+                <ion-text>
+                  <h1   style = "color:white" style="font-size: 200%;">more info...</h1>
+                </ion-text>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size = "2"></ion-col>
+              <ion-col>
+                <ion-button (click) = "updateUser(item,'SPECIAL_FRIEND')" size="large" expand="block">EDIT</ion-button>
+              </ion-col>
+              <ion-col size = "2"></ion-col>
+                <ion-col>
+                  <ion-button (click) = "openDeleteModal(item)" size="large" expand="block">DELETE</ion-button>
+                </ion-col>
+              <ion-col size = "2"></ion-col>
+            </ion-row>
+          </ion-grid>
+      </ion-card>
+      </ion-col>
+      
+    </ion-row>
+
+  </ion-grid>
+  
+</ion-content>
