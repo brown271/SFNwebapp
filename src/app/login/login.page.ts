@@ -195,8 +195,8 @@ export class LoginPage implements OnInit, ViewWillEnter {
       func2:() => {this.router.navigate(['edit-groups'])},
       desc1: "Create Groups",
       desc2: "Edit Groups",
-      img1: "../../assets/images/CGroup.png",
-      img2: "../../assets/images/EGroup.png",
+      img1: "CGroup.png",
+      img2: "EGroup.png",
       c1: "genepurp",
       c2: "genepurp"
     })
@@ -210,8 +210,8 @@ export class LoginPage implements OnInit, ViewWillEnter {
       func2:() => {this.router.navigate(['search-accounts'])},
       desc1: "Create Accounts",
       desc2: "Edit Accounts",
-      img1: "../../assets/images/CAccount.png",
-      img2: "../../assets/images/EAccount.png",
+      img1: "CAccount.png",
+      img2: "EAccount.png",
       c1: "alexorang",
       c2: "alexorang"
     })
@@ -225,8 +225,8 @@ export class LoginPage implements OnInit, ViewWillEnter {
       func2:() => {this.router.navigate(['search-events'])},
       desc1: "Create Events",
       desc2: "Edit Events",
-      img1: "../../assets/images/CEvent.png",
-      img2: "../../assets/images/EEvent.png",
+      img1: "CEvent.png",
+      img2: "EEvent.png",
       c1: "bradleyblue",
       c2: "bradleyblue"
     })
