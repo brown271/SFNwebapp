@@ -19,12 +19,10 @@
         </div>
       </div>
     <app-lostuser [jwt] = "jwt"> </app-lostuser>
-    <ion-grid >
+    <ion-grid id = "mainForm">
         <ion-row *ngIf = "formData.type == undefined">
             <ion-col size = "12" *ngIf = "this.editableRoles != undefined">
                 <ion-grid>
-                    <ion-row><hr></ion-row>
-                    <ion-row><hr></ion-row>
                     <ion-row><hr></ion-row>
                     <ion-row><hr></ion-row>
                     <ion-row style=" text-align: center;">
@@ -38,28 +36,28 @@
                    </ion-row>
                    <ion-row>
                     <ion-col ></ion-col>
-                    <ion-col size = "2">
-                        <ion-img src = "../../assets/images/sf.png"> </ion-img>
+                    <ion-col size = "2" *ngIf = "isUserAbleToCreate('SPECIAL_FRIEND')">
+                        <ion-img src = "sf.png"> </ion-img>
                         <hr>
-                        <ion-button size = "large" expand="block" color = "alexorang" *ngIf = "isUserAbleToCreate('SPECIAL_FRIEND')"(click) = "makeNewSpecialFriend()">Special Friend</ion-button>
+                        <ion-button (click) = "makeNewSpecialFriend()" color = "alexorang" size = "large" expand="block">Special Friend</ion-button>
                     </ion-col>
                     <ion-col ></ion-col>
-                    <ion-col size = "2">
-                        <ion-img src = "../../assets/images/admin.png"> </ion-img>
+                    <ion-col size = "2" *ngIf = "isUserAbleToCreate('ADMIN')">
+                        <ion-img src = "admin.png"> </ion-img>
                         <hr>
-                        <ion-button size = "large" expand="block"  color = "alexorang" *ngIf = "isUserAbleToCreate('ADMIN')"(click) = "makeNewAdmin()">Admin</ion-button>
+                        <ion-button (click) = "makeNewAdmin()"  size = "large" expand="block"  color = "alexorang">Admin</ion-button>
                     </ion-col>
                     <ion-col ></ion-col>
-                    <ion-col size = "2">
-                        <ion-img src = "../../assets/images/teammember.png"> </ion-img>
+                    <ion-col size = "2" *ngIf = "isUserAbleToCreate('TEAM_MEMBER')">
+                        <ion-img src = "teammember.png"> </ion-img>
                         <hr>
-                        <ion-button size = "large" expand="block"  color = "alexorang" *ngIf = "isUserAbleToCreate('TEAM_MEMBER')"(click) = "makeNewTeamMember()">Team Member</ion-button>
+                        <ion-button (click) = "makeNewTeamMember()"  size = "large" expand="block"  color = "alexorang">Team Member</ion-button>
                     </ion-col>
                     <ion-col ></ion-col>
-                    <ion-col size = "2">
-                        <ion-img src = "../../assets/images/volunteer.png"> </ion-img>
+                    <ion-col size = "2" *ngIf = "isUserAbleToCreate('VOLUNTEER')"> 
+                        <ion-img src = "volunteer.png"> </ion-img>
                         <hr>
-                        <ion-button size = "large" expand="block"  color = "alexorang" *ngIf = "isUserAbleToCreate('VOLUNTEER')"(click) = "makeNewVolunteer()">Volunteer</ion-button>
+                        <ion-button (click) = "makeNewVolunteer()" size = "large" expand="block"  color = "alexorang">Volunteer</ion-button>
                     </ion-col>
                     <ion-col ></ion-col>
                    </ion-row>
@@ -100,16 +98,11 @@
         </ion-row>
         <ion-row  *ngIf = "formData.type != undefined">
             <ion-col size = "12">
-                
-                
-               
                 <app-special-friend-form [specialFriendInput]="formData.specialFriendInfo" *ngIf = "formData.specialFriendInfo != undefined"></app-special-friend-form>
                 <app-account [accountFormInput] = "formData.account" *ngIf = "formData.account != undefined"></app-account>
                 <app-personal-info [personalInfoInput]="formData.personalInfo" *ngIf = "formData.account == undefined && formData.personalInfo != undefined"></app-personal-info>
                 <app-additional-info [additionalInfoInput] = "formData.additionalInfo" *ngIf = "formData.additionalInfo != undefined"></app-additional-info>
-                
             </ion-col>
-            
         </ion-row>
         <ion-row size = "12">
             <ion-col size = "12">

@@ -2,6 +2,7 @@
     text-decoration: line-through;
 }
 
+
 .body{
     background-color: #ffca22;
 }
@@ -24,6 +25,8 @@
     padding: 32px;
     border: 1px solid #333;
     width: 60%;
+    border-radius: 15px;
+    box-shadow: 9px 10px #555555ff;
 }
 #modal-header{
     margin: 0px 0px 0px -32px;

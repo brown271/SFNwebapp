@@ -1,0 +1,214 @@
+<app-header></app-header>
+<app-error-banner [error]="bannerInfo"></app-error-banner>
+
+<ion-content>
+  <app-lostuser [jwt] = "jwt"></app-lostuser>
+
+  <div *ngIf = "modalBody.length > 0" id="modal" class="modal" (click)="closeModal()" style="text-align: center;">
+    <div >
+      <div class="modal-content">
+        <div id="modal-header" [style.background-color]="modalColor">
+          <h1 id="modal-header-text">{{modalHeader}}</h1>
+        </div>
+        <br><br>
+        <div id="modal-body">
+          <p id="modal-body-desc" *ngFor="let info of modalBody">{{info}}</p>
+          <div *ngIf = "isConfirmModal && !isDeleteConfirmModal">
+            <ion-button (click) = "saveChanges()">Update</ion-button>
+            <ion-button (click) = "closeModal()">Cancel</ion-button>
+          </div>
+          <div *ngIf = "isDeleteConfirmModal && !isConfirmModal ">
+            <ion-button (click) = "delete()">Delete</ion-button>
+            <ion-button (click) = "closeModal()">Cancel</ion-button>
+          </div>
+         
+        </div>
+        <div id="modal-footer">
+          <p *ngIf = "!isConfirmModal" (click)="closeModal()"><b>CLOSE</b></p>
+        </div>
+        <p id="nameTarget"></p>
+      </div>
+    </div>
+  </div>
+  
+<form>
+  <ion-grid  *ngIf = "jwt.length > 0" id ="mainForm" >
+    <ion-card color ="bradleyblue">
+      <ion-card-header style="text-align:center;">
+        <ion-text>
+          <h1 *ngIf ="formData.id != null" style="font-weight:bolder;font-size: xx-large;color: white;">Editing an Event</h1>
+          <h1 *ngIf ="formData.id == null" style="font-weight:bolder;font-size: xx-large;color: white;">Creating an Event</h1>
+        </ion-text>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <hr>
+            </ion-row>
+            <ion-row>
+              <ion-col size = "2"></ion-col>
+              <ion-col size ="1.5" style="text-align:left; font-weight: bold;">
+                <ion-text >
+                  <p style="padding-top:10%"> Event Name*</p>
+                </ion-text>
+              </ion-col>
+              <ion-col size ="6.5">
+                <ion-item>
+                <ion-input placeholder ="Bowling Thursday" type = "text" name = "name" [(ngModel)] = "formData.name"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size = "2"></ion-col>
+            </ion-row>
+        
+            <ion-row>
+              <ion-col size = "2"></ion-col>
+              <ion-col size ="1.5" style="text-align:left; font-weight: bold;">
+                <ion-text >
+                  <p style="padding-top:10%">Event Description</p>
+                </ion-text>
+              </ion-col>
+              <ion-col size ="6.5">
+                <ion-item>
+                <ion-input placeholder ="We all gather at pro bowl for a great time" type = "text" name = "description" [(ngModel)] = "formData.description"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size = "2"></ion-col>
+            </ion-row>
+        
+            <ion-row>
+              <ion-col size = "2"></ion-col>
+              <ion-col size ="1.5" style="text-align:left; font-weight: bold;">
+                <ion-text >
+                  <p style="padding-top:10%">Event Date*</p>
+                </ion-text>
+              </ion-col>
+              <ion-col size ="6.5">
+                <ion-item>
+                <ion-input placeholder ="Bowling Thursday!" type = "date" name = "date" [(ngModel)] = "formData.date"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size = "2"></ion-col>
+            </ion-row>
+        
+            <ion-row>
+              <ion-col size = "2"></ion-col>
+              <ion-col size ="1.5" style="text-align:left; font-weight: bold;">
+                <ion-text >
+                  <p style="padding-top:10%">Event Time*</p>
+                </ion-text>
+              </ion-col>
+              <ion-col size ="6.5">
+                <ion-item>
+                <ion-input placeholder ="" type = "time" name = "time" [(ngModel)] = "formData.time"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size = "2"></ion-col>
+            </ion-row>
+        
+            <ion-row>
+                <ion-col size = "2"></ion-col>
+                <ion-col size ="1.5" style="text-align:left; font-weight: bold;">
+                  <ion-text >
+                    <p style="padding-top:10%">Event Type*</p>
+                  </ion-text>
+                </ion-col>
+                <ion-col size ="3.5">
+                 <ion-button  *ngIf = "formData.isOnline"  style = "border:4px solid #054b68;border-radius: 8px;" color ="bradleyblue" size = "large" expand="block">ONLINE</ion-button>
+                 <ion-button (click) = "swapType()" *ngIf = "!formData.isOnline"   color ="bradleyblue" size = "large" expand="block">ONLINE</ion-button>
+                </ion-col>
+                <ion-col size ="3.5">
+                  <ion-button (click) = "swapType()" *ngIf = "formData.isOnline" color ="bradleyblue" size = "large" expand="block">IN-PERSON</ion-button>
+                  <ion-button  *ngIf = "!formData.isOnline" style = "border:4px solid #054b68;border-radius: 8px;" color ="bradleyblue" size = "large" expand="block">IN-PERSON</ion-button>
+                 </ion-col>
+                <ion-col size = "1"></ion-col>
+            </ion-row>
+        
+            <ion-row>
+              <ion-col size = "2"></ion-col>
+              <ion-col size ="1.5" style="text-align:left; font-weight: bold;">
+                <ion-text >
+                  <p *ngIf = "formData.isOnline" style="padding-top:10%">Event Link*</p>
+                  <p *ngIf = "!formData.isOnline" style="padding-top:10%">Event Link</p>
+                </ion-text>
+              </ion-col>
+              <ion-col size ="6.5">
+                <ion-item>
+                <ion-input placeholder ="https://www.zoommeeting.com/meeting/meetingId=?ezJshqdndkwlt" type = "text" name = "linkToEvent" [(ngModel)] = "formData.linkToEvent"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size = "2"></ion-col>
+            </ion-row>
+        
+            <ion-row>
+              <ion-col size = "2"></ion-col>
+              <ion-col size ="1.5" style="text-align:left; font-weight: bold;">
+                <ion-text >
+                  <p *ngIf = "!formData.isOnline" style="padding-top:10%">Event Address*</p>
+                  <p *ngIf = "formData.isOnline" style="padding-top:10%">Event Address</p>
+                </ion-text>
+              </ion-col>
+              <ion-col size ="6.5">
+                <ion-item>
+                <ion-input placeholder ="230 Shaftsbury Ave" type = "text" name = "address" [(ngModel)] = "formData.address"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size = "2"></ion-col>
+            </ion-row>
+        
+            <ion-row>
+              <ion-col size = "2"></ion-col>
+              <ion-col size ="1.5" style="text-align:left; font-weight: bold;">
+                <ion-text >
+                  <p  style="padding-top:10%">Event Host</p>
+                </ion-text>
+              </ion-col>
+              <ion-col size ="6.5">
+                <ion-item>
+                <ion-input placeholder ="Pro Bowl" type = "text" name = "host" [(ngModel)] = "formData.host"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size = "2"></ion-col>
+            </ion-row>
+            <ion-row>
+              <hr>
+            </ion-row>
+            <ion-row>
+              <hr>
+            </ion-row>
+        
+            <ion-row>
+           
+              <ion-col size = "2.5"></ion-col>
+              
+              <ion-col *ngIf = "formData.id == null">
+               <ion-button  (click) = "createEvent()"  color ="alexorang" size = "large" expand="block">CREATE EVENT</ion-button>
+              </ion-col>
+              <ion-col *ngIf = "formData.id == null">
+                <ion-button  (click) = "clearData()" color ="alexorang" size = "large" expand="block">CLEAR FORM DATA</ion-button>
+               </ion-col>
+             
+               <ion-col *ngIf = "formData.id != null">
+                <ion-button (click) = "openConfirm()" color ="alexorang" size = "large" expand="block">SAVE CHANGES</ion-button>
+               </ion-col>
+               <ion-col *ngIf = "formData.id != null">
+                 <ion-button  (click) = "openDeleteConfirm()" color ="alexorang" size = "large" expand="block">DELETE</ion-button>
+                </ion-col>
+            
+                <ion-col size = "2.5"></ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+    <ion-row>
+      <ion-col size = "12" > 
+       
+      </ion-col>
+      
+    </ion-row>
+   
+
+  </ion-grid>
+</form>
+</ion-content>

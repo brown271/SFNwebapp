@@ -8,6 +8,8 @@
   transform: translateY(-50%);
 }
 
+
+
 #container strong {
   font-size: 20px;
   line-height: 26px;
@@ -24,4 +26,60 @@
 
 #container a {
   text-decoration: none;
+}
+
+
+.marquee{
+  width: 80vw;
+  height: 20vh;
+  overflow: hidden;
+}
+
+.marquee-content{
+  list-style: none;
+  height: 100%;
+  display: flex;
+  animation: move-rtl 25s linear infinite;
+}
+
+.marquee-content li{
+  background-color: white;
+  border: 6px solid white;
+  width: 20vw;
+  height: 40vh;
+  flex-shrink: 0;
+ 
+  overflow: hidden;
+}
+
+img{
+ height: 100%;
+  width: 100%;
+  max-width: 200%;
+  object-fit: cover;
+  
+}
+
+.doublemarqueeImg{
+  width: 100%;
+}
+  /*  */
+  
+
+
+
+
+
+
+
+
+
+@keyframes move-rtl {
+  0%{
+    transform: translateX(0);
+  }
+
+  100%{
+    transform: translateX(calc(-1*20vw*9));
+  }
 }

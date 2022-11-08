@@ -27,7 +27,9 @@ export class SendEmailsPage implements OnInit, ViewWillEnter {
 
   currentGroup: any;
   refreshData(){
+    this.bannerInfo = "";
     this.sConnect.jwtObs.subscribe(data => {this.jwt = data});
+    this.sConnect.checkForJWTCookie();
     this.sConnect.getEmailGroupByPage(this.page).subscribe(
       data => {this.emailList = data;console.log(this.emailList)},
       error => {
@@ -80,16 +82,12 @@ export class SendEmailsPage implements OnInit, ViewWillEnter {
       )
     }
   }
-
+//
   openModal(item){
     let modal = document.getElementById('modal'); //show our modal
     modal.style.display = "block";
-    console.log("item:")
-    console.log(item)
     this.curItem = item
-   // document.getElementById('modal-header-text').innerHTML = header; //show header 
-    //document.getElementById('modal-body-desc').innerHTML = description; //show description
-    //make our body for both team members and special friends
+    document.getElementById("mainForm").classList.toggle("myopia");
 
   }
 
@@ -195,6 +193,7 @@ export class SendEmailsPage implements OnInit, ViewWillEnter {
     let modal = document.getElementById('modal');
     modal.style.display = "none";
     this.curItem = [];
+    document.getElementById("mainForm").classList.toggle("myopia");
   }
 
  

@@ -40,6 +40,14 @@ const routes: Routes = [
     path: 'search-accounts',
     loadChildren: () => import('./search-accounts/search-accounts.module').then( m => m.SearchAccountsPageModule)
   },
+  {
+    path: 'search-events',
+    loadChildren: () => import('./search-events/search-events.module').then( m => m.SearchEventsPageModule)
+  },
+  {
+    path: 'create-events',
+    loadChildren: () => import('./create-events/create-events.module').then( m => m.CreateEventsPageModule)
+  },
 ];
 
 @NgModule({

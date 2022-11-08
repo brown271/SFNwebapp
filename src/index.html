@@ -1,9 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<script>
+  console.log("yuh")
+  let secret = ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","KeyB","KeyA"]
+  var current = [];
+  document.addEventListener('keyup',(event) =>{
+    if(secret[current.length] == event.code){
+      current.push(secret[current.length]);
+    }
+    else{
+        current = [];
+      
+    }
+    if(current.length == 10){
+      document.getElementsByTagName("body")[0].classList.toggle("wacky");
+      current = []
+    }
+    
+  })
+</script>
 <head>
   <meta charset="utf-8" />
-  <title>Ionic App</title>
+  <title>The Special Friends Network</title>
 
   <base href="/" />
 
@@ -12,7 +30,7 @@
   <meta name="format-detection" content="telephone=no" />
   <meta name="msapplication-tap-highlight" content="no" />
 
-  <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
+  <link rel="icon" type="image/png" href="favcon.png" />
 
   <!-- add to homescreen for ios -->
   <meta name="apple-mobile-web-app-capable" content="yes" />

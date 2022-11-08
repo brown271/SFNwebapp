@@ -35,6 +35,8 @@ export class CreateGroupPage implements OnInit, ViewWillEnter {
 
   refreshData(){
     this.sConnect.jwtObs.subscribe(data => {this.jwt = data});
+    this.sConnect.checkForJWTCookie();
+    this.bannerInfo = "";
       this.sConnect.getAllRoles().subscribe(
         data =>{this.roles = data; console.log(data)},
         error => {
@@ -192,6 +194,7 @@ this.curItem = {
     this.modalBody = body;
     this.modalColor = color;
     this.modalHeader = header;
+    document.getElementById("mainForm").classList.toggle("myopia");
 
   }
 
@@ -200,6 +203,7 @@ this.curItem = {
     this.modalBody = [];
     this.modalColor = "#ffa550";
     this.modalHeader = "nomodal?";
+    document.getElementById("mainForm").classList.toggle("myopia");
   }
 
   

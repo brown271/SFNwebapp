@@ -38,6 +38,8 @@ export class EditGroupsPage implements OnInit, ViewWillEnter {
 
   refreshData(){
     this.sConnect.jwtObs.subscribe(data => { this.jwt = data });
+    this.sConnect.checkForJWTCookie();
+    this.bannerInfo = "";
     this.sConnect.getEmailGroupByPage(this.page).subscribe(
       data => { this.emailList = data;  },
       error => {
@@ -81,6 +83,7 @@ export class EditGroupsPage implements OnInit, ViewWillEnter {
     this.modalHeader = header;
     this.isConfirmModal = isConfirmModal;
     this.isDeleteConfirmModal = isDeleteConfirmModal
+    document.getElementById("mainForm").classList.toggle("myopia");
 
   }
 
@@ -91,6 +94,7 @@ export class EditGroupsPage implements OnInit, ViewWillEnter {
     this.modalHeader = "nomodal?";
     this.isConfirmModal = false;
     this.isDeleteConfirmModal = false;
+    document.getElementById("mainForm").classList.toggle("myopia");
   }
 
   incPage() {

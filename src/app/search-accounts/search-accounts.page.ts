@@ -27,6 +27,8 @@ export class SearchAccountsPage implements OnInit, ViewWillEnter, ViewWillLeave 
 
   refreshData(){
     this.sConnect.jwtObs.subscribe(data => {this.jwt = data});
+    this.sConnect.checkForJWTCookie();
+    //this.errorMsg = "";
   }
   ionViewWillEnter(): void {
     this.refreshData()
@@ -47,6 +49,7 @@ export class SearchAccountsPage implements OnInit, ViewWillEnter, ViewWillLeave 
     this.modalColor = color;
     this.modalHeader = header;
     this.isConfirmModal = isConfirmModal;
+    document.getElementById("mainForm").classList.toggle("myopia");
     
 
   }
@@ -63,6 +66,7 @@ export class SearchAccountsPage implements OnInit, ViewWillEnter, ViewWillLeave 
     this.modalHeader = "nomodal?";
     this.isConfirmModal = false;
     this.currentUser = null;
+    document.getElementById("mainForm").classList.toggle("myopia");
   }
 
   packageAccountToBeEdited(account,role){
@@ -353,7 +357,6 @@ this.sConnect.getSpecialFriendById(specialFriend.id).subscribe(
     console.log(item)
     console.log(this.editableRoles)
     for(let i = 0; i < this.editableRoles.length;i++){
-      
       if (this.editableRoles[i].id == item.role.id){
         return true
       }
@@ -363,8 +366,7 @@ this.sConnect.getSpecialFriendById(specialFriend.id).subscribe(
 
   search(searchKey){
     console.log("searhcing: "+  searchKey)
-    let authHeader = new HttpHeaders().set('Authorization',  'Bearer ' + this.jwt);
-    this.sConnect.getEditableRoles(authHeader).subscribe(
+    this.sConnect.getEditableRoles().subscribe(
       data =>{this.editableRoles = data},
       error =>{
         if(error.status == 403){

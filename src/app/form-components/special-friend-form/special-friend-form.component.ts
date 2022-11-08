@@ -13,10 +13,5 @@ export class SpecialFriendFormComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {}
-
-
-  flipCheck(check){
-    check = !check
-  }
   
 }

@@ -13,8 +13,6 @@
           <ion-text style="font-size: 30px;letter-spacing: 2px;" color = "dark" text-wrap>
             The Special Friends Network is a grass roots orginiaztion that was started to bring together
             people of all abilities. We are a social group that focuses on celebrating our neurodiverse world.
-           Enter URL: <ion-input [(ngModel)] = "url"></ion-input>
-            <button (click) = "test()">TEST</button>
           </ion-text>
         </ion-col>
         <ion-col></ion-col>
@@ -23,26 +21,66 @@
   </ion-item>
 
   <ion-item color = "danger">
-    <ion-grid style = "text-align: center;">
+    <ion-grid style = "text-align: left;"> 
       <ion-row>
         <ion-col size="12">
-          <ion-text style = "font-size: 40px;font-weight: bold;" text-wrap >Photo Gallery</ion-text>
+          <ion-text style = "font-size: 40px;font-weight: bold;padding-left:15%;" text-wrap >Photo Gallery</ion-text>
         </ion-col> 
       </ion-row>
       <ion-row><hr></ion-row>
-      <div style="flex: 100%;">
-     <!--Have to switch these so that the photos are loaded dynamically-->
-        <img style="height:200px;margin: 2px;" src = "one.jpg">
-        <img style="height:200px;margin: 2px;" src = "three.jpg">
-        <img style="height:200px;margin: 2px;" src = "two.jpg">
-        <img style="height:200px;margin: 2px;" src = "five.jpg">
-        <img style="height:200px;margin: 2px;" src = "eleven.jpg">
-        <img style="height:200px;margin: 2px;" src = "nine.jpg">
-        <img style="height:200px;margin: 2px;" src = "six.jpg">
-        <img style="height:200px;margin: 2px;" src = "four.jpg">
-        <img style="height:200px;margin: 2px;" src = "eoght.jpg">
-        <img style="height:200px;margin: 2px;" src = "seven.jpg">
-        <img style="height:200px;margin: 2px;" src = "ten.jpg">
+      <div >
+        <div id = "marquee">
+          <ul class = "marquee-content">
+              
+              <li class = "doubleimg-container">
+                <img class ="doublemarqueeImg" src = "one.jpg">
+                <img class ="doublemarqueeImg" src = "three.jpg">
+              </li>
+              <li class = "img-container">
+                <img class ="marqueeImg" src = "two.jpg">
+                <img class ="marqueeImg" src = "eoght.jpg">
+              </li>
+              <li class = "img-container">
+                <img class ="marqueeImg" src = "five.jpg">
+              </li>
+              <li class = "img-container">
+                <img class ="marqueeImg" src = "eleven.jpg">
+              </li>
+              <li class = "img-container">
+                <img class ="marqueeImg" src = "nine.jpg">
+              </li>
+              <li class = "img-container">
+                <img class ="marqueeImg" src = "six.jpg">
+              </li>
+              <li class = "img-container">
+                <img class ="marqueeImg" src = "four.jpg">
+              </li>
+              <li class = "img-container">
+                <img class ="marqueeImg" src = "eoght.jpg">
+              </li>
+              <li class = "img-container">
+                <img class ="marqueeImg" src = "seven.jpg">
+              </li>
+              <li class = "doubleimg-container">
+                <img class ="doublemarqueeImg" src = "one.jpg">
+                <img class ="doublemarqueeImg" src = "three.jpg">
+              </li>
+        
+              <li class = "img-container">
+                <img class ="marqueeImg" src = "two.jpg">
+              </li>
+              <li class = "img-container">
+                <img class ="marqueeImg" src = "five.jpg">
+              </li>
+              <li class = "img-container">
+                <img class ="marqueeImg" src = "eleven.jpg">
+              </li>
+              <li class = "img-container">
+                <img class ="marqueeImg" src = "nine.jpg">
+              </li>
+            </ul>
+          </div>
+       
      </div>
     </ion-grid>
   </ion-item>

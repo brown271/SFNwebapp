@@ -1,0 +1,94 @@
+<app-header></app-header>
+<app-error-banner [error]="bannerInfo"></app-error-banner>
+
+<ion-content>
+  <app-lostuser [jwt] = "jwt"></app-lostuser>
+
+  <ion-grid  *ngIf = "jwt.length > 0" id ="mainForm" >
+    <ion-row >
+      <ion-col size = "8">
+        <div style = "display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; width: 98%; margin:0 auto;padding:16px;">
+          <div style = "grid-column-start:1;grid-column-end:8;background-color:#4595ef;text-align:center;" >
+          <div style = "display:grid;grid-template-columns:1fr 6fr 1fr">
+            <h1  (click) = "dec()" style = "display:inline;font-size:200%;color:white">&lt;</h1>
+            <h1  style = "display:inline;font-size:200%; color:white">{{monthString}} {{year}}</h1>
+            <h1  (click) = "inc()" style = "display:inline;font-size:200%;color:white">&gt;</h1>
+          </div>
+            
+            
+          </div>
+          <div class="calHeader"><p class="red">S</p></div>
+          <div class="calHeader"><p>M</p></div>
+          <div class="calHeader"><p>T</p></div>
+          <div class="calHeader"><p>W</p></div>
+          <div class="calHeader"><p>T</p></div>
+          <div class="calHeader"><p>F</p></div>
+          <div class="calHeader"><p class="red">S</p></div>
+          <div *ngFor = "let date of cal; index as ind"  style = "height:100px;width:100%;border-bottom:1px solid #CCC;overflow-y:auto;" [ngStyle]= "{'background-color': ((ind < 7 && date.date.substring(8) > 7) || (ind > 27  && date.date.substring(8) < 16)) ? '#DADADA' : '#EEE'}">
+            <div style="display:grid; grid-template-columns:1fr 2fr 1fr;">
+              <p style ="padding-left:10px; margin-bottom: 0px;display:inline-block" [ngStyle]= "{'color': (curDayOffset === ind) ? 'purple' : 'black'}" >{{date.date.substring(8)}}</p>
+              <p *ngIf = "(curDayOffset === ind)" style = "color: purple; font-size: x-small;padding-top: 6%;padding-right:10px;text-align: right;">Today!</p>
+              <p *ngIf = "(curDayOffset !== ind)"></p>
+            <p style ="padding-right:10px; margin-bottom: 0px;"href="#"> ...</p>
+            
+            </div>
+            <div >
+              <p (click) = "select(e)" *ngFor = "let e of date.events" style = "color: white; background-color: #F08000;  border-radius:25px; box-shadow: 0px 2px #d37100; font-size:x-small; padding-left:6px;font-weight:bold; text-align:left;">&#9;{{e.time.substring(0,5)}}&#9;{{e.name}}</p>
+              
+            </div>
+            
+          </div>
+        
+        </div>
+      </ion-col>
+      <ion-col style="height: 770px;overflow-y:scroll">
+        <ion-text>
+          <h1>Select event on calendar or search by name</h1>
+        </ion-text>
+        <ion-grid>
+          <ion-row >
+            <ion-col size = "8">
+              <ion-item><ion-input [(ngModel)] = "searchKey" type = "text" placeholder="Enter an event name" color ="bradleyblue" name = "searchKey"></ion-input></ion-item>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button color="bradleyblue" expand="block" size="large" (click) = "find()">SEARCH</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+       <ion-card color = "bradleyblue" *ngFor = "let item of searchResults" >
+        <ion-card-header>
+          <ion-grid>
+            <ion-row>
+              <ion-col size ="8">
+                <ion-text>
+                  <h1 style="color:white;padding-left: 5%;">{{item.name}}</h1>
+                </ion-text>
+              </ion-col>
+              <ion-col>
+                <ion-button color = "alexorang" (click) ="select(item)">Select</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+       
+          
+        </ion-card-header>
+        <ion-card-content style="padding: 0px 4px 4px 4px;">
+          <ion-item>
+            <ion-text>
+              <p>{{item.date}} - {{item.time}}</p>
+              <p>{{item.description}}</p>
+            </ion-text>
+          </ion-item>
+        </ion-card-content>
+       </ion-card>
+        
+      </ion-col>
+      
+    </ion-row>
+
+    <ion-row>
+
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

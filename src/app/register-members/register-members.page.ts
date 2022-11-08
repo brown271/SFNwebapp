@@ -27,9 +27,12 @@ export class RegisterMembersPage implements OnInit, ViewWillEnter, ViewDidLeave{
 
   refreshData(){
     this.sConnect.jwtObs.subscribe(data => {this.jwt = data});
+    this.sConnect.checkForJWTCookie();
+    //this.errorMsg = "";
     this.sConnect.formData.subscribe(data => this.formData = data)
+
     let authHeader = new HttpHeaders().set('Authorization',  'Bearer ' + this.jwt);
-    this.sConnect.getEditableRoles(authHeader).subscribe(
+    this.sConnect.getEditableRoles().subscribe(
       data =>{this.editableRoles = data},
       error =>{
         if(error.status == 403){
@@ -53,6 +56,7 @@ export class RegisterMembersPage implements OnInit, ViewWillEnter, ViewDidLeave{
     this.modalBody = body;
     this.modalColor = color;
     this.modalHeader = header;
+    document.getElementById("mainForm").classList.toggle("myopia");
 
   }
 
@@ -61,6 +65,7 @@ export class RegisterMembersPage implements OnInit, ViewWillEnter, ViewDidLeave{
     this.modalBody = [];
     this.modalColor = "#ffa550";
     this.modalHeader = "nomodal?";
+    document.getElementById("mainForm").classList.toggle("myopia");
   }
 
   isUserAbleToCreate(accountType){
@@ -73,39 +78,44 @@ export class RegisterMembersPage implements OnInit, ViewWillEnter, ViewDidLeave{
   }
 
   makeNewSpecialFriend(){
-    this.formData = {
+    let data = {
       type:"SPECIAL_FRIEND",
       function:"CREATE",
       specialFriendInfo: this.makeBlankSpecialFriendFormInfo(),
       additionalInfo: this.makeBlankAdditionalInfo(),
       personalInfo: this.makeBlankPersonalInfo()
     }
+    this.sConnect.updateFormData(data)
+
   }
 
   makeNewAdmin(){
-    this.formData = {
+    let data = {
       type:"ADMIN",
       function:"CREATE",
       account: this.makeBlankAccountInfo("ADMIN")
     }
+    this.sConnect.updateFormData(data)
   }
 
   makeNewTeamMember(){
-    this.formData = {
+    let data = {
       type:"TEAM_MEMBER",
       function:"CREATE",
       account: this.makeBlankAccountInfo("TEAM_MEMBER"),
       additionalInfo: this.makeBlankAdditionalInfo()
     }
+    this.sConnect.updateFormData(data)
   }
 
   makeNewVolunteer(){
-    this.formData = {
+    let data = {
       type:"VOLUNTEER",
       function:"CREATE",
       account: this.makeBlankAccountInfo("VOLUNTEER"),
       additionalInfo: this.makeBlankAdditionalInfo()
     }
+    this.sConnect.updateFormData(data)
   }
 
   makeBlankSpecialFriendFormInfo(){
@@ -154,7 +164,7 @@ export class RegisterMembersPage implements OnInit, ViewWillEnter, ViewDidLeave{
         (data:any)=> {
           if(data.status == 200){
             this.sConnect.updateFormData([])
-            this.openModal("#ACA","SUCCESS",[data.message])
+            this.openModal("#32CD32","SUCCESS",[data.message])
           }
           else{
             this.openModal("#CD3232","ERROR",data.message.split("."))
@@ -217,7 +227,6 @@ export class RegisterMembersPage implements OnInit, ViewWillEnter, ViewDidLeave{
         howToComfort:this.formData.specialFriendInfo.howToComfort,
         isCostAFactor:this.formData.specialFriendInfo.isCostAFactor,
         isBirthdayClubMember:this.formData.specialFriendInfo.isBirthdayClubMember
-
       }
       this.sConnect.addSpecialFriend(specialFriend).subscribe(
         (data:any)=> {
@@ -229,7 +238,6 @@ export class RegisterMembersPage implements OnInit, ViewWillEnter, ViewDidLeave{
             
             this.openModal("#CD3232","ERROR",data.message.split("."))
           }
-         
         },
         error=> {
         }

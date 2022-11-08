@@ -2,6 +2,8 @@
 <app-error-banner [error]="bannerInfo"></app-error-banner>
 
 <ion-content>
+  <app-lostuser [jwt] = "jwt"></app-lostuser>
+  
   <div *ngIf = "modalBody.length > 0" id="modal" class="modal" (click)="closeModal()" style="text-align: center;">
     <div *ngIf="curItem != undefined">
       <div class="modal-content">
@@ -29,7 +31,7 @@
     </div>
   </div>
 
-  <ion-grid>
+  <ion-grid  *ngIf = "jwt.length > 0" id ="mainForm">
     <ion-row>
       <ion-col size="3">
         <ion-card color="leaf">

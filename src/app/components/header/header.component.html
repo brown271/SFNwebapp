@@ -1,3 +1,4 @@
+
 <ion-item>
 <ion-card color = "light" style = "margin: 0px;width: 100%;">
   <ion-card-header style = "padding: 0px;">
@@ -13,11 +14,11 @@
           <ion-col class = "headerText" [routerLink] = "['/events']"><ion-text  >EVENTS</ion-text></ion-col>
           <ion-col class = "headerText"><ion-text [routerLink]>GALLERY</ion-text></ion-col>
           <ion-col class = "headerText"><ion-text [routerLink]>VOLUNTEERS</ion-text></ion-col>
-          <ion-col class = "headerText"><ion-text [routerLink]>SPOTLIGHT</ion-text></ion-col>
           <ion-col class = "headerText"><ion-text [routerLink]>SUPPORTERS</ion-text></ion-col>
           <ion-col class = "headerText"><ion-text [routerLink]>ABOUT US</ion-text></ion-col>
           <ion-col class = "headerText"><ion-text [routerLink]>CONTACT</ion-text></ion-col>
           <ion-col class = "headerText" *ngIf = "jwt.length > 0" [routerLink] = "['/login']"><ion-text >ACCOUNT</ion-text></ion-col>
+          <ion-col class = "headerTextLogout" *ngIf = "jwt.length > 0" (click) = "logout()"><ion-text >LOGOUT</ion-text></ion-col>
           <ion-col class = "headerText" *ngIf = "jwt.length == 0" [routerLink] = "['/login']"><ion-text >LOG IN</ion-text></ion-col>
         </ion-row>
       </ion-grid>

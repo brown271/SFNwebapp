@@ -6,6 +6,11 @@
     background-color: #ffca22;
 }
 
+.myopia{
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+}
+
 .modal{
     display: block;
     position:fixed;
@@ -24,6 +29,8 @@
     padding: 32px;
     border: 1px solid #333;
     width: 60%;
+    border-radius: 15px;
+    box-shadow: 9px 10px #555555ff;
 }
 #modal-header{
     margin: 0px 0px 0px -32px;

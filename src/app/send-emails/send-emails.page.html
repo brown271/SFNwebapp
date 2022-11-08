@@ -1,8 +1,8 @@
 <app-header></app-header>
-<app-error-banner [error] = "bannerInfo"></app-error-banner>
+<app-error-banner [error] = "bannerInfo" *ngIf = "jwt.length > 0"></app-error-banner>
 <ion-content style = "text-align: center;">
-  <ion-button style = "display: none;" id="open-modal"> </ion-button>
-  <form>
+  <app-lostuser [jwt] = "jwt"></app-lostuser>
+  <form >
     <div id = "modal" class = "modal" (click) = "closeModal()">
       <div *ngIf = "curItem != undefined">
         <div class = "modal-content">
@@ -39,7 +39,7 @@
         </div>
       </div>
     </div>
-  <ion-grid>
+  <ion-grid *ngIf = "jwt.length > 0" id  ="mainForm">
     <ion-row>
       <ion-col size = "12">
         

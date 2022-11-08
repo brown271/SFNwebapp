@@ -24,3 +24,16 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.wacky{
+    text-overflow: clip;
+    letter-spacing: 3px;
+    text-shadow: -3px 0 1px cyan, 3px 0 1px red;
+    filter: blur(1px);
+    -webkit-filter: blur(1px);
+}
+
+.myopia{
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+}

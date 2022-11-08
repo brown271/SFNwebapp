@@ -43,14 +43,8 @@ specialFriends:this.sfs,
 
   refreshData(){
     this.sConnect.jwtObs.subscribe(data => {this.jwt = data});
+    this.sConnect.checkForJWTCookie();
   }
   
 
-  test(){
-    let authHeader = new HttpHeaders().set('Authorization',  'Bearer ' + this.jwt);
-    this.sConnect.testTest(authHeader).subscribe(
-      data => console.log(data),
-      error => console.log(error)
-    )
-  }
 }
