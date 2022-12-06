@@ -115,18 +115,23 @@ export class SendEmailsPage implements OnInit, ViewWillEnter {
   //UPDATE THIS TO USE THE IS EMAILGROUPINSELECTEDGROUPS FUNCTION PLEASE!!
   sendEmail(){
     let emailInfo = new Array<String>();
+    console.log("test")
+    console.log(this.selectedGroups);
     for(let i = 0; i < this.selectedGroups.length;i++){
-      if (this.selectedGroups[i].sFriends != undefined){
-        for(let j = 0; j < this.selectedGroups[i].sFriends.length;j++){
-          if (!emailInfo.includes(this.selectedGroups[i].sFriends[j].email)){
-            emailInfo.push(this.selectedGroups[i].sFriends[j].email);
+      if (this.selectedGroups[i].specialFriends != undefined){
+        for(let j = 0; j < this.selectedGroups[i].specialFriends.length;j++){
+          if (!emailInfo.includes(this.selectedGroups[i].specialFriends[j].personalInfo.email)){
+            emailInfo.push(this.selectedGroups[i].specialFriends[j].personalInfo.email);
           }
         }
       }
-      if (this.selectedGroups[i].sfAccounts != undefined){
-        for(let j = 0; j < this.selectedGroups[i].sfAccounts.length;j++){
-          if (!emailInfo.includes(this.selectedGroups[i].sfAccounts[j].email)){
-            emailInfo.push(this.selectedGroups[i].sfAccounts[j].email);
+      if (this.selectedGroups[i].SFNAccounts != undefined){
+        for(let j = 0; j < this.selectedGroups[i].SFNAccounts.length;j++){
+          console.log("iteration")
+          console.log((this.selectedGroups[i].SFNAccounts[j].personalInfo.email))
+          if (!emailInfo.includes(this.selectedGroups[i].SFNAccounts[j].personalInfo.email)){
+            console.log("condition met")
+            emailInfo.push(this.selectedGroups[i].SFNAccounts[j].personalInfo.email);
           }
         }
       }
@@ -136,7 +141,12 @@ export class SendEmailsPage implements OnInit, ViewWillEnter {
     emailInfo.push(this.body)
     if(this.isEmailValid(emailInfo)){
       this.sConnect.sendEmail(emailInfo).subscribe(
-        data => {console.log(data)},
+        data => {
+          this.selectedGroups = []
+          this.body = ""
+          this.subject = ""
+          this.sendAlert('Success' , "Email Sent successfully");
+        },
         error => {
           if (error.status == 504){
             this.bannerInfo = "Error 504: Can't find Database!"
@@ -148,16 +158,16 @@ export class SendEmailsPage implements OnInit, ViewWillEnter {
       )
     }else{
       this.errorMessage = this.errorMessage.substring(0,this.errorMessage.length-4)
-      this.sendAlert(this.errorMessage);
+      this.sendAlert('Error :(', this.errorMessage);
       this.errorMessage = "";
     }
     
     
   }
 
-  async sendAlert(msg) {
+  async sendAlert(header, msg) {
     const alertNotif = await this.alertController.create({
-      header: 'Error :(',
+      header: header,
       subHeader: '',
       message: msg,
       buttons: [
@@ -168,6 +178,8 @@ export class SendEmailsPage implements OnInit, ViewWillEnter {
   }
 
   isEmailValid(emailInfo){
+    console.log("emailInfo")
+    console.log(emailInfo)
     if (emailInfo.length < 3){
       this.errorMessage += "Atleast one email group needs to be selected. <hr>";
     }

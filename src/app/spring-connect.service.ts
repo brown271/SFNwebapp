@@ -19,13 +19,8 @@ export class SpringConnectService {
   }
 
   saveJWTCookie(){
-    
       let cookie = 'jwtcookie='+this.jwt.value+'; path=/'
-      console.log("saving cookie:")
-      console.log(cookie)
-      document.cookie = cookie;
-    
-    
+      document.cookie = cookie; 
   }
 
   checkForJWTCookie(){
@@ -41,26 +36,20 @@ export class SpringConnectService {
   }
 
   generateAuthHeader(){
-    let authHeader = new HttpHeaders().set('Authorization',  'Bearer ' + this.jwt.value);
+    let authHeader = new HttpHeaders().set(
+      'Authorization',  'Bearer ' + this.jwt.value);
     return authHeader;
   }
 
   checkIfJWTValid(){
-    console.log("HTTP REQUEST")
-   let response = this.http.get("/api/test/",{headers:this.generateAuthHeader()}).subscribe(
-    
-    data =>{
-      
-      console.log(data)
-    },
+  this.http.get("/api/test/",{headers:this.generateAuthHeader()}).subscribe(
+    data =>{},
     error => {
-
       if(error.status == 403){
         this.updateJWT("");
       }
     }
-   );
-
+   )
   }
 
   updateJWT(newJWT){
@@ -103,6 +92,7 @@ export class SpringConnectService {
   getAccountsByPage(page:number){
     return this.http.get(this.url + '/api/acc/page/' + page,{headers:this.generateAuthHeader()});
   }
+ 
 
   sendEmail(params){
     return this.http.post(this.url + '/api/email/sendEmail',params,{headers:this.generateAuthHeader()});
@@ -191,7 +181,8 @@ export class SpringConnectService {
   }
 
   addEvent(params){
-    return this.http.post(this.url + '/api/event/',params,{headers:this.generateAuthHeader()})
+    return this.http.post(this.url + 
+      '/api/event/',params,{headers:this.generateAuthHeader()})
   }
   updateEvent(params){
     return this.http.put(this.url + '/api/event/',params,{headers:this.generateAuthHeader()})
@@ -210,6 +201,28 @@ export class SpringConnectService {
   logout(){
     return this.http.get(this.url + '/api/test/logout')
   }
+
+  createApplication(params){
+    return this.http.post(this.url + '/api/app/',params)
+  }
+
+  deleteApplicationById(id){
+    return this.http.get(this.url + '/api/app/deleteById/' + id,{headers:this.generateAuthHeader()})
+  }
+
+  acceptApplicationById(id){
+    return this.http.post(this.url + '/api/app/acceptById/' + id,{headers:this.generateAuthHeader()})
+  }
+
+  findApplicationById(id){
+    return this.http.get(this.url + '/api/app/findById/' + id,{headers:this.generateAuthHeader()})
+  }
+
+  getAllApplications(){
+    return this.http.get(this.url + '/api/app/')
+  }
+
+  
 
  
 

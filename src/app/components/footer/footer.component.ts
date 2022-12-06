@@ -11,4 +11,16 @@ export class FooterComponent implements OnInit {
 
   ngOnInit() {}
 
+  routeFB(){
+    window.open("https://www.facebook.com/TheSpecialFriendsNetwork/");
+  }
+
+  routeInsta(){
+    window.open("https://www.instagram.com/specialfriendsnetwork/?hl=en");
+  }
+
+  routeEmail(){
+    window.open("mailto:specialfriendsnetworkaddress@hotmail.com");
+  }
+
 }

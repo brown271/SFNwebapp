@@ -17,6 +17,7 @@ export class RegisterMembersPage implements OnInit, ViewWillEnter, ViewDidLeave{
   modalColor:string;
   modalHeader:string;
   modalBody:any = [];
+  errorMsg: string;
   constructor(private sConnect: SpringConnectService ) { 
   }
 
@@ -28,10 +29,10 @@ export class RegisterMembersPage implements OnInit, ViewWillEnter, ViewDidLeave{
   refreshData(){
     this.sConnect.jwtObs.subscribe(data => {this.jwt = data});
     this.sConnect.checkForJWTCookie();
-    //this.errorMsg = "";
+    this.errorMsg = "";
     this.sConnect.formData.subscribe(data => this.formData = data)
 
-    let authHeader = new HttpHeaders().set('Authorization',  'Bearer ' + this.jwt);
+    let authHeader  = new HttpHeaders().set('Authorization',  'Bearer ' + this.jwt);
     this.sConnect.getEditableRoles().subscribe(
       data =>{this.editableRoles = data},
       error =>{
@@ -40,6 +41,11 @@ export class RegisterMembersPage implements OnInit, ViewWillEnter, ViewDidLeave{
         }
       }
     )
+    if(document.getElementById("mainForm") != undefined){
+      if(document.getElementById("mainForm").classList.contains("myopia")){
+        document.getElementById("mainForm").classList.toggle("myopia")
+      }
+    }
   }
 
   ionViewWillEnter(): void {
@@ -167,7 +173,7 @@ export class RegisterMembersPage implements OnInit, ViewWillEnter, ViewDidLeave{
             this.openModal("#32CD32","SUCCESS",[data.message])
           }
           else{
-            this.openModal("#CD3232","ERROR",data.message.split("."))
+            this.openModal("#CD3232","ERROR",data.message.split(";"))
           }
          
         },
@@ -190,7 +196,7 @@ export class RegisterMembersPage implements OnInit, ViewWillEnter, ViewDidLeave{
           }
           else{
             
-            this.openModal("#CD3232","ERROR",data.message.split("."))
+            this.openModal("#CD3232","ERROR",data.message.split(";"))
           }
         },
         error=> {
@@ -211,7 +217,7 @@ export class RegisterMembersPage implements OnInit, ViewWillEnter, ViewDidLeave{
           }
           else{
             
-            this.openModal("#CD3232","ERROR",data.message.split("."))
+            this.openModal("#CD3232","ERROR",data.message.split(";"))
           }
         },
         error=> {
@@ -227,7 +233,7 @@ export class RegisterMembersPage implements OnInit, ViewWillEnter, ViewDidLeave{
         howToComfort:this.formData.specialFriendInfo.howToComfort,
         isCostAFactor:this.formData.specialFriendInfo.isCostAFactor,
         isBirthdayClubMember:this.formData.specialFriendInfo.isBirthdayClubMember
-      }
+      } 
       this.sConnect.addSpecialFriend(specialFriend).subscribe(
         (data:any)=> {
           if(data.status == 200){
@@ -236,7 +242,7 @@ export class RegisterMembersPage implements OnInit, ViewWillEnter, ViewDidLeave{
           }
           else{
             
-            this.openModal("#CD3232","ERROR",data.message.split("."))
+            this.openModal("#CD3232","ERROR",data.message.split(";"))
           }
         },
         error=> {
@@ -262,7 +268,7 @@ export class RegisterMembersPage implements OnInit, ViewWillEnter, ViewDidLeave{
             this.openModal("#32CD32","SUCCESS",[data.message]);
           }
           else{
-            this.openModal("#CD3232","ERROR",data.message.split("."));
+            this.openModal("#CD3232","ERROR",data.message.split(";"));
           }
         },
         error=>console.log(error)
@@ -281,7 +287,7 @@ export class RegisterMembersPage implements OnInit, ViewWillEnter, ViewDidLeave{
             this.openModal("#32CD32","SUCCESS",[data.message]);
           }
           else{
-            this.openModal("#CD3232","ERROR",data.message.split("."));
+            this.openModal("#CD3232","ERROR",data.message.split(";"));
           }
         },
         error=>console.log(error)
@@ -299,7 +305,7 @@ export class RegisterMembersPage implements OnInit, ViewWillEnter, ViewDidLeave{
             this.openModal("#32CD32","SUCCESS",[data.message]);
           }
           else{
-            this.openModal("#CD3232","ERROR",data.message.split("."));
+            this.openModal("#CD3232","ERROR",data.message.split(";"));
           }
         },
         error=>console.log(error)
@@ -321,7 +327,7 @@ export class RegisterMembersPage implements OnInit, ViewWillEnter, ViewDidLeave{
             this.openModal("#32CD32","SUCCESS",[data.message]);
           }
           else{
-            this.openModal("#CD3232","ERROR",data.message.split("."));
+            this.openModal("#CD3232","ERROR",data.message.split(";"));
           }
         },
         error=>console.log(error)

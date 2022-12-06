@@ -1,6 +1,7 @@
-<app-header></app-header>
+
 
 <ion-content>
+  <app-header></app-header>
   <div *ngIf = "modal.modalHeader.length > 0" id="modal" class="modal" (click)="closeModal()" style="text-align: center;">
     <div >
       <div class="modal-content">
@@ -11,19 +12,12 @@
         <div id="modal-body">
           <ion-grid>
             <ion-row>
-              <ion-col></ion-col>
-              <ion-col size = "5">
-                <ion-img style = "width: 50%; margin: 0 auto;" src = "{{modal.img1}}"></ion-img>
+
+              <ion-col *ngFor = "let item of modal.funcs">
+                <ion-img style = "width: 150px; margin: 0 auto;" src = "{{item.img}}"></ion-img>
                 <hr>
-                <ion-button size = "large" expand = "block" color = "{{modal.c1}}"(click) = "modal.func1()">{{modal.desc1}}</ion-button>
+                <ion-button size = "large" expand = "block" color = "{{item.color}}"(click) = "item.func()">{{item.desc}}</ion-button>
               </ion-col>
-              <ion-col></ion-col>
-              <ion-col size = "5">
-                <ion-img style = "width: 50%; margin: 0 auto;" src = "{{modal.img2}}"></ion-img>
-                <hr>
-                <ion-button size = "large" expand = "block" color = "{{modal.c2}}" (click) = "modal.func2()">{{modal.desc2}}</ion-button>
-              </ion-col>
-              <ion-col></ion-col>
             </ion-row>
           </ion-grid>
           
@@ -110,4 +104,5 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <app-footer></app-footer>
 </ion-content>

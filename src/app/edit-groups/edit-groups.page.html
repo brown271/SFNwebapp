@@ -1,9 +1,10 @@
-<app-header></app-header>
+
 <app-error-banner [error]="bannerInfo"></app-error-banner>
 
 <ion-content>
+  <app-header></app-header>
   <app-lostuser [jwt] = "jwt"></app-lostuser>
-  
+
   <div *ngIf = "modalBody.length > 0" id="modal" class="modal" (click)="closeModal()" style="text-align: center;">
     <div *ngIf="curItem != undefined">
       <div class="modal-content">
@@ -177,10 +178,10 @@
                                           <ion-checkbox [checked]="isRoleInCurItem(r)" aria-readonly="true"></ion-checkbox>
                                         </div>
                                       </ion-col>
-                                      <ion-col size="10" style="padding-top: 10%;">
-                                        <ion-text style="padding-top: 10%;font-size: small;">
-                                          <h6>{{r.roleName}}</h6>
-                                        </ion-text>
+                                      <ion-col size="10" style="padding-top: 20%;">
+                                       
+                                          <p style = "font-size: 9pt;"><em>{{r.roleName.replace('_',' ')}}</em></p>
+                                        
                                       </ion-col>
                                     </ion-row>
                                   </ion-col>
@@ -365,4 +366,5 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <app-footer></app-footer>
 </ion-content>

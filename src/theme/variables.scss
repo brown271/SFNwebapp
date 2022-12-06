@@ -322,26 +322,28 @@
     --ion-color-danger-shade: #e04055;
     --ion-color-danger-tint: #ff5b71;
 
-    --ion-color-dark: #f4f5f8;
-    --ion-color-dark-rgb: 244,245,248;
-    --ion-color-dark-contrast: #000000;
-    --ion-color-dark-contrast-rgb: 0,0,0;
-    --ion-color-dark-shade: #d7d8da;
-    --ion-color-dark-tint: #f5f6f9;
-
-    --ion-color-medium: #989aa2;
-    --ion-color-medium-rgb: 152,154,162;
-    --ion-color-medium-contrast: #000000;
-    --ion-color-medium-contrast-rgb: 0,0,0;
-    --ion-color-medium-shade: #86888f;
-    --ion-color-medium-tint: #a2a4ab;
-
-    --ion-color-light: #222428;
-    --ion-color-light-rgb: 34,36,40;
-    --ion-color-light-contrast: #ffffff;
-    --ion-color-light-contrast-rgb: 255,255,255;
-    --ion-color-light-shade: #1e2023;
-    --ion-color-light-tint: #383a3e;
+    --ion-color-dark: #222428;
+    --ion-color-dark-rgb: 34, 36, 40;
+    --ion-color-dark-contrast: #ffffff;
+    --ion-color-dark-contrast-rgb: 255, 255, 255;
+    --ion-color-dark-shade: #1e2023;
+    --ion-color-dark-tint: #383a3e;
+  
+    /** medium **/
+    --ion-color-medium: #92949c;
+    --ion-color-medium-rgb: 146, 148, 156;
+    --ion-color-medium-contrast: #ffffff;
+    --ion-color-medium-contrast-rgb: 255, 255, 255;
+    --ion-color-medium-shade: #808289;
+    --ion-color-medium-tint: #9d9fa6;
+  
+    /** light **/
+    --ion-color-light: #f4f5f8;
+    --ion-color-light-rgb: 244, 245, 248;
+    --ion-color-light-contrast: #000000;
+    --ion-color-light-contrast-rgb: 0, 0, 0;
+    --ion-color-light-shade: #d7d8da;
+    --ion-color-light-tint: #f5f6f9;
 
     --ion-color-dripblue: #4585ef;
 	--ion-color-dripblue-rgb: 69,133,239;
@@ -416,7 +418,7 @@
 
     --ion-color-step-50: #0d0d0d;
     --ion-color-step-100: #1a1a1a;
-    --ion-color-step-150: #262626;
+    --ion-color-step-150: #fff;
     --ion-color-step-200: #333333;
     --ion-color-step-250: #404040;
     --ion-color-step-300: #4d4d4d;
@@ -440,7 +442,7 @@
   }
 
   .ios ion-modal {
-    --ion-background-color: var(--ion-color-step-100);
+    --ion-background-color: var(--ion-color-step-900);
     --ion-toolbar-background: var(--ion-color-step-150);
     --ion-toolbar-border-color: var(--ion-color-step-250);
   }
@@ -452,17 +454,17 @@
    */
 
   .md body {
-    --ion-background-color: #121212;
-    --ion-background-color-rgb: 18,18,18;
+    --ion-background-color: #FFF;
+    --ion-background-color-rgb: 250,250,250;
 
     --ion-text-color: #ffffff;
     --ion-text-color-rgb: 255,255,255;
 
-    --ion-border-color: #222222;
+    --ion-border-color: #FFF;
 
     --ion-color-step-50: #1e1e1e;
     --ion-color-step-100: #2a2a2a;
-    --ion-color-step-150: #363636;
+    --ion-color-step-150: #FFF;
     --ion-color-step-200: #414141;
     --ion-color-step-250: #4d4d4d;
     --ion-color-step-300: #595959;
@@ -480,12 +482,12 @@
     --ion-color-step-900: #e7e7e7;
     --ion-color-step-950: #f3f3f3;
 
-    --ion-item-background: #1e1e1e;
+    --ion-item-background: #FFF;
 
-    --ion-toolbar-background: #1f1f1f;
+    --ion-toolbar-background: #FFF;
 
-    --ion-tab-bar-background: #1f1f1f;
+    --ion-tab-bar-background: #FFF;
 
-    --ion-card-background: #1e1e1e;
+    --ion-card-background: #FFF;
   }
 }

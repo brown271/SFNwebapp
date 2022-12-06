@@ -1,5 +1,7 @@
-<app-header></app-header>
+
 <ion-content color = "light">
+    <app-header></app-header>
+    <app-error-banner [error] = "errorMsg"></app-error-banner>
     <div *ngIf = "modalBody.length > 0" id="modal" class="modal" (click)="closeModal()" style="text-align: center;">
         <div>
           <div class="modal-content">
@@ -103,12 +105,12 @@
                 <app-personal-info [personalInfoInput]="formData.personalInfo" *ngIf = "formData.account == undefined && formData.personalInfo != undefined"></app-personal-info>
                 <app-additional-info [additionalInfoInput] = "formData.additionalInfo" *ngIf = "formData.additionalInfo != undefined"></app-additional-info>
             </ion-col>
-        </ion-row>
+        </ion-row> 
         <ion-row size = "12">
             <ion-col size = "12">
 
             </ion-col>
         </ion-row>
     </ion-grid>
-    
+    <app-footer></app-footer>
 </ion-content>

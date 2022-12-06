@@ -1,6 +1,7 @@
-<app-header></app-header>
+
 
 <ion-content color="light">
+  <app-header></app-header>
   <app-lostuser [jwt] = "jwt"></app-lostuser>
   <div *ngIf = "modalBody.length > 0" id="modal" class="modal" (click)="closeModal()" style="text-align: center;">
     <div >
@@ -145,5 +146,5 @@
     </ion-row>
 
   </ion-grid>
-  
+  <app-footer></app-footer>
 </ion-content>

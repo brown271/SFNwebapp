@@ -54,6 +54,11 @@ export class EditGroupsPage implements OnInit, ViewWillEnter {
         this.bannerInfo = "Error 504: Can't find Database!"
       }
     )
+    if(document.getElementById("mainForm") != undefined){
+      if(document.getElementById("mainForm").classList.contains("myopia")){
+        document.getElementById("mainForm").classList.toggle("myopia")
+      }
+    }
   }
   ionViewWillEnter(): void {
     this.refreshData();
@@ -175,7 +180,7 @@ export class EditGroupsPage implements OnInit, ViewWillEnter {
           data.message = "Data not saved." + data.message;
           //data returns seperated by periods "."
           //split at the period into different strings
-          this.openModal("#CD3232", "Error", data.message.split("."), false, false)
+          this.openModal("#CD3232", "Error", data.message.split(";"), false, false)
         }
         
       },

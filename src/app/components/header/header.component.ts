@@ -21,7 +21,8 @@ export class HeaderComponent implements OnInit, ViewWillEnter {
   }
 
   refreshData(){
-    this.sConnect.jwtObs.subscribe(data => {this.jwt = data});
+    this.sConnect.checkForJWTCookie();
+    this.sConnect.jwtObs.subscribe(data => {this.jwt = data, console.log(data)});
   }
 
   logout(){

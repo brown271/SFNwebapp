@@ -1,6 +1,7 @@
-<app-header></app-header>
+
 <app-error-banner [error] = "errorMsg"></app-error-banner>
 <ion-content>
+	<app-header></app-header>
 	<div *ngIf = "modalBody.length > 0" id="modal" class="modal" (click)="closeModal()" style="text-align: center;">
 		<div >
 		  <div class="modal-content">
@@ -51,4 +52,5 @@
 		</div>
 	  
 	  </div>
+	  <app-footer></app-footer>
 </ion-content>

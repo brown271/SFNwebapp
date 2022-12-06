@@ -28,7 +28,11 @@ export class SearchAccountsPage implements OnInit, ViewWillEnter, ViewWillLeave 
   refreshData(){
     this.sConnect.jwtObs.subscribe(data => {this.jwt = data});
     this.sConnect.checkForJWTCookie();
-    //this.errorMsg = "";
+    if(document.getElementById("mainForm") != undefined){
+      if(document.getElementById("mainForm").classList.contains("myopia")){
+        document.getElementById("mainForm").classList.toggle("myopia")
+      }
+    }
   }
   ionViewWillEnter(): void {
     this.refreshData()
@@ -291,7 +295,7 @@ this.sConnect.getSpecialFriendById(specialFriend.id).subscribe(
             
           }
           else{
-            this.openModal("#CD3232","ERROR",data.message.split("."),false);
+            this.openModal("#CD3232","ERROR",data.message.split(";"),false);
           }
         },
         error=>{
@@ -309,7 +313,7 @@ this.sConnect.getSpecialFriendById(specialFriend.id).subscribe(
             
           }
           else{
-            this.openModal("#CD3232","ERROR",data.message.split("."),false);
+            this.openModal("#CD3232","ERROR",data.message.split(";"),false);
           }
         },
         error=>{
@@ -326,7 +330,7 @@ this.sConnect.getSpecialFriendById(specialFriend.id).subscribe(
             
           }
           else{
-            this.openModal("#CD3232","ERROR",data.message.split("."),false);
+            this.openModal("#CD3232","ERROR",data.message.split(";"),false);
           }
         },
         error=>{
@@ -343,7 +347,7 @@ this.sConnect.getSpecialFriendById(specialFriend.id).subscribe(
             
           }
           else{
-            this.openModal("#CD3232","ERROR",data.message.split("."),false);
+            this.openModal("#CD3232","ERROR",data.message.split(";"),false);
           }
         },
         error=>{

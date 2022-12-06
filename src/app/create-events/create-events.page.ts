@@ -63,7 +63,7 @@ createEvent(){
         this.openModal("#32CD32","SUCCESS",[data.message], false, false)
       }
       else{
-        this.openModal("#CD3232","ERROR",data.message.split("."), false, false)
+        this.openModal("#CD3232","ERROR",data.message.split(";"), false, false)
       }
     },
     error =>{
@@ -84,7 +84,7 @@ saveChanges(){
         this.openModal("#32CD32","SUCCESS",[data.message], false, false)
       }
       else{
-        this.openModal("#CD3232","ERROR",data.message.split("."), false, false)
+        this.openModal("#CD3232","ERROR",data.message.split(";"), false, false)
       }
     },
     error =>{
@@ -101,7 +101,7 @@ delete(){
         this.openModal("#32CD32","SUCCESS",[data.message], false, false)
       }
       else{
-        this.openModal("#CD3232","ERROR",data.message.split("."), false, false)
+        this.openModal("#CD3232","ERROR",data.message.split(";"), false, false)
       }
     },
     error =>{

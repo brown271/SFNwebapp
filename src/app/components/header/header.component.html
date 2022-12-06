@@ -11,13 +11,11 @@
       <ion-grid style = "padding: 0px;">
         <ion-row style="text-align: center;">
           <ion-col class = "headerText" [routerLink] = "['/']"><ion-text >HOME</ion-text></ion-col>
-          <ion-col class = "headerText" [routerLink] = "['/events']"><ion-text  >EVENTS</ion-text></ion-col>
-          <ion-col class = "headerText"><ion-text [routerLink]>GALLERY</ion-text></ion-col>
-          <ion-col class = "headerText"><ion-text [routerLink]>VOLUNTEERS</ion-text></ion-col>
-          <ion-col class = "headerText"><ion-text [routerLink]>SUPPORTERS</ion-text></ion-col>
-          <ion-col class = "headerText"><ion-text [routerLink]>ABOUT US</ion-text></ion-col>
-          <ion-col class = "headerText"><ion-text [routerLink]>CONTACT</ion-text></ion-col>
-          <ion-col class = "headerText" *ngIf = "jwt.length > 0" [routerLink] = "['/login']"><ion-text >ACCOUNT</ion-text></ion-col>
+          <ion-col class = "headerText" [routerLink] = "['/events']"><ion-text  >CALENDAR</ion-text></ion-col>
+          <ion-col class = "headerText"><ion-text [routerLink] = "['/apply']">APPLY</ion-text></ion-col>
+          <ion-col class = "headerText"><ion-text [routerLink] = "['/supporters']">SUPPORTERS/CONTRIBUTORS</ion-text></ion-col>
+          <ion-col class = "headerText"><ion-text [routerLink] = "['/about-us']">ABOUT US</ion-text></ion-col>
+          <ion-col class = "headerText" *ngIf = "jwt.length > 0" [routerLink] = "['/login']"><ion-text >SFN DASHBOARD</ion-text></ion-col>
           <ion-col class = "headerTextLogout" *ngIf = "jwt.length > 0" (click) = "logout()"><ion-text >LOGOUT</ion-text></ion-col>
           <ion-col class = "headerText" *ngIf = "jwt.length == 0" [routerLink] = "['/login']"><ion-text >LOG IN</ion-text></ion-col>
         </ion-row>

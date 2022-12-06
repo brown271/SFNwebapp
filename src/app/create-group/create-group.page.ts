@@ -43,7 +43,11 @@ export class CreateGroupPage implements OnInit, ViewWillEnter {
           this.bannerInfo = "Error 504: Can't find Database!"
         }
       )
-    //}
+      if(document.getElementById("mainForm") != undefined){
+        if(document.getElementById("mainForm").classList.contains("myopia")){
+          document.getElementById("mainForm").classList.toggle("myopia")
+        }
+      }
   }
   ionViewWillEnter(): void {
     this.refreshData()
@@ -91,7 +95,7 @@ export class CreateGroupPage implements OnInit, ViewWillEnter {
         }
         else{
           data.message = "Data not saved." + data.message;
-          this.openModal("#CD3232", "Error", data.message.split("."), false, false)
+          this.openModal("#CD3232", "Error", data.message.split(";"), false, false)
         }
         
       },

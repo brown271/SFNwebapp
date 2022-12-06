@@ -1,6 +1,7 @@
-<app-header></app-header>
+
 <app-error-banner [error] = "bannerInfo" *ngIf = "jwt.length > 0"></app-error-banner>
 <ion-content style = "text-align: center;">
+  <app-header></app-header>
   <app-lostuser [jwt] = "jwt"></app-lostuser>
   <form >
     <div id = "modal" class = "modal" (click) = "closeModal()">
@@ -117,4 +118,5 @@
     </ion-row>
   </ion-grid>
 </form>
+<app-footer></app-footer>
 </ion-content>

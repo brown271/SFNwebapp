@@ -1,0 +1,84 @@
+
+<ion-content color = "light">
+  <app-header></app-header>
+  <app-error-banner [error] = "errorMsg"></app-error-banner>
+    <div *ngIf = "modalBody.length > 0" id="modal" class="modal" (click)="closeModal()" style="text-align: center;">
+        <div>
+          <div class="modal-content">
+            <div id="modal-header" [style.background-color]="modalColor">
+              <h1 id="modal-header-text">{{modalHeader}}</h1>
+            </div>
+            <br><br>
+            <div id="modal-body" *ngIf = "!isStackedModal">
+              <p id="modal-body-desc" *ngFor="let info of modalBody">{{info}}</p>
+             
+            </div>
+            <div style="display: grid;grid-template-columns: 1fr 1fr; "  *ngIf = "isStackedModal">
+              <p id="modal-body-desc" *ngFor="let info of modalBody">{{info}}</p>
+             
+            </div>
+            <div id="modal-footer">
+              <p  (click)="closeModal()"><b>CLOSE</b></p>
+            </div>
+            <p id="nameTarget"></p>
+          </div>
+        </div>
+      </div>
+    <app-lostuser [jwt] = "jwt"> </app-lostuser>
+    <ion-grid id = "mainForm" *ngIf="jwt.length > 0">
+      <ion-row>
+        <ion-col size = "12">
+          <ion-item color  ="alexorang">
+            <ion-text><h1>Viewing All Current Applications</h1></ion-text>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col></ion-col>
+        <ion-col size = "8" *ngIf = "applications.length > 0">
+          <ion-list>
+            <ion-item *ngFor = "let item of applications">
+              <ion-header>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col size = "6">
+                      <ion-text>
+                        <h1 style="font-size: larger;">
+                          {{item.personalInfo.name}}
+                        </h1>
+                      </ion-text> 
+                    </ion-col>
+                    <ion-col>
+                      <ion-button expand = "block" size = "medium" color = "alexorang" (click) = "accept(item)">Accept</ion-button>
+                    </ion-col>
+                    <ion-col>
+                      <ion-button expand = "block" size = "medium" color = "alexorang" (click) = "deny(item)">Deny</ion-button>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <em style="color: #333; font-size:small">{{item.personalInfo.email}}</em>
+                    <b (click) = "moreInfo(item)">&nbsp; MORE INFO</b>
+                  </ion-row>
+                </ion-grid>
+               
+              </ion-header>
+              
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col size = "8" *ngIf = "applications.length == 0">
+          <hr>
+          <hr>
+          <hr>
+          <ion-text style="text-align: center;">
+            <h1 style = "font-size: 1100%; color: #333;" >:(</h1>
+           </ion-text>
+           <ion-text  style="text-align: center;">
+            <p >No applications at this time...</p>
+           </ion-text>
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+    </ion-grid>
+    <app-footer></app-footer>
+</ion-content>

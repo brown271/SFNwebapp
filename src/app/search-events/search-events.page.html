@@ -1,7 +1,8 @@
-<app-header></app-header>
+
 <app-error-banner [error]="bannerInfo"></app-error-banner>
 
 <ion-content>
+  <app-header></app-header>
   <app-lostuser [jwt] = "jwt"></app-lostuser>
 
   <ion-grid  *ngIf = "jwt.length > 0" id ="mainForm" >
@@ -90,5 +91,5 @@
 
     </ion-row>
   </ion-grid>
-
+  <app-footer></app-footer>
 </ion-content>

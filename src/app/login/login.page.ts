@@ -47,6 +47,11 @@ export class LoginPage implements OnInit, ViewWillEnter {
          console.log(error)
         }
       )
+      if(document.getElementById("mainForm") != undefined){
+        if(document.getElementById("mainForm").classList.contains("myopia")){
+          document.getElementById("mainForm").classList.toggle("myopia")
+        }
+      }
     
   }
   ionViewWillEnter(): void {
@@ -191,14 +196,17 @@ export class LoginPage implements OnInit, ViewWillEnter {
     this.openModal({
       modalHeader: "GROUPS",
       modalColor: "#9932CC",
-      func1:() => {this.router.navigate(['create-group'])},
-      func2:() => {this.router.navigate(['edit-groups'])},
-      desc1: "Create Groups",
-      desc2: "Edit Groups",
-      img1: "CGroup.png",
-      img2: "EGroup.png",
-      c1: "genepurp",
-      c2: "genepurp"
+      funcs:[{
+        img:"CGroup.png",
+        desc:"Create Groups",
+        color:"genepurp",
+        func: () => {this.router.navigate(['create-group'])}
+      },{
+        img:"EGroup.png",
+        desc:"Edit Groups",
+        color:"genepurp",
+        func: () => {this.router.navigate(['edit-groups'])}
+      }]
     })
   }
 
@@ -206,14 +214,24 @@ export class LoginPage implements OnInit, ViewWillEnter {
     this.openModal({
       modalHeader: "ACCOUNTS",
       modalColor: "#F08000",
-      func1:() => {this.router.navigate(['register-members'])},
-      func2:() => {this.router.navigate(['search-accounts'])},
-      desc1: "Create Accounts",
-      desc2: "Edit Accounts",
-      img1: "CAccount.png",
-      img2: "EAccount.png",
-      c1: "alexorang",
-      c2: "alexorang"
+      funcs:[{
+        img:"CAccount.png",
+        desc:"Create Accounts",
+        color:"alexorang",
+        func: () => {this.router.navigate(['register-members'])}
+      },{
+        img:"EAccount.png",
+        desc:"Edit Accounts",
+        color:"alexorang",
+        func: () => {this.router.navigate(['search-accounts'])}
+      },
+      {
+        img:"viewapp.png",
+        desc:"View SFN Applications",
+        color:"alexorang",
+        func: () => {this.router.navigate(['view-applications'])}
+      }]
+    
     })
   }
 
@@ -221,15 +239,20 @@ export class LoginPage implements OnInit, ViewWillEnter {
     this.openModal({
       modalHeader: "EVENTS",
       modalColor: "#387E9B",
-      func1:() => { this.eventService.makeNewEmptyForm();this.router.navigate(['create-events'])},
-      func2:() => {this.router.navigate(['search-events'])},
-      desc1: "Create Events",
-      desc2: "Edit Events",
-      img1: "CEvent.png",
-      img2: "EEvent.png",
-      c1: "bradleyblue",
-      c2: "bradleyblue"
-    })
+      funcs:[{
+        img:"CEvent.png",
+        desc:"Create Events",
+        color:"bradleyblue",
+        func: () => { this.eventService.makeNewEmptyForm();this.router.navigate(['create-events'])}
+      },{
+        img:"EEvent.png",
+        desc:"Edit Events",
+        color:"bradleyblue",
+        func: () => {this.router.navigate(['search-events'])}
+      }]
+    }
+
+     )
   }
 
   

@@ -1,0 +1,46 @@
+
+<ion-content color = "light">
+  <app-header></app-header>
+    <div *ngIf = "modalBody.length > 0" id="modal" class="modal" (click)="closeModal()" style="text-align: center;">
+        <div>
+          <div class="modal-content">
+            <div id="modal-header" [style.background-color]="modalColor">
+              <h1 id="modal-header-text">{{modalHeader}}</h1>
+            </div>
+            <br><br>
+            <div id="modal-body">
+              <p id="modal-body-desc" *ngFor="let info of modalBody">{{info}}</p>
+             
+            </div>
+            <div id="modal-footer">
+              <p  (click)="closeModal()"><b>CLOSE</b></p>
+            </div>
+            <p id="nameTarget"></p>
+          </div>
+        </div>
+      </div>
+      <ion-grid>
+        <ion-row>
+          <ion-col size = "10">
+            <ion-item color = "alexorang">
+              <ion-text>
+                <h1>Currently Applying to become a SpecialFriend</h1>
+              </ion-text>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-button  (click) = "submit()" color = "bradleyblue" size = "large" expand="block">SUBMIT</ion-button>
+          </ion-col> 
+        
+        </ion-row>
+        <ion-row>
+          <ion-col size = "12"> 
+            <app-special-friend-form [specialFriendInput]="formData.specialFriendInfo" *ngIf = "formData.specialFriendInfo != undefined"></app-special-friend-form>
+            <app-personal-info [personalInfoInput]="formData.personalInfo" *ngIf = "formData.account == undefined && formData.personalInfo != undefined"></app-personal-info>
+            <app-additional-info [additionalInfoInput] = "formData.additionalInfo" *ngIf = "formData.additionalInfo != undefined"></app-additional-info>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <app-footer></app-footer>
+</ion-content>
+      

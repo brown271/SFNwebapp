@@ -116,7 +116,7 @@ export class EventsPage implements OnInit, ViewWillEnter {
         if( tempDate == dateNumber){
           console.log("Match between " + tempDate + " and " + dateNumber)
           if(index == -1){
-            index = i-1;
+            index = i;
           }
           else{
             if(dateNumber > 14){

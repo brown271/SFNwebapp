@@ -48,6 +48,22 @@ const routes: Routes = [
     path: 'create-events',
     loadChildren: () => import('./create-events/create-events.module').then( m => m.CreateEventsPageModule)
   },
+  {
+    path: 'apply',
+    loadChildren: () => import('./apply/apply.module').then( m => m.ApplyPageModule)
+  },
+  {
+    path: 'view-applications',
+    loadChildren: () => import('./view-applications/view-applications.module').then( m => m.ViewApplicationsPageModule)
+  },
+  {
+    path: 'about-us',
+    loadChildren: () => import('./about-us/about-us.module').then( m => m.AboutUsPageModule)
+  },
+  {
+    path: 'supporters',
+    loadChildren: () => import('./supporters/supporters.module').then( m => m.SupportersPageModule)
+  },
 ];
 
 @NgModule({
